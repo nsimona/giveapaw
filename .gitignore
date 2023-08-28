@@ -1,0 +1,5 @@
+*/node_modules
+jwt-secret.yaml
+infra
+nats-test
+common

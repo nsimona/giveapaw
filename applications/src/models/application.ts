@@ -1,4 +1,6 @@
-import mongoose, { mongo } from "mongoose";
+import { ApplicationStatus } from "@giveapaw/common";
+import mongoose from "mongoose";
+import { PetDoc } from "./pet";
 
 interface ApplicationAttrs {
   userId: string;
@@ -9,7 +11,7 @@ interface ApplicationAttrs {
 }
 interface ApplicationDoc extends mongoose.Document {
   userId: string;
-  status: string;
+  status: ApplicationStatus;
   expiresAt: Date;
   message: string;
   pet: PetDoc;
@@ -27,6 +29,7 @@ const applicationSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
+      enum: Object.values(ApplicationStatus),
     },
     expiresAt: {
       type: mongoose.Schema.Types.Date,

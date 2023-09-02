@@ -6,17 +6,18 @@ import {
   requireAuth,
   validateRequest,
 } from "@giveapaw/common";
+
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Pet } from "../models/pet";
 import { Application } from "../models/application";
 
-const EXPIRATION_WINDOW_DAYS = 15;
+const EXPIRATION_DAYS = 15;
 
 const router = express.Router();
 
 router.post(
-  "/api/orders",
+  "/api/applications",
   requireAuth,
   [
     body("petId")
@@ -27,7 +28,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { petId, message } = req.body;
+    const { petId, message, userInfo } = req.body;
     const pet = await Pet.findById(petId);
     if (!pet) {
       throw new NotFoundError();
@@ -36,12 +37,12 @@ router.post(
     const isAdopted = await pet.isAdopted();
     if (isAdopted) {
       throw new BadRequestError(
-        "Application for this pet has been already approved"
+        "Application for this pet has already been approved"
       );
     }
 
     const expiration = new Date();
-    expiration.setDate(expiration.getDate() + EXPIRATION_WINDOW_DAYS);
+    expiration.setDate(expiration.getDate() + EXPIRATION_DAYS);
 
     const application = Application.build({
       userId: req.currentUser!.id,
@@ -49,6 +50,7 @@ router.post(
       expiresAt: expiration,
       message,
       pet,
+      userInfo,
     });
 
     await application.save();
@@ -59,4 +61,4 @@ router.post(
   }
 );
 
-export { router as newOrderRouter };
+export { router as newApplicationRouter };

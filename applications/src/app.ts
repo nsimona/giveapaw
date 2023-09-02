@@ -2,10 +2,10 @@ import express, { json } from "express";
 import "express-async-errors";
 import { currentUser, errorHandler, NotFoundError } from "@giveapaw/common";
 import cookieSession from "cookie-session";
-import { indexOrderRouter } from "./routes";
-import { deleteOrderRouter } from "./routes/delete";
-import { showOrderRouter } from "./routes/show";
-import { newOrderRouter } from "./routes/new";
+import { indexApplicationRouter } from "./routes";
+import { deleteApplciationRouter } from "./routes/delete";
+import { showApplicationRouter } from "./routes/show";
+import { newApplicationRouter } from "./routes/new";
 
 const app = express();
 app.use(json());
@@ -20,10 +20,10 @@ app.use(
 
 app.use(currentUser);
 
-app.use(indexOrderRouter);
-app.use(showOrderRouter);
-app.use(newOrderRouter);
-app.use(deleteOrderRouter);
+app.use(indexApplicationRouter);
+app.use(showApplicationRouter);
+app.use(newApplicationRouter);
+app.use(deleteApplciationRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

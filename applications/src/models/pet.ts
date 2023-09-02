@@ -3,12 +3,12 @@ import { Application } from "./application";
 import { ApplicationStatus } from "@giveapaw/common";
 
 interface PetAttrs {
+  name: string;
   type: string;
-  breed: string;
 }
 export interface PetDoc extends mongoose.Document {
   type: string;
-  breed: string;
+  name: string;
   isAdopted(): Promise<boolean>;
 }
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -21,7 +21,7 @@ const petSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    breed: {
+    name: {
       type: String,
       required: true,
     },

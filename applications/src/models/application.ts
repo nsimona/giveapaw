@@ -8,6 +8,7 @@ interface ApplicationAttrs {
   expiresAt: Date;
   message: string;
   pet: PetDoc;
+  userInfo: string;
 }
 interface ApplicationDoc extends mongoose.Document {
   userId: string;
@@ -15,6 +16,7 @@ interface ApplicationDoc extends mongoose.Document {
   expiresAt: Date;
   message: string;
   pet: PetDoc;
+  userInfo: string;
 }
 interface ApplicationModel extends mongoose.Model<ApplicationDoc> {
   build(attrs: ApplicationAttrs): ApplicationDoc;
@@ -42,6 +44,10 @@ const applicationSchema = new mongoose.Schema(
     pet: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Pet",
+    },
+    userInfo: {
+      type: String,
+      required: true,
     },
   },
   {

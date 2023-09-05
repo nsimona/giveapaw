@@ -53,6 +53,23 @@ const theme = createTheme({
     neutralText: {
       main: "#666",
     },
+    red: {
+      main: "#f44336",
+      light: "#e57373",
+      dark: "#b71c1c",
+      contrastText: "#fff",
+    },
+    green: {
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#2e7d32",
+      contrastText: "#fff",
+    },
+    blue: {
+      main: "#2196f3",
+      light: "#64b5f6",
+      dark: "#1565c0",
+    },
   },
 });
 

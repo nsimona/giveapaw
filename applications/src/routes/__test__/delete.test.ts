@@ -3,6 +3,7 @@ import { app } from "../../app";
 import { Pet } from "../../models/pet";
 import { Application } from "../../models/application";
 import { ApplicationStatus } from "@giveapaw/common";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("marks an application as cancelled", async () => {
   // create a pet with Pet Model
@@ -35,4 +36,27 @@ it("marks an application as cancelled", async () => {
   expect(updatedApplication!.status).toEqual(ApplicationStatus.Cancelled);
 });
 
-it.todo("emits a application cancelled event");
+it("emits a application cancelled event", async () => {
+  const pet = Pet.build({
+    name: "Pluto",
+    type: "dog",
+  });
+  await pet.save();
+
+  const user = global.signin();
+  // make a request to create an application
+  const { body: application } = await request(app)
+    .post("/api/applications")
+    .set("Cookie", user)
+    .send({ petId: pet.id, userInfo: "123" })
+    .expect(201);
+
+  // make a request to cancel the application
+  await request(app)
+    .delete(`/api/applications/${application.id}`)
+    .set("Cookie", user)
+    .send()
+    .expect(204);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

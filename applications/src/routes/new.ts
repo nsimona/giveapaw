@@ -11,6 +11,8 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Pet } from "../models/pet";
 import { Application } from "../models/application";
+import { ApplicationCreatedPublisher } from "../events/application-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const EXPIRATION_DAYS = 15;
 
@@ -55,7 +57,17 @@ router.post(
 
     await application.save();
 
-    //send event to nats
+    new ApplicationCreatedPublisher(natsWrapper.client).publish({
+      id: application.id,
+      status: application.status,
+      userId: application.id,
+      expiresAt: application.expiresAt.toISOString(),
+      pet: {
+        id: pet.id,
+        name: pet.name,
+        type: pet.type,
+      },
+    });
 
     res.status(201).send(application);
   }

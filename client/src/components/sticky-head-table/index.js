@@ -7,13 +7,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Box, Button, Typography } from "@mui/material";
 
 const columns = [
   { id: "name", label: "Дата", minWidth: 80 },
   { id: "code", label: "Кандидат", minWidth: 80 },
   {
     id: "size",
-    label: "Действие",
+    label: "Статус",
     minWidth: 80,
     align: "right",
   },
@@ -23,11 +24,71 @@ function createData(name, code, size) {
   return { name, code, size };
 }
 
+const CTA = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "flex-end",
+      }}
+    >
+      <Typography
+        variant="body2"
+        sx={{
+          borderRadius: "28px",
+          backgroundColor: "blue.light",
+          py: 0.5,
+          px: 1,
+          color: "neutral.light",
+        }}
+      >
+        Изчакваща
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          borderRadius: "28px",
+          backgroundColor: "neutral.dark",
+          py: 0.5,
+          px: 1,
+          color: "neutral.light",
+        }}
+      >
+        Отказана
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          borderRadius: "28px",
+          backgroundColor: "green.light",
+          py: 0.5,
+          px: 1,
+          color: "neutral.light",
+        }}
+      >
+        Одобрена
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          borderRadius: "28px",
+          backgroundColor: "red.light",
+          py: 0.5,
+          px: 1,
+          color: "neutral.light",
+        }}
+      >
+        Отхвърлена
+      </Typography>
+    </Box>
+  );
+};
+
 const rows = [
-  createData("01.01.2023", "Иван от София", "бутон"),
-  createData("01.01.2023", "Иван от София", "бутон"),
-  createData("01.01.2023", "Иван от София", "бутон"),
-  createData("01.01.2023", "Иван от София", "бутон"),
+  createData("01.01.2023", "Иван от София", <CTA />),
+  createData("01.01.2023", "Иван от София", <CTA />),
+  createData("01.01.2023", "Иван от София", <CTA />),
+  createData("01.01.2023", "Иван от София", <CTA />),
 ];
 
 const StickyHeadTable = () => {

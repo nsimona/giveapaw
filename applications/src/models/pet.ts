@@ -5,6 +5,7 @@ import { ApplicationStatus } from "@giveapaw/common";
 interface PetAttrs {
   name: string;
   type: string;
+  id: string;
 }
 export interface PetDoc extends mongoose.Document {
   type: string;
@@ -37,7 +38,10 @@ const petSchema = new mongoose.Schema(
 );
 
 petSchema.statics.build = (attrs: PetAttrs) => {
-  return new Pet(attrs);
+  return new Pet({
+    _id: attrs.id,
+    ...attrs,
+  });
 };
 petSchema.methods.isAdopted = async function () {
   const exisitingApprovedApplication = await Application.findOne({

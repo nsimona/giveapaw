@@ -11,7 +11,7 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Pet } from "../models/pet";
 import { Application } from "../models/application";
-import { ApplicationCreatedPublisher } from "../events/application-created-publisher";
+import { ApplicationCreatedPublisher } from "../events/publishers/application-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
 const EXPIRATION_DAYS = 15;

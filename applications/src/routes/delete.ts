@@ -5,7 +5,7 @@ import {
 } from "@giveapaw/common";
 import express, { Request, Response } from "express";
 import { Application } from "../models/application";
-import { ApplicationCancelledPublisher } from "../events/application-cancelled-publisher";
+import { ApplicationCancelledPublisher } from "../events/publishers/application-cancelled-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();

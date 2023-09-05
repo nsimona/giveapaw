@@ -98,7 +98,7 @@ router.post(
       breed: pet.type,
       userId: pet.userId,
     });
-    console.log("saved pet", pet);
+
     res.status(201).send(pet);
   }
 );

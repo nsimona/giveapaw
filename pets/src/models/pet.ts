@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface PetAttrs {
   // basic
@@ -18,7 +19,7 @@ interface PetAttrs {
   goodWith: string[]; // pets, kids etc
   characteristics: string[]; // with a yard, without pets etc.
   // photos
-  selectedFiles: [];
+  selectedFiles: string[];
   selectedCoverIndex: number;
 }
 
@@ -41,6 +42,8 @@ interface PetDoc extends mongoose.Document {
   // photos
   selectedFiles: [any];
   selectedCoverIndex: number;
+  // version
+  version: number;
 }
 
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -120,6 +123,9 @@ const petSchema = new mongoose.Schema(
     },
   }
 );
+
+petSchema.set("versionKey", "version");
+petSchema.plugin(updateIfCurrentPlugin);
 
 petSchema.statics.build = (attrs: PetAttrs) => {
   return new Pet(attrs);

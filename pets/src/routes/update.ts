@@ -70,9 +70,21 @@ router.put(
 
     await new PetUpdatedPublisher(natsWrapper.client).publish({
       id: pet.id,
-      name: pet.name,
-      breed: pet.type,
+      name,
+      type,
       userId: pet.userId,
+      age,
+      breed,
+      gender,
+      color,
+      size,
+      trained,
+      livedInAHouse,
+      healthState,
+      goodWith,
+      characteristics,
+      description,
+      version: pet.version,
     });
 
     res.send(pet);

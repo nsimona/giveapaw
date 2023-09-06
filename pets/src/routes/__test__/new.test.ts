@@ -1,7 +1,8 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Pet } from "../../models/pet";
-import { natsWrapper } from "src/nats-wrapper";
+import { natsWrapper } from "../../nats-wrapper";
+import { petMock } from "../../test/helper";
 
 describe("Create a new pet", () => {
   it("has a route handler api/pets/ listening for post request", async () => {
@@ -48,38 +49,26 @@ describe("Create a new pet", () => {
     let pets = await Pet.find({});
     expect(pets.length).toEqual(0);
 
-    const name = "Pluto";
-    const type = "dog";
-
     const response = await request(app)
       .post("/api/pets")
       .set("Cookie", global.signin())
-      .send({
-        name,
-        type,
-      });
+      .send(petMock);
     expect(response.statusCode).toEqual(201);
 
     pets = await Pet.find({});
     expect(pets.length).toEqual(1);
-    expect(pets[0].name).toEqual(name);
-    expect(pets[0].type).toEqual(type);
+    expect(pets[0].name).toEqual(petMock.name);
+    expect(pets[0].type).toEqual(petMock.type);
   });
 
   it("publishes an event", async () => {
     let pets = await Pet.find({});
     expect(pets.length).toEqual(0);
 
-    const name = "Pluto";
-    const type = "dog";
-
     const response = await request(app)
       .post("/api/pets")
       .set("Cookie", global.signin())
-      .send({
-        name,
-        type,
-      });
+      .send(petMock);
     expect(response.statusCode).toEqual(201);
     expect(natsWrapper.client.publish).toHaveBeenCalled();
   });

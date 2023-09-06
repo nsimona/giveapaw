@@ -16,6 +16,7 @@ interface ApplicationDoc extends mongoose.Document {
   expiresAt: Date;
   message: string;
   pet: PetDoc;
+  version: number;
   userInfo: string;
 }
 interface ApplicationModel extends mongoose.Model<ApplicationDoc> {

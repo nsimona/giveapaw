@@ -62,6 +62,7 @@ router.post(
       status: application.status,
       userId: application.id,
       expiresAt: application.expiresAt.toISOString(),
+      version: application.version,
       pet: {
         id: pet.id,
         name: pet.name,

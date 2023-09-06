@@ -29,6 +29,7 @@ router.delete(
     new ApplicationCancelledPublisher(natsWrapper.client).publish({
       id: application.id,
       userId: application.id,
+      version: application.version,
       pet: {
         id: application.pet.id,
         name: application.pet.name,

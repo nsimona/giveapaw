@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Application } from "./application";
 import { ApplicationStatus } from "@giveapaw/common";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface PetAttrs {
   name: string;
@@ -10,6 +11,7 @@ interface PetAttrs {
 export interface PetDoc extends mongoose.Document {
   type: string;
   name: string;
+  version: number;
   isAdopted(): Promise<boolean>;
 }
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -37,12 +39,17 @@ const petSchema = new mongoose.Schema(
   }
 );
 
+petSchema.set("versionKey", "version");
+petSchema.plugin(updateIfCurrentPlugin);
+
 petSchema.statics.build = (attrs: PetAttrs) => {
   return new Pet({
     _id: attrs.id,
-    ...attrs,
+    type: attrs.type,
+    name: attrs.name,
   });
 };
+
 petSchema.methods.isAdopted = async function () {
   const exisitingApprovedApplication = await Application.findOne({
     pet: this,

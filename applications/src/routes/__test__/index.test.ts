@@ -1,11 +1,13 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Pet } from "../../models/pet";
+import { petMock } from "../../test/helper";
+import mongoose from "mongoose";
 
 const buildPet = async () => {
   const pet = Pet.build({
-    name: "Pluto",
-    type: "fsdf",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 

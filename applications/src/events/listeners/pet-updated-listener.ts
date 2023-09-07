@@ -7,11 +7,8 @@ export class PetUpdatedListener extends Listener<PetUpdatedEvent> {
   subject: Subjects.PetUpdated = Subjects.PetUpdated;
   queueGroupName = queueGroupName;
   async onMessage(data: PetUpdatedEvent["data"], msg: Message) {
-    const { id, name, type, version } = data;
-    const pet = await Pet.findOne({
-      _id: id,
-      version: version - 1,
-    });
+    const { name, type } = data;
+    const pet = await Pet.findByEvent(data);
 
     if (!pet) {
       throw new Error("Pet not found");

@@ -1,12 +1,14 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Pet } from "../../models/pet";
+import { petMock } from "../../test/helper";
+import mongoose from "mongoose";
 
 it("fetches the application", async () => {
   // Create a pet
   const pet = Pet.build({
-    name: "Pluto",
-    type: "dog",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 
@@ -31,8 +33,8 @@ it("fetches the application", async () => {
 it("returns an error if one user tries to fetch another users application", async () => {
   // Create a pet
   const pet = Pet.build({
-    name: "Pluto",
-    type: "dog",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 

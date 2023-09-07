@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Pet } from "../../models/pet";
 import { natsWrapper } from "../../nats-wrapper";
+import { petMock } from "../../test/helper";
 
 it("returns an error if the pet does not exist", async () => {
   const petId = new mongoose.Types.ObjectId();
@@ -16,8 +17,8 @@ it("returns an error if the pet does not exist", async () => {
 
 it("saves the application for the pet", async () => {
   const pet = Pet.build({
-    name: "Pluto",
-    type: "dog",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 
@@ -30,8 +31,8 @@ it("saves the application for the pet", async () => {
 
 it("emits an application created event", async () => {
   const pet = Pet.build({
-    name: "Pluto",
-    type: "dog",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 

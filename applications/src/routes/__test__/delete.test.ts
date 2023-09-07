@@ -4,12 +4,14 @@ import { Pet } from "../../models/pet";
 import { Application } from "../../models/application";
 import { ApplicationStatus } from "@giveapaw/common";
 import { natsWrapper } from "../../nats-wrapper";
+import { petMock } from "../../test/helper";
+import mongoose from "mongoose";
 
 it("marks an application as cancelled", async () => {
   // create a pet with Pet Model
   const pet = Pet.build({
-    name: "Pluto",
-    type: "fsfd",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 
@@ -38,8 +40,8 @@ it("marks an application as cancelled", async () => {
 
 it("emits a application cancelled event", async () => {
   const pet = Pet.build({
-    name: "Pluto",
-    type: "dog",
+    ...petMock,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
   await pet.save();
 

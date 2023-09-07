@@ -16,6 +16,7 @@ export interface PetDoc extends mongoose.Document {
 }
 interface PetModel extends mongoose.Model<PetDoc> {
   build(attrs: PetAttrs): PetDoc;
+  findByEvent(event: { id: string; version: number }): Promise<PetDoc | null>;
 }
 
 const petSchema = new mongoose.Schema(
@@ -42,6 +43,12 @@ const petSchema = new mongoose.Schema(
 petSchema.set("versionKey", "version");
 petSchema.plugin(updateIfCurrentPlugin);
 
+petSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+  return Pet.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
 petSchema.statics.build = (attrs: PetAttrs) => {
   return new Pet({
     _id: attrs.id,

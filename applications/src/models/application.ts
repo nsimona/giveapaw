@@ -1,6 +1,7 @@
 import { ApplicationStatus } from "@giveapaw/common";
 import mongoose from "mongoose";
 import { PetDoc } from "./pet";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface ApplicationAttrs {
   userId: string;
@@ -60,6 +61,9 @@ const applicationSchema = new mongoose.Schema(
     },
   }
 );
+
+applicationSchema.set("versionKey", "version");
+applicationSchema.plugin(updateIfCurrentPlugin);
 
 applicationSchema.statics.build = (attrs: ApplicationAttrs) => {
   return new Application(attrs);

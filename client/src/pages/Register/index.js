@@ -85,7 +85,12 @@ export default function Register() {
         component={Paper}
         elevation={6}
         square
-        sx={{ overflow: "auto", height: "100vh" }}
+        sx={{
+          overflow: "auto",
+          height: "100vh",
+          justifyContent: "center",
+          display: "flex",
+        }}
       >
         <Box
           sx={{
@@ -94,6 +99,7 @@ export default function Register() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <NavLink to="/" style={{ alignSelf: "flex-start" }}>
@@ -104,7 +110,7 @@ export default function Register() {
               Начало
             </Button>
           </NavLink>
-          <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
+          <Typography component="h1" variant="h5" textAlign="center">
             Регистрация
           </Typography>
           <Box

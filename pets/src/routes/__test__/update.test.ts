@@ -2,6 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 import mongoose from "mongoose";
 import { petMock } from "../../test/helper";
+import { Pet } from "../../models/pet";
 
 it("returns a 404 if the provided id does not exist", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -82,4 +83,25 @@ it("updates the pet provided valid inputs", async () => {
   const pet = await request(app).get(`/api/pets/${response.body.id}`).send();
 
   expect(pet.body.name).toEqual("Pluto The Dog");
+});
+
+it("rejects updates if the pet is reserved", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/pets")
+    .set("Cookie", cookie)
+    .send(petMock);
+
+  const pet = await Pet.findById(response.body.id);
+  pet!.set({ applicationId: new mongoose.Types.ObjectId().toHexString() });
+  await pet!.save();
+
+  await request(app)
+    .put(`/api/pets/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send({
+      name: "Venus",
+    })
+    .expect(400);
 });

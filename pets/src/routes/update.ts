@@ -4,6 +4,7 @@ import {
   NotFoundError,
   NotAuthorizedError,
   requireAuth,
+  BadRequestError,
 } from "@giveapaw/common";
 import { Pet } from "../models/pet";
 import { body } from "express-validator";
@@ -30,6 +31,11 @@ router.put(
     if (pet.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
+
+    if (pet.applicationId) {
+      throw new BadRequestError("Pet has pending applications");
+    }
+
     const {
       name,
       type,

@@ -38,13 +38,17 @@ export default function Login() {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      <Snackbar open={true} autoHideDuration={6000} onClose={() => {}}>
-        <Alert onClose={() => {}} severity="error" sx={{ width: "100%" }}>
-          Невалиден имейл или парола
-        </Alert>
-      </Snackbar>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+        sx={{ justifyContent: "center", display: "flex" }}
+      >
         <Box
           sx={{
             my: 8,
@@ -52,6 +56,7 @@ export default function Login() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <NavLink to="/" style={{ alignSelf: "flex-start" }}>
@@ -62,15 +67,15 @@ export default function Login() {
               Начало
             </Button>
           </NavLink>
-          <Typography component="h1" variant="h5" sx={{ pt: 10 }}>
-            Вход
-          </Typography>
           <Box
             component="form"
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
+            <Typography component="h1" variant="h5" textAlign="center">
+              Вход
+            </Typography>
             <TextField
               margin="normal"
               required

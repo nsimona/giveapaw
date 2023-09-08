@@ -44,6 +44,8 @@ interface PetDoc extends mongoose.Document {
   selectedCoverIndex: number;
   // version
   version: number;
+  // applciation
+  applicationId?: string;
 }
 
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -111,6 +113,11 @@ const petSchema = new mongoose.Schema(
     },
     selectedCoverIndex: {
       type: Number,
+      required: false,
+    },
+    // application
+    applicationId: {
+      type: String,
       required: false,
     },
   },

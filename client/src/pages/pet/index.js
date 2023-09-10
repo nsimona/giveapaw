@@ -8,7 +8,10 @@ import {
   ImageListItem,
   Typography,
 } from "@mui/material";
-import FavoriteButton from "../../components/favorite-button";
+import PetCardActionButton from "../../components/pet-card-action-button";
+import { useEffect, useState } from "react";
+import { getPet } from "../../services/api";
+import { useParams } from "react-router";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -45,6 +48,18 @@ const images = [
 ];
 
 const Pet = () => {
+  const [pet, setPet] = useState({});
+  let { id } = useParams();
+
+  const getPetInfo = async () => {
+    const p = await getPet(id);
+    setPet(p);
+  };
+
+  useEffect(() => {
+    getPetInfo();
+  }, []);
+
   return (
     <Grid>
       <ImageList
@@ -72,7 +87,7 @@ const Pet = () => {
           <Grid container item md={8} xs={12}>
             <Grid item xs={10} color="text.secondary">
               <Typography variant="h4" color="text.primary">
-                <strong>Плутон</strong>
+                <strong>{pet.name}</strong>
               </Typography>
               България, София-град
               <Divider sx={{ my: 4 }} />
@@ -88,7 +103,7 @@ const Pet = () => {
               <Divider sx={{ my: 4 }} />
             </Grid>
             <Grid item xs={2} justifyContent="end">
-              <FavoriteButton />
+              <PetCardActionButton id={id} />
             </Grid>
           </Grid>
           <Grid item md={4} xs={12} color="text.secondary">

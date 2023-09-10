@@ -11,11 +11,11 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LoggedHeader from "./logged-header";
 import DefaultHeader from "./default-header";
-
-const loggedin = true;
+import { useSelector } from "react-redux";
 
 function ResponsiveAppBar() {
   const [openMenu, setOpenMenu] = React.useState(false);
+  const isLoggedin = useSelector((state) => Object.keys(state.user).length);
 
   return (
     <AppBar color="transparent" elevation={0} sx={{ position: "relative" }}>
@@ -91,7 +91,7 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {loggedin ? <LoggedHeader /> : <DefaultHeader />}
+            {isLoggedin ? <LoggedHeader /> : <DefaultHeader />}
           </Box>
         </Toolbar>
       </Container>

@@ -14,7 +14,6 @@ router.patch(
   async (req: Request, res: Response) => {
     const {
       userId,
-      favs,
       firstTimeOwner,
       preferredPetType,
       preferredPetAge,
@@ -28,7 +27,6 @@ router.patch(
     } = req.body;
 
     const preferences = {
-      favs,
       firstTimeOwner,
       preferredPetType,
       preferredPetAge,

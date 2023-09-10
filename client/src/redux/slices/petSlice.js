@@ -23,7 +23,7 @@ const initialState = {
 };
 
 export const petSlice = createSlice({
-  name: "pets",
+  name: "pet",
   initialState,
   reducers: {
     setPetEditorData: (state, action) =>
@@ -33,12 +33,12 @@ export const petSlice = createSlice({
     },
     resetPetEditorData: (state) => (state = initialState),
   },
-  extraReducers: (builder) => {
-    // loaded, rejected statuses as well
-    builder.addCase(createNewPet.fulfilled, (state, action) => {
-      console.log(state);
-    });
-  },
+  // extraReducers: (builder) => {
+  //   // loaded, rejected statuses as well
+  //   builder.addCase(createNewPet.fulfilled, (state, action) => {
+  //     console.log(state);
+  //   });
+  // },
 });
 
 export const { setPetEditorData, addPetPhoto, resetPetEditorData } =

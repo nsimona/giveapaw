@@ -15,7 +15,7 @@ interface UserAttrs extends RequiredUserAttrs {
   city: string;
   address: string;
   zipCode: string;
-  favs: number[]; // ids of the fav pets
+  favorites: string[]; // ids of the fav pets
   // basic pet preferences
   firstTimeOwner: boolean;
   preferredPetType: string;
@@ -47,7 +47,7 @@ interface UserDoc extends mongoose.Document {
   city: string;
   address: string;
   zipCode: string;
-  favs: [number];
+  favorites: [string];
   // user preferences
   firstTimeOwner: boolean;
   preferredPetType: string;
@@ -95,8 +95,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    favs: {
-      type: [Number],
+    favorites: {
+      type: [String],
       required: false,
     },
     firstTimeOwner: { type: String, required: false },

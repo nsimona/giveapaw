@@ -8,6 +8,7 @@ import { signupRouter } from "./routes/signup";
 import { currentUser, errorHandler, NotFoundError } from "@giveapaw/common";
 import cookieSession from "cookie-session";
 import { updatePreferenceRouter } from "./routes/preferences";
+import { updateFavoritesRouter } from "./routes/favorites";
 
 const app = express();
 app.use(json());
@@ -27,6 +28,7 @@ app.use(signupRouter);
 
 app.use(currentUser);
 app.use(updatePreferenceRouter);
+app.use(updateFavoritesRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

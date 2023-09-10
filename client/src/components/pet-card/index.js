@@ -16,12 +16,11 @@ import {
 } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import FavoriteButton from "../favorite-button";
+import PetCardActionButton from "../pet-card-action-button";
 import { Link } from "react-router-dom";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 
 const PetCard = ({
-  isFavourite,
   isEditable,
   name,
   coverPhoto,
@@ -30,6 +29,7 @@ const PetCard = ({
   type,
   breed,
   size,
+  id,
 }) => {
   return (
     <Card sx={{ maxWidth: 320, minWidth: 290, borderRadius: 3, my: 3 }}>
@@ -38,6 +38,7 @@ const PetCard = ({
           textDecoration: "none",
           position: "relative",
         }}
+        to={`/pet/${id}`}
       >
         <CardMedia component="img" height="180" image={coverPhoto} />
         {isEditable ? (
@@ -66,11 +67,7 @@ const PetCard = ({
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <FavoriteButton
-              isFavourite={isFavourite}
-              onClick={() => {}}
-              isEditable={isEditable}
-            />
+            <PetCardActionButton id={id} isEditable={isEditable} />
           </Grid>
           <Typography
             variant="body2"

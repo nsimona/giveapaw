@@ -1,15 +1,25 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { NotFound } from "navigation/NotFound";
-import { ROOT, LOGIN, REGISTER, ACCOUNT, PETEDITOR, PET } from "./routes";
+import {
+  ROOT,
+  LOGIN,
+  REGISTER,
+  ACCOUNT,
+  PETEDITOR,
+  PET,
+  LOGINREQUIRED,
+} from "./routes";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Account from "../pages/account";
 import Home from "../pages/Home";
 import Header from "../components/Header";
-import PetEditor from "../pages/PetEditor";
+import PetEditor from "../pages/pet-editor";
 import { CircularProgress, Grid } from "@mui/material";
 import Pet from "../pages/pet";
+import AuthWrapper from "./Auth/AuthWrapper";
+import LoginRequired from "./Auth/LoginRequired";
 
 // import PrivateRoute from "./Auth/PrivateRoute";
 
@@ -39,11 +49,28 @@ export const RouterConfig = () => {
         <Route exact path={ROOT} element={<Home />} />
         <Route exact path={REGISTER} element={<Register />} />
         <Route path={LOGIN} element={<Login />} />
-
+        <Route path={LOGIN} element={<Login />} />
+        <Route path={LOGINREQUIRED} element={<LoginRequired />} />
         {/* List all private/auth routes here */}
-        <Route exact path={ACCOUNT} element={<Account />} />
-        <Route exact path={PETEDITOR} element={<PetEditor />} />
-        <Route exact path={PET} element={<Pet />} />
+        <Route
+          exact
+          path={ACCOUNT}
+          element={
+            <AuthWrapper>
+              <Account />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          exact
+          path={PETEDITOR}
+          element={
+            <AuthWrapper>
+              <PetEditor />
+            </AuthWrapper>
+          }
+        />
+        <Route path={PET} element={<Pet />} />
         {/* Do not hesitate to play around by moving some routes from public to private and vice-versa */}
         {/* <PrivateRoute path={DASHBOARD}>
           <Dashboard />

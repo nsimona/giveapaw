@@ -72,7 +72,7 @@ function LoggedHeader() {
           <NotificationsOutlinedIcon />
         </Badge>
       </IconButton>
-      <Menu
+      {/* <Menu
         id="ntf-menu"
         anchorEl={anchorNtf}
         open={openNtf}
@@ -84,7 +84,7 @@ function LoggedHeader() {
         transformOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <MenuItem>Ntf</MenuItem>
-      </Menu>
+      </Menu> */}
       <IconButton color="primary" onClick={handleOpenUserMenu}>
         <Person2OutlinedIcon />
       </IconButton>
@@ -101,7 +101,15 @@ function LoggedHeader() {
         disableScrollLock={true}
       >
         {userMenu.map((menu, i) => (
-          <MenuItem component="a" href={`/account?tab=${i}`} key={i}>
+          <MenuItem
+            component="a"
+            href={`/account?tab=${i}`}
+            key={i}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/account?tab=${i}`);
+            }}
+          >
             {menu}
           </MenuItem>
         ))}

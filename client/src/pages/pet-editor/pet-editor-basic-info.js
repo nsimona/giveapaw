@@ -67,7 +67,6 @@ const PetEditorBasicInfo = () => {
 
           <Grid item xs={12}>
             <CustomSelect
-              required
               id="pet-color"
               options={petColorsOptions}
               label="Цвят"

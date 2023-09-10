@@ -5,7 +5,17 @@ const router = express.Router();
 
 // to do extend to return specific pets only as well as all pets
 router.get("/api/pets", async (req: Request, res: Response) => {
-  const pets = await Pet.find({});
+  const pets = await Pet.find(
+    {},
+    {
+      name: 1,
+      breed: 1,
+      age: 1,
+      size: 1,
+      gender: 1,
+      // TODO add cover pic also
+    }
+  );
 
   res.send(pets);
 });

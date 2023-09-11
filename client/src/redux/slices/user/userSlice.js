@@ -26,4 +26,10 @@ export const selectIsInFavorites = (id) =>
     (favorites) => favorites !== undefined && favorites.includes(id)
   );
 
+export const selectIsLoggedin = (id) =>
+  createSelector(
+    (state) => state.user,
+    (user) => Object.keys(user).length
+  );
+
 export default userSlice.reducer;

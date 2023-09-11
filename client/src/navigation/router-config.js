@@ -9,6 +9,7 @@ import {
   PETEDITOR,
   PET,
   LOGINREQUIRED,
+  FAVORITES,
 } from "./routes";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
@@ -20,6 +21,7 @@ import { CircularProgress, Grid } from "@mui/material";
 import Pet from "../pages/pet";
 import AuthWrapper from "./Auth/AuthWrapper";
 import LoginRequired from "./Auth/LoginRequired";
+import AllPets from "../components/all-pets";
 
 // import PrivateRoute from "./Auth/PrivateRoute";
 
@@ -29,27 +31,27 @@ export const RouterConfig = () => {
     location.pathname !== "/login" && location.pathname !== "/register";
   return (
     <div>
-      {/* <Grid
-        sx={{
-          position: "fixed",
-          zIndex: 10,
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          background: "rgba(256, 256, 256, .8)",
-        }}
-      >
-        <CircularProgress color="secondary" size={60} />
-      </Grid> */}
       {showHeader && <Header />}
       <Routes>
         {/* List all public routes here */}
         <Route exact path={ROOT} element={<Home />} />
-        <Route exact path={REGISTER} element={<Register />} />
-        <Route path={LOGIN} element={<Login />} />
-        <Route path={LOGIN} element={<Login />} />
+        <Route
+          exact
+          path={REGISTER}
+          element={
+            <AuthWrapper logoutRequired>
+              <Register />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          path={LOGIN}
+          element={
+            <AuthWrapper logoutRequired>
+              <Login />
+            </AuthWrapper>
+          }
+        />
         <Route path={LOGINREQUIRED} element={<LoginRequired />} />
         {/* List all private/auth routes here */}
         <Route
@@ -67,6 +69,15 @@ export const RouterConfig = () => {
           element={
             <AuthWrapper>
               <PetEditor />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          exact
+          path={FAVORITES}
+          element={
+            <AuthWrapper>
+              <AllPets favorites />
             </AuthWrapper>
           }
         />

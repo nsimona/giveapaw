@@ -1,14 +1,16 @@
-// A wrapper for <Route> that redirects to the login
-
 import React from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { selectIsLoggedin } from "../../redux/slices/user/userSlice";
 
-const AuthWrapper = ({ children }) => {
-  const user = useSelector((state) => state.user);
+const AuthWrapper = ({ children, logoutRequired = false }) => {
+  const loggedin = selectIsLoggedin();
   let location = useLocation();
 
-  if (!Object.keys(user).length) {
+  // if (loggedin && logoutRequired) {
+  //   return <Navigate to="/" state={{ from: location }} replace />;
+  // }
+
+  if (!loggedin) {
     return <Navigate to="/login-required" state={{ from: location }} replace />;
   }
   return children;

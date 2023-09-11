@@ -13,6 +13,7 @@ import * as api from "../../services/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPetEditorData } from "../../redux/slices/petSlice";
+import { setUser } from "../../redux/slices/user/userSlice";
 
 function LoggedHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -42,7 +43,8 @@ function LoggedHeader() {
 
   const signout = async () => {
     try {
-      await api.signout();
+      const response = await api.signout();
+      dispatch(setUser(response));
       navigate("/", { replace: true }); // <-- redirect
     } catch (error) {}
   };
@@ -64,14 +66,16 @@ function LoggedHeader() {
         </Button>
       </NavLink>
 
-      <IconButton color="primary">
-        <FavoriteBorderOutlinedIcon />
-      </IconButton>
-      <IconButton color="primary" onClick={handleOpenNtfMenu}>
+      <NavLink to="/favorites">
+        <IconButton color="primary">
+          <FavoriteBorderOutlinedIcon />
+        </IconButton>
+      </NavLink>
+      {/* <IconButton color="primary" onClick={handleOpenNtfMenu}>
         <Badge color="secondary" variant="dot" overlap="circular">
           <NotificationsOutlinedIcon />
         </Badge>
-      </IconButton>
+      </IconButton> */}
       {/* <Menu
         id="ntf-menu"
         anchorEl={anchorNtf}

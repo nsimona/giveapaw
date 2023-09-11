@@ -2,17 +2,31 @@ import { Grid } from "@mui/material";
 import PetCard from "../pet-card";
 import { useEffect, useState } from "react";
 import { getPets } from "../../services/api";
+import { useSelector } from "react-redux";
 
-const AllPets = ({ isEditable = false }) => {
+const AllPets = ({ isEditable = false, favorites = false }) => {
   const [pets, setPets] = useState([]);
+  const favoritePets = useSelector((state) => state.user.favorites);
 
   const getAllPets = async () => {
     const pets = await getPets();
     setPets(pets);
   };
 
+  const getFavoritePets = async () => {
+    const serializedPetsArray = JSON.stringify(favoritePets);
+    const encodedPetsArray = encodeURIComponent(serializedPetsArray);
+    console.log(favoritePets);
+    // const pets = await getPets(encodedPetsArray);
+    setPets(pets);
+  };
+
   useEffect(() => {
-    getAllPets();
+    if (!favorites) {
+      getAllPets();
+      return;
+    }
+    // getFavoritePets();
   }, []);
 
   return (

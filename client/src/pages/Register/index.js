@@ -20,10 +20,14 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import * as api from "../../services/api";
 import { getErrorMessages } from "../../utils/handleErrors";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/user/userSlice";
 
 export default function Register() {
   const [errors, setErrors] = React.useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -38,6 +42,7 @@ export default function Register() {
     try {
       const response = await api.signup(data);
       if (response.id) {
+        dispatch(setUser(response));
         navigate("/", { replace: true }); // <-- redirect
       }
     } catch (error) {

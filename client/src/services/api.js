@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const signup = async (data) => {
   try {
-    const response = await axios.post("api/users/signup", data);
+    const response = await axios.post("/  api/users/signup", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -12,7 +12,7 @@ export const signup = async (data) => {
 
 export const signin = async (data) => {
   try {
-    const response = await axios.post("api/users/signin", data);
+    const response = await axios.post("/api/users/signin", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -22,7 +22,7 @@ export const signin = async (data) => {
 
 export const signout = async () => {
   try {
-    const response = await axios.post("api/users/signout");
+    const response = await axios.post("/api/users/signout");
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -32,7 +32,7 @@ export const signout = async () => {
 
 export const currentUser = async () => {
   try {
-    const response = await axios.get("api/users/currentUser");
+    const response = await axios.get("/api/users/currentUser");
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -52,7 +52,7 @@ export const updateFavorites = async (data) => {
 
 export const createPet = async (data) => {
   try {
-    const response = await axios.post("api/pets", data);
+    const response = await axios.post("/api/pets", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -60,9 +60,10 @@ export const createPet = async (data) => {
   }
 };
 
-export const getPets = async () => {
+export const getPets = async (ids) => {
+  const query = ids ? `?ids=${ids}` : "";
   try {
-    const response = await axios.get("/api/pets");
+    const response = await axios.get(`/api/pets${query}`);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

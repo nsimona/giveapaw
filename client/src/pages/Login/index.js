@@ -11,10 +11,13 @@ import ChevronLeftOutlinedIcon from "@mui/icons-material/ChevronLeftOutlined";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Alert, Snackbar } from "@mui/material";
 import * as api from "../../services/api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/user/userSlice";
 
 export default function Login() {
   const [error, setError] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,7 +30,8 @@ export default function Login() {
     try {
       const response = await api.signin(data);
       if (response.existingUser.id) {
-        navigate("/", { replace: true }); // <-- redirect
+        dispatch(setUser(response.existingUser));
+        navigate("/", { replace: true });
       }
     } catch (error) {
       console.log("there was an error trying to register the user", error);

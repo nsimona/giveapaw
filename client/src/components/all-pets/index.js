@@ -3,23 +3,31 @@ import PetCard from "../pet-card";
 import { useEffect, useState } from "react";
 import { getPets } from "../../services/api";
 import { useSelector } from "react-redux";
+import {
+  selectIsLoggedin,
+  selectUser,
+} from "../../redux/slices/user/userSlice";
 
 const AllPets = ({ isEditable = false, favorites = false }) => {
   const [pets, setPets] = useState([]);
-  const favoritePets = useSelector((state) => state.user.favorites);
+  const isLoggedin = selectIsLoggedin();
+  const user = selectUser();
 
   const getAllPets = async () => {
     const pets = await getPets();
     setPets(pets);
   };
 
-  const getFavoritePets = async () => {
-    const serializedPetsArray = JSON.stringify(favoritePets);
-    const encodedPetsArray = encodeURIComponent(serializedPetsArray);
-    console.log(favoritePets);
-    // const pets = await getPets(encodedPetsArray);
-    setPets(pets);
-  };
+  // const getFavoritePets = async () => {
+  //   if (!isLoggedin || user.isLoading) {
+  //     return;
+  //   }
+  //   // const serializedPetsArray = JSON.stringify(user.favorites);
+  //   // const encodedPetsArray = encodeURIComponent(serializedPetsArray);
+  //   console.log(isLoggedin);
+  //   // const pets = await getPets(encodedPetsArray);
+  //   // setPets(pets);
+  // };
 
   useEffect(() => {
     if (!favorites) {

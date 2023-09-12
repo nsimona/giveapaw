@@ -3,24 +3,24 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./utils/themes";
 import { BrowserRouter } from "react-router-dom";
 import { RouterConfig } from "./navigation/router-config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/slices/user/userSlice";
 import { useEffect, useState } from "react";
-import { currentUser } from "./services/api";
 import Loading from "./components/loading";
+import { getCurrentUser } from "./redux/slices/user/userThunk";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+  const isUserLoading = useSelector((state) => state.user.isLoading);
 
-  const getCurrentUser = async () => {
-    const user = await currentUser();
-    dispatch(setUser(user));
-    setIsLoading(false);
+  const currentUser = async () => {
+    dispatch(getCurrentUser());
+    setIsLoading(isUserLoading);
   };
 
   useEffect(() => {
-    getCurrentUser();
+    currentUser();
   }, []);
 
   return (

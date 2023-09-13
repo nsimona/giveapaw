@@ -53,10 +53,11 @@ const Pet = () => {
   const [pet, setPet] = useState({});
   let { id } = useParams();
   const userId = useSelector((state) => state.user.id);
+  const userRole = useSelector((state) => state.user.role);
 
   const getPetInfo = async () => {
-    const p = await getPet(id);
-    setPet(p);
+    const pet = await getPet(id);
+    setPet({ ...pet, status: "pending" });
   };
 
   useEffect(() => {
@@ -94,12 +95,12 @@ const Pet = () => {
               </Typography>
               България, София-град
               <Divider sx={{ my: 4 }} />
-              <Typography variant="h5" color="text.primary">
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
                 Основна информация
               </Typography>
               порода, вид, пол...
               <Divider sx={{ my: 4 }} />
-              <Typography variant="h5" color="text.primary">
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
                 Опознай Плутон
               </Typography>
               Описание...
@@ -121,52 +122,66 @@ const Pet = () => {
                 flexDirection: "column",
               }}
             >
-              <Typography variant="h6">
-                <strong>Искаш да осиновиш Плутон?</strong>
-              </Typography>
-              България, София-град
-              <Button variant="contained" disabled={pet.userId === userId}>
-                Кандидатствай за осиновител
-              </Button>
-              <Typography variant="body2">
-                За да се свържеш със собственика на Плутон, канидадатствай през
-                платформата
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                border: "1px solid",
-                borderColor: "neutral.dark",
-                borderRadius: 2,
-                padding: 3,
-                display: "flex",
-                gap: 2,
-                flexDirection: "column",
-              }}
-            >
-              <Typography variant="h6">
-                <strong>Промени статуса на обявата за Плутон</strong>
-              </Typography>
-              <Button variant="contained" color="green">
-                Одобри
-              </Button>
-              <Button variant="contained" color="red">
-                Отхвърли
-              </Button>
-              <Button variant="contained" color="blue">
-                Архивирай
-              </Button>
-              <Typography variant="body2">
-                Задължително е да оставиш коментар преди да промениш статуса на
-                обявата
-              </Typography>
-              <TextField
-                multiline
-                rows={3}
-                fullWidth
-                required
-                placeholder="Коментар при промяна на статус"
-              />
+              {userRole === "user" ? (
+                <>
+                  <Typography variant="h6">
+                    <strong>Искаш да осиновиш Плутон?</strong>
+                  </Typography>
+                  България, София-град
+                  <Button variant="contained" disabled={pet.userId === userId}>
+                    Кандидатствай за осиновител
+                  </Button>
+                  <Typography variant="body2">
+                    За да се свържеш със собственика на Плутон, канидадатствай
+                    през платформата
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <Typography variant="h6">
+                    <strong>Промени статуса на обявата за Плутон</strong>
+                  </Typography>
+                  {pet.status === "pending" && (
+                    <>
+                      <Button variant="contained" color="green">
+                        Одобри
+                      </Button>
+                      <Button variant="contained" color="red">
+                        Отхвърли
+                      </Button>
+                    </>
+                  )}
+
+                  {pet.status === "active" && (
+                    <Button variant="contained" color="blue">
+                      Архивирай
+                    </Button>
+                  )}
+
+                  {pet.status === "archived" && (
+                    <Typography variant="body2">
+                      Обявата не е активна и не могат да бъдат правени промени
+                      по нейния статус
+                    </Typography>
+                  )}
+
+                  {pet.status !== "archived" && (
+                    <>
+                      <Typography variant="body2">
+                        Задължително е да оставиш коментар преди да промениш
+                        статуса на обявата
+                      </Typography>
+                      <TextField
+                        multiline
+                        rows={3}
+                        fullWidth
+                        required
+                        placeholder="Коментар при промяна на статус"
+                      />
+                    </>
+                  )}
+                </>
+              )}
             </Box>
           </Grid>
         </Grid>

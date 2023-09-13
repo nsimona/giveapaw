@@ -5,11 +5,34 @@ import { adminTabs, userTabs } from "../../assets/account-menus";
 import Wrapper from "../../components/Wrapper";
 import UserPreferences from "../../components/user-preferences";
 import UserPets from "../../components/user-pets";
+import { useSelector } from "react-redux";
+import PetsByStatusTab from "./pets-by-status-tab";
+import SettingsTab from "./settings-tab";
+
+const tabsContent = {
+  user: [<UserPets />, <></>, <UserPreferences />, <SettingsTab />],
+  admin: [
+    <PetsByStatusTab status="pending" />,
+    <PetsByStatusTab status="active" />,
+    <PetsByStatusTab status="archived" />,
+    <SettingsTab />,
+  ],
+};
+const getTabContent = (role, tabIndex) => tabsContent[role][tabIndex];
 
 function Account() {
   const { search } = useLocation();
   const [value, setValue] = React.useState(0);
   const [tabs, setTabs] = React.useState(adminTabs);
+  const userRole = useSelector((state) => state.user.role);
+
+  React.useEffect(() => {
+    if (userRole === "admin") {
+      setTabs(adminTabs);
+      return;
+    }
+    setTabs(userTabs);
+  }, [userRole, tabs]);
 
   React.useEffect(() => {
     setValue(search ? parseInt(search.charAt(search.length - 1)) : 0);
@@ -29,18 +52,11 @@ function Account() {
               ))}
             </Tabs>
           </Box>
-          <CustomTabPanel value={value} index={0}>
-            <UserPets />
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            Item Two
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={2}>
-            <UserPreferences />
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={3}>
-            Item 4
-          </CustomTabPanel>
+          {tabsContent[userRole].map((tab, index) => (
+            <CustomTabPanel key={index} value={value} index={index}>
+              {getTabContent(userRole, index)}
+            </CustomTabPanel>
+          ))}
         </Box>
       </Wrapper>
     </Grid>

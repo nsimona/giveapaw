@@ -20,13 +20,33 @@ import PetCardActionButton from "../pet-card-action-button";
 import { Link } from "react-router-dom";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 
+const flagStyles = {
+  match: {
+    backgroundColor: "tertiary.main",
+    color: "tertiary.contrastText",
+  },
+  pending: {
+    backgroundColor: "secondary.main",
+    color: "secondary.contrastText",
+  },
+  archived: {
+    backgroundColor: "neutral.main",
+    color: "neutral.contrastText",
+  },
+};
+const labelCopy = {
+  match: "Перфектно съвпадние",
+  pending: "Изчаква одобрение",
+  archived: "Архивирана",
+};
+
 const PetCard = ({
   isEditable,
-  pet: { name, coverPhoto, age, gender, type, breed, size, id, isActive },
+  pet: { name, coverPhoto, age, gender, type, breed, size, id, status = null },
   onApplicationsButtonClick,
 }) => {
   return (
-    <Card sx={{ maxWidth: 320, minWidth: 290, borderRadius: 3, my: 3 }}>
+    <Card sx={{ width: "320px", maxWidth: "100%", borderRadius: 3 }}>
       <Link
         style={{
           textDecoration: "none",
@@ -38,21 +58,26 @@ const PetCard = ({
         <CardMedia
           component="img"
           height="180"
-          sx={{ filter: "grayscale(1)" }}
+          sx={
+            status === "pending" || status === "archived"
+              ? { filter: "grayscale(1)" }
+              : {}
+          }
           image="https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
         />
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 20,
-            left: 0,
-            p: 1,
-            backgroundColor: "secondary.main",
-            color: "secondary.contrastText",
-          }}
-        >
-          Неактивна обява
-        </Box>
+        {status && (
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 20,
+              left: 0,
+              p: 1,
+              ...flagStyles[status],
+            }}
+          >
+            {labelCopy[status]}
+          </Box>
+        )}
         {isEditable ? (
           <Box
             sx={{ position: "absolute", top: 20, right: 20 }}

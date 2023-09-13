@@ -11,20 +11,26 @@ import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import { adminTabs, userTabs } from "../../assets/account-menus";
 import * as api from "../../services/api";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetPetEditorData } from "../../redux/slices/petSlice";
 import { setUser } from "../../redux/slices/user/userSlice";
 
 function LoggedHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorNtf, setAnchorNtf] = React.useState(null);
-  const [userMenu, setUserMenu] = React.useState(adminTabs);
+  const [userMenu, setUserMenu] = React.useState([]);
+  const userRole = useSelector((state) => state.user.role);
 
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const open = Boolean(anchorElUser);
-  const openNtf = Boolean(anchorNtf);
+
+  React.useEffect(() => {
+    if (userRole === "admin") {
+      setUserMenu(adminTabs);
+      return;
+    }
+    setUserMenu(userTabs);
+  }, [userRole, userMenu]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -34,13 +40,6 @@ function LoggedHeader() {
     setAnchorElUser(null);
   };
 
-  const handleOpenNtfMenu = (event) => {
-    setAnchorNtf(event.currentTarget);
-  };
-  const handleCloseNtfMenu = () => {
-    setAnchorNtf(null);
-  };
-
   const signout = async () => {
     try {
       const response = await api.signout();
@@ -48,22 +47,26 @@ function LoggedHeader() {
       navigate("/", { replace: true }); // <-- redirect
     } catch (error) {}
   };
+
   return (
     <>
       <NavLink to="/pet-editor">
-        <Button
-          variant="contained"
-          sx={{ mr: { sm: 0, md: 3 }, px: { sm: 0, md: 3 } }}
-          onClick={() => dispatch(resetPetEditorData())}
-        >
-          <AddCircleOutlineOutlinedIcon sx={{ mr: { sm: 0, md: 1 } }} />
-          <Typography
-            variant="body2"
-            sx={{ display: { xs: "none", md: "block" } }}
+        {userRole !== "admin" && (
+          <Button
+            variant="contained"
+            sx={{ mr: { sm: 0, md: 3 }, px: { sm: 0, md: 3 } }}
+            onClick={() => dispatch(resetPetEditorData())}
           >
-            добави нов
-          </Typography>
-        </Button>
+            <AddCircleOutlineOutlinedIcon sx={{ mr: { sm: 0, md: 1 } }} />
+
+            <Typography
+              variant="body2"
+              sx={{ display: { xs: "none", md: "block" } }}
+            >
+              добави нов
+            </Typography>
+          </Button>
+        )}
       </NavLink>
 
       <NavLink to="/favorites">

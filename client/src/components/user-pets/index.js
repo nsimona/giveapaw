@@ -4,10 +4,14 @@ import PetCard from "../pet-card";
 import StickyHeadTable from "../sticky-head-table";
 import { getPetQuery } from "../../services/api";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
+import Loading from "../loading";
 
 const UserPets = () => {
   const [pets, setPets] = React.useState([]);
   const [applicationsTableOpen, setApplicationsTableOpen] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const userId = useSelector((state) => state.user.id);
 
   const toggleApplicationsTable = (e, petIndex) => {
@@ -34,6 +38,7 @@ const UserPets = () => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -44,6 +49,9 @@ const UserPets = () => {
     e.preventDefault();
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <Grid container xs={12} spacing={3}>
       {pets.map((pet, index) => (
@@ -56,7 +64,7 @@ const UserPets = () => {
                 toggleApplicationsTable(e, index)
               }
             />
-            {applicationsTableOpen[index] ? (
+            {applicationsTableOpen[index] && (
               <Grid item>
                 {/* <Grid container item xs={12} spacing={2}> */}
                 {/* <Grid item md={4} sm={12}></Grid> */}
@@ -65,12 +73,19 @@ const UserPets = () => {
                 </Grid>
                 {/* </Grid> */}
               </Grid>
-            ) : (
-              ""
             )}
           </Grid>
         </>
       ))}
+      {!pets.length && (
+        <Typography
+          variant="h4"
+          color="primary"
+          sx={{ display: "flex", mx: "auto", my: 8 }}
+        >
+          Няма добавени животни
+        </Typography>
+      )}
     </Grid>
   );
 };

@@ -24,16 +24,6 @@ export const getCurrentUser = createAsyncThunk(
   "user/currentuser",
   async (_, thunkAPI) => {
     const response = await currentUser();
-
     return response;
-    // let favorites = thunkAPI.getState().user.favorites;
-    // const isAddedToFav = favorites.includes(id);
-    // if (!isAddedToFav) {
-    //   favorites = [...favorites, id];
-    // } else {
-    //   favorites = favorites.filter((item) => item !== id);
-    // }
-    // const response = await updateFavorites({ favorites });
-    // return response;
   }
 );

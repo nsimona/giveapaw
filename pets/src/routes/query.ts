@@ -9,11 +9,12 @@ router.get(
   "/api/pets/query",
   requireAuth,
   async (req: Request, res: Response) => {
-    const { userId } = req.query;
+    const { userId, type, size, breed, age, ids } = req.query;
 
     if (!userId) {
       throw new BadRequestError("no query parameter provided");
     }
+
     const pets = await Pet.find(
       { userId },
       {

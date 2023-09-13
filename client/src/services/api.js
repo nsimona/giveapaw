@@ -81,6 +81,16 @@ export const getPetQuery = async ({ userId }) => {
   }
 };
 
+export const getPetByStatus = async ({ status }) => {
+  try {
+    const response = await axios.get(`/api/pets/status/${status}`);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
 export const getPet = async (id) => {
   try {
     const response = await axios.get(`/api/pets/${id}`);

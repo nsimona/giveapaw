@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { NotFound } from "navigation/NotFound";
 import {
@@ -15,20 +15,41 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Account from "../pages/account";
 import Home from "../pages/Home";
-import Header from "../components/Header";
+import Header from "../components/header";
 import PetEditor from "../pages/pet-editor";
-import { CircularProgress, Grid } from "@mui/material";
 import Pet from "../pages/pet";
 import AuthWrapper from "./Auth/AuthWrapper";
 import LoginRequired from "./Auth/LoginRequired";
-import AllPets from "../components/all-pets";
-
-// import PrivateRoute from "./Auth/PrivateRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import Loading from "../components/loading";
+import { getCurrentUser } from "../redux/slices/user/userThunk";
+import PetsWrapper from "../components/pets-wrapper";
+import Favorites from "../pages/favorites";
 
 export const RouterConfig = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const location = useLocation();
   const showHeader =
     location.pathname !== "/login" && location.pathname !== "/register";
+
+  const dispatch = useDispatch();
+  const isCurrentUserLoading = useSelector((state) => state.user.isLoading);
+
+  const currentUser = async () => {
+    dispatch(getCurrentUser());
+  };
+
+  useEffect(() => {
+    currentUser();
+    setIsLoading(isCurrentUserLoading);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       {showHeader && <Header />}
@@ -77,7 +98,7 @@ export const RouterConfig = () => {
           path={FAVORITES}
           element={
             <AuthWrapper>
-              <AllPets isFavorites />
+              <Favorites />
             </AuthWrapper>
           }
         />

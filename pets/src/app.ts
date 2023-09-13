@@ -7,6 +7,7 @@ import { showPetRouter } from "./routes/show";
 import { indexPetRouter } from "./routes";
 import { updatePetRouter } from "./routes/update";
 import { queryPetRouter } from "./routes/query";
+import { statusPetRouter } from "./routes/status";
 
 const app = express();
 app.use(json());
@@ -22,6 +23,7 @@ app.use(
 app.use(currentUser);
 
 app.use(queryPetRouter);
+app.use(statusPetRouter);
 app.use(createPetRouter);
 app.use(showPetRouter);
 app.use(indexPetRouter);

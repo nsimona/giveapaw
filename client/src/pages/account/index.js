@@ -9,7 +9,7 @@ import UserPets from "../../components/user-pets";
 function Account() {
   const { search } = useLocation();
   const [value, setValue] = React.useState(0);
-  const [tabs, setTabs] = React.useState(userTabs);
+  const [tabs, setTabs] = React.useState(adminTabs);
 
   React.useEffect(() => {
     setValue(search ? parseInt(search.charAt(search.length - 1)) : 0);
@@ -23,11 +23,7 @@ function Account() {
       <Wrapper>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
+            <Tabs value={value} onChange={handleChange} aria-label="tabs">
               {tabs.map((tab, i) => (
                 <Tab label={tab} key={i} {...a11yProps(i)} />
               ))}

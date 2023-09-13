@@ -89,6 +89,7 @@ router.post(
       description,
       selectedFiles,
       selectedCoverIndex,
+      isActive: false,
     });
     await pet.save();
 

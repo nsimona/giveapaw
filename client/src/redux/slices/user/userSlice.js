@@ -26,7 +26,7 @@ export const userSlice = createSlice({
         };
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
-        // do something with the error
+        state.isLoading = false;
       });
   },
 });
@@ -37,12 +37,6 @@ export const selectIsInFavorites = (id) =>
   createSelector(
     (state) => state.user.favorites,
     (favorites) => favorites !== undefined && favorites.includes(id)
-  );
-
-export const selectIsLoggedin = () =>
-  createSelector(
-    (state) => state.user,
-    (user) => Object.keys(user).length
   );
 
 export const selectUser = () =>

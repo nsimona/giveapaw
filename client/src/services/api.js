@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const signup = async (data) => {
   try {
-    const response = await axios.post("/  api/users/signup", data);
+    const response = await axios.post("/api/users/signup", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -64,6 +64,16 @@ export const getPets = async (ids) => {
   const query = ids ? `?ids=${ids}` : "";
   try {
     const response = await axios.get(`/api/pets${query}`);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+export const getPetQuery = async ({ userId }) => {
+  try {
+    const response = await axios.get(`/api/pets/query?userId=${userId}`);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

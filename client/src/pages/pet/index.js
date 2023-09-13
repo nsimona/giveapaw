@@ -6,12 +6,14 @@ import {
   Grid,
   ImageList,
   ImageListItem,
+  TextField,
   Typography,
 } from "@mui/material";
 import PetCardActionButton from "../../components/pet-card-action-button";
 import { useEffect, useState } from "react";
 import { getPet } from "../../services/api";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -50,6 +52,7 @@ const images = [
 const Pet = () => {
   const [pet, setPet] = useState({});
   let { id } = useParams();
+  const userId = useSelector((state) => state.user.id);
 
   const getPetInfo = async () => {
     const p = await getPet(id);
@@ -103,7 +106,7 @@ const Pet = () => {
               <Divider sx={{ my: 4 }} />
             </Grid>
             <Grid item xs={2} justifyContent="end">
-              <PetCardActionButton id={id} />
+              <PetCardActionButton id={id} isEditable={pet.userId === userId} />
             </Grid>
           </Grid>
           <Grid item md={4} xs={12} color="text.secondary">
@@ -122,11 +125,48 @@ const Pet = () => {
                 <strong>Искаш да осиновиш Плутон?</strong>
               </Typography>
               България, София-град
-              <Button variant="contained">Кандидатствай за осиновител</Button>
+              <Button variant="contained" disabled={pet.userId === userId}>
+                Кандидатствай за осиновител
+              </Button>
               <Typography variant="body2">
                 За да се свържеш със собственика на Плутон, канидадатствай през
                 платформата
               </Typography>
+            </Box>
+            <Box
+              sx={{
+                border: "1px solid",
+                borderColor: "neutral.dark",
+                borderRadius: 2,
+                padding: 3,
+                display: "flex",
+                gap: 2,
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h6">
+                <strong>Промени статуса на обявата за Плутон</strong>
+              </Typography>
+              <Button variant="contained" color="green">
+                Одобри
+              </Button>
+              <Button variant="contained" color="red">
+                Отхвърли
+              </Button>
+              <Button variant="contained" color="blue">
+                Архивирай
+              </Button>
+              <Typography variant="body2">
+                Задължително е да оставиш коментар преди да промениш статуса на
+                обявата
+              </Typography>
+              <TextField
+                multiline
+                rows={3}
+                fullWidth
+                required
+                placeholder="Коментар при промяна на статус"
+              />
             </Box>
           </Grid>
         </Grid>

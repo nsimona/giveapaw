@@ -22,14 +22,8 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 
 const PetCard = ({
   isEditable,
-  name,
-  coverPhoto,
-  age,
-  gender,
-  type,
-  breed,
-  size,
-  id,
+  pet: { name, coverPhoto, age, gender, type, breed, size, id, isActive },
+  onApplicationsButtonClick,
 }) => {
   return (
     <Card sx={{ maxWidth: 320, minWidth: 290, borderRadius: 3, my: 3 }}>
@@ -37,12 +31,33 @@ const PetCard = ({
         style={{
           textDecoration: "none",
           position: "relative",
+          color: "none",
         }}
         to={`/pet/${id}`}
       >
-        <CardMedia component="img" height="180" image={coverPhoto} />
+        <CardMedia
+          component="img"
+          height="180"
+          sx={{ filter: "grayscale(1)" }}
+          image="https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 20,
+            left: 0,
+            p: 1,
+            backgroundColor: "secondary.main",
+            color: "secondary.contrastText",
+          }}
+        >
+          Неактивна обява
+        </Box>
         {isEditable ? (
-          <Box sx={{ position: "absolute", top: 20, right: 20 }}>
+          <Box
+            sx={{ position: "absolute", top: 20, right: 20 }}
+            onClick={onApplicationsButtonClick}
+          >
             <Tooltip title="4 кандидатури">
               <Badge badgeContent={4} color="primary">
                 <TextSnippetIcon color="secondary" />

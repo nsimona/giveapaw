@@ -21,6 +21,7 @@ interface PetAttrs {
   // photos
   selectedFiles: string[];
   selectedCoverIndex: number;
+  isActive: boolean;
 }
 
 interface PetDoc extends mongoose.Document {
@@ -46,6 +47,7 @@ interface PetDoc extends mongoose.Document {
   version: number;
   // applciation
   applicationId?: string;
+  isActive: boolean;
 }
 
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -119,6 +121,11 @@ const petSchema = new mongoose.Schema(
     applicationId: {
       type: String,
       required: false,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {

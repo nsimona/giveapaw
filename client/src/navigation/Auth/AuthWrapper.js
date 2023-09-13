@@ -1,16 +1,19 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { selectIsLoggedin } from "../../redux/slices/user/userSlice";
+import { useSelector } from "react-redux";
 
 const AuthWrapper = ({ children, logoutRequired = false }) => {
-  const loggedin = selectIsLoggedin();
+  const isLoggedin = useSelector((state) => state.user.id !== undefined);
   let location = useLocation();
 
-  // if (loggedin && logoutRequired) {
-  //   return <Navigate to="/" state={{ from: location }} replace />;
-  // }
+  if (logoutRequired) {
+    if (isLoggedin) {
+      return <Navigate to="/" state={{ from: location }} replace />;
+    }
+    return children;
+  }
 
-  if (!loggedin) {
+  if (!isLoggedin) {
     return <Navigate to="/login-required" state={{ from: location }} replace />;
   }
   return children;

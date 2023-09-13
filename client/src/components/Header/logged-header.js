@@ -8,7 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import { userTabs } from "../../assets/account-menus";
+import { adminTabs, userTabs } from "../../assets/account-menus";
 import * as api from "../../services/api";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ import { setUser } from "../../redux/slices/user/userSlice";
 function LoggedHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [anchorNtf, setAnchorNtf] = React.useState(null);
-  const [userMenu, setUserMenu] = React.useState(userTabs);
+  const [userMenu, setUserMenu] = React.useState(adminTabs);
 
   const dispatch = useDispatch();
 

@@ -54,9 +54,9 @@ const theme = createTheme({
       main: "#666",
     },
     red: {
-      main: "#f44336",
+      main: "#ef5350",
       light: "#e57373",
-      dark: "#b71c1c",
+      dark: "#f44336",
       contrastText: "#fff",
     },
     green: {
@@ -69,6 +69,7 @@ const theme = createTheme({
       main: "#2196f3",
       light: "#64b5f6",
       dark: "#1565c0",
+      contrastText: "#fff",
     },
   },
 });

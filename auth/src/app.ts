@@ -9,6 +9,7 @@ import { currentUser, errorHandler, NotFoundError } from "@giveapaw/common";
 import cookieSession from "cookie-session";
 import { updatePreferenceRouter } from "./routes/preferences";
 import { updateFavoritesRouter } from "./routes/favorites";
+// import { roleUserRouter } from "./routes/user-role";
 
 const app = express();
 app.use(json());
@@ -29,8 +30,10 @@ app.use(signupRouter);
 app.use(currentUser);
 app.use(updatePreferenceRouter);
 app.use(updateFavoritesRouter);
+// app.use(roleUserRouter);
 
 app.all("*", async () => {
+  console.log("auth not found");
   throw new NotFoundError();
 });
 

@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 function ResponsiveAppBar() {
   const [openMenu, setOpenMenu] = React.useState(false);
-  const isLoggedin = useSelector((state) => Object.keys(state.user).length);
+  const isLoggedin = useSelector((state) => state.user.id !== undefined);
 
   return (
     <AppBar color="transparent" elevation={0} sx={{ position: "relative" }}>

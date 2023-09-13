@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsInFavorites } from "../../redux/slices/user/userSlice";
-import { handleFavorites } from "../../redux/slices/user/userThunk";
+import { updateFavorites } from "../../redux/slices/user/userThunk";
 import { setPetEditorData } from "../../redux/slices/petSlice";
 import { getPet } from "../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ const PetCardActionButton = ({ id, isEditable = false }) => {
   };
 
   const handlePetFavorite = () => {
-    dispatch(handleFavorites(id));
+    dispatch(updateFavorites(id));
   };
   return (
     <>

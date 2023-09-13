@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser, handleFavorites } from "./userThunk";
+import { getCurrentUser, updateFavorites } from "./userThunk";
 
 const initialState = {
   isLoading: false,
@@ -13,7 +13,7 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(handleFavorites.fulfilled, (state, action) => {
+      .addCase(updateFavorites.fulfilled, (state, action) => {
         state.favorites = action.payload;
       })
       .addCase(getCurrentUser.pending, (state, action) => {
@@ -39,13 +39,13 @@ export const selectIsInFavorites = (id) =>
     (favorites) => favorites !== undefined && favorites.includes(id)
   );
 
-export const selectIsLoggedin = (id) =>
+export const selectIsLoggedin = () =>
   createSelector(
     (state) => state.user,
     (user) => Object.keys(user).length
   );
 
-export const selectUser = (id) =>
+export const selectUser = () =>
   createSelector(
     (state) => state.user,
     (user) => user

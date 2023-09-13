@@ -77,7 +77,7 @@ export const RouterConfig = () => {
           path={FAVORITES}
           element={
             <AuthWrapper>
-              <AllPets favorites />
+              <AllPets isFavorites />
             </AuthWrapper>
           }
         />

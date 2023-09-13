@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { currentUser, updateFavorites } from "../../../services/api";
+import {
+  currentUser,
+  updateFavorites as updateFavoritesAPI,
+} from "../../../services/api";
 
-export const handleFavorites = createAsyncThunk(
+export const updateFavorites = createAsyncThunk(
   "user/updatefavorites",
   async (id, thunkAPI) => {
     let favorites = thunkAPI.getState().user.favorites;
@@ -12,7 +15,7 @@ export const handleFavorites = createAsyncThunk(
       favorites = favorites.filter((item) => item !== id);
     }
 
-    const response = await updateFavorites({ favorites });
+    const response = await updateFavoritesAPI({ favorites });
     return response;
   }
 );

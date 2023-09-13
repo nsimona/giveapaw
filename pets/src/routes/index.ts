@@ -8,12 +8,18 @@ const router = express.Router();
 router.get("/api/pets", async (req: Request, res: Response) => {
   const { ids } = req.query;
 
-  if (ids) {
-    // if (!isArrayOfValidMongoIds(ids)) {
-    //   throw new BadRequestError("Invalid id provided");
-    // }
+  if (ids !== undefined) {
+    if (ids === "") {
+      res.send([]);
+      return;
+    }
+    const parseIds = ids.toString().split(",");
 
-    const pets = await Pet.find({ _id: { $in: ids } });
+    if (!isArrayOfValidMongoIds(parseIds)) {
+      throw new BadRequestError("Invalid id provided");
+    }
+
+    const pets = await Pet.find({ _id: { $in: parseIds } });
     res.send(pets);
     return;
   }

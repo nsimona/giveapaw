@@ -11,20 +11,19 @@ import {
   LOGINREQUIRED,
   FAVORITES,
 } from "./routes";
-import Register from "../pages/Register";
-import Login from "../pages/Login";
+import Register from "../pages/register";
+import Login from "../pages/login";
 import Account from "../pages/account";
-import Home from "../pages/Home";
+import Home from "../pages/home";
 import Header from "../components/header";
 import PetEditor from "../pages/pet-editor";
 import Pet from "../pages/pet";
-import AuthWrapper from "./Auth/AuthWrapper";
-import LoginRequired from "./Auth/LoginRequired";
+import AuthWrapper from "./auth/auth-wrapper";
+import LoginRequired from "./auth/login-required";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Loading from "../components/loading";
 import { getCurrentUser } from "../redux/slices/user/userThunk";
-import PetsWrapper from "../components/pets-wrapper";
 import Favorites from "../pages/favorites";
 
 export const RouterConfig = () => {

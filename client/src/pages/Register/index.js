@@ -19,12 +19,11 @@ import {
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import * as api from "../../services/api";
-import { getErrorMessages } from "../../utils/handleErrors";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/user/userSlice";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 export default function Register() {
-  const [errors, setErrors] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -47,8 +46,9 @@ export default function Register() {
       }
     } catch (error) {
       console.log("there was an error trying to register the user", error);
-
-      setErrors(getErrorMessages(error));
+      dispatch(
+        setAlert({ severity: "error", message: "Неуспешна регистрация" })
+      );
     }
   };
 

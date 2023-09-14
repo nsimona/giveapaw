@@ -38,12 +38,12 @@ const theme = createTheme({
       dark: "#7f34a2",
       contrastText: "#fff",
     },
-    tertiary: {
-      light: "#ff9aa3",
-      main: "#ff6f7d",
-      dark: "#ff445b",
-      contrastText: "#fff",
-    },
+    // tertiary: {
+    //   light: "#ff9aa3",
+    //   main: "#ff6f7d",
+    //   dark: "#ff445b",
+    //   contrastText: "#fff",
+    // },
     neutral: {
       grey: "#ECECEC",
       light: "#FFFFFF",

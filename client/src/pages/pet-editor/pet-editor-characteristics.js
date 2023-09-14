@@ -11,7 +11,7 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 import { setPetEditorData } from "../../redux/slices/petSlice";
-import TagsAutocomplete from "../../components/pet-form-inputs/tags-autocomplete";
+import CustomAutocomplete from "../../components/pet-form-inputs/custom-autocomplete";
 import CustomRadioGroup from "../../components/pet-form-inputs/custom-radio-group";
 
 const PetEditorCharacteristics = () => {
@@ -38,7 +38,7 @@ const PetEditorCharacteristics = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="livedInAhouse-tags"
               options={houseConditionsOptions}
               value={livedInAHouse}
@@ -54,7 +54,7 @@ const PetEditorCharacteristics = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="healthState-tags"
               options={healthStateOptions}
               value={healthState}
@@ -70,7 +70,7 @@ const PetEditorCharacteristics = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="goodWith-tags"
               options={goodWithOptions}
               value={goodWith}
@@ -80,7 +80,7 @@ const PetEditorCharacteristics = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="characteristics-tags"
               options={characteristicsOptions}
               value={characteristics}

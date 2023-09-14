@@ -70,7 +70,7 @@ const Pet = () => {
         sx={{ width: "100%", mb: 4 }}
         variant="quilted"
         cols={4}
-        rowHeight={190}
+        rowHeight={260}
       >
         {images.map((item) => (
           <ImageListItem

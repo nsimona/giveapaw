@@ -2,7 +2,7 @@ import * as React from "react";
 import { useLocation } from "react-router-dom";
 import { Box, Container, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { adminTabs, userTabs } from "../../assets/account-menus";
-import Wrapper from "../../components/Wrapper";
+import Wrapper from "../../components/wrapper";
 import UserPreferences from "../../components/user-preferences";
 import UserPets from "../../components/user-pets";
 import { useSelector } from "react-redux";

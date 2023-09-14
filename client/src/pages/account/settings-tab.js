@@ -12,6 +12,16 @@ const SettingsTab = () => {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
+              id="id"
+              name="id"
+              value={user.id}
+              label="ID"
+              disabled
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
               id="firstName"
               name="firstName"
               value={user.firstName}

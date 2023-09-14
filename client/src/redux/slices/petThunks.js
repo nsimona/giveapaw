@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createPet } from "../../services/api";
 import { normalizePetEditorData } from "../../utils/normalizeData";
+import { setAlert } from "./app/appSlice";
 
 export const createNewPet = createAsyncThunk(
   "pets/createNew",
@@ -13,7 +14,23 @@ export const createNewPet = createAsyncThunk(
       goodWith: normalizePetEditorData(data.goodWith),
       characteristics: normalizePetEditorData(data.characteristics),
     };
-    const response = await createPet(pet);
-    return response.data;
+    try {
+      const response = await createPet(pet);
+      thunkAPI.dispatch(
+        setAlert({
+          severity: "success",
+          message: `Успешно добавена обява`,
+        })
+      );
+      return response.data;
+    } catch (error) {
+      thunkAPI.dispatch(
+        setAlert({
+          severity: "error",
+          message: `Грешка при създаване на обява, ${error.response.data.errors[0].message}`,
+        })
+      );
+    }
+    return {};
   }
 );

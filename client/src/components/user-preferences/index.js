@@ -1,6 +1,6 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import TagsAutocomplete from "../pet-form-inputs/tags-autocomplete";
+import CustomAutocomplete from "../pet-form-inputs/custom-autocomplete";
 import {
   characteristicsOptions,
   healthStateOptions,
@@ -41,7 +41,7 @@ const UserPreferences = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="current-house-tags"
               options={houseConditionsOptions}
               value={[]}
@@ -50,7 +50,7 @@ const UserPreferences = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="outdoor-spaces-tags"
               options={outdoorSpacesOptions}
               value={[]}
@@ -85,7 +85,7 @@ const UserPreferences = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="pet-color-tags"
               options={petColorsOptions}
               value={[]}
@@ -137,7 +137,7 @@ const UserPreferences = () => {
           </Grid>
 
           {/* <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="healthState-tags"
               options={healthStateOptions}
               value={[]}
@@ -147,7 +147,7 @@ const UserPreferences = () => {
           </Grid> */}
 
           <Grid item xs={12}>
-            <TagsAutocomplete
+            <CustomAutocomplete
               id="characteristics-tags"
               options={characteristicsOptions}
               value={[]}

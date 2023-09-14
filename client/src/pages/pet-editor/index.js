@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PetEditorBasicInfo from "./pet-editor-basic-info";
 import PetEditorCharacteristics from "./pet-editor-characteristics";
-import Wrapper from "../../components/Wrapper";
+import Wrapper from "../../components/wrapper";
 import PetEditorUploadPhotos from "./pet-editor-upload-photos";
 import PetEditorSummary from "./pet-editor-summary";
 import { Link, Tooltip } from "@mui/material";

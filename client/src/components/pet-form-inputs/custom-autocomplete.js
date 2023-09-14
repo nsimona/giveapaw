@@ -8,7 +8,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const TagsAutocomplete = ({ options, id, label, value, onChange }) => {
+const CustomAutocomplete = ({ options, id, label, value, onChange }) => {
   return (
     <Autocomplete
       fullWidth
@@ -35,4 +35,4 @@ const TagsAutocomplete = ({ options, id, label, value, onChange }) => {
   );
 };
 
-export default TagsAutocomplete;
+export default CustomAutocomplete;

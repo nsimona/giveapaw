@@ -2,20 +2,18 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import ChevronLeftOutlinedIcon from "@mui/icons-material/ChevronLeftOutlined";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
 import * as api from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/user/userSlice";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 export default function Login() {
-  const [error, setError] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,9 +32,13 @@ export default function Login() {
         navigate("/", { replace: true });
       }
     } catch (error) {
-      console.log("there was an error trying to register the user", error);
-
-      // setErrors(getErrorMessages(error));
+      console.log("there was an error trying to login the user", error);
+      dispatch(
+        setAlert({
+          severity: "error",
+          message: `Грешка при вход, ${error.response.data.errors[0].message}`,
+        })
+      );
     }
   };
 

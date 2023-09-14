@@ -14,6 +14,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPetEditorData } from "../../redux/slices/petSlice";
 import { setUser } from "../../redux/slices/user/userSlice";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 function LoggedHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -45,7 +46,16 @@ function LoggedHeader() {
       const response = await api.signout();
       dispatch(setUser(response));
       navigate("/", { replace: true }); // <-- redirect
-    } catch (error) {}
+    } catch (error) {
+      dispatch(
+        setAlert({
+          severity: "error",
+          message: `Грешка при изход, ${
+            error.response.data.errors[0].message || ""
+          }`,
+        })
+      );
+    }
   };
 
   return (

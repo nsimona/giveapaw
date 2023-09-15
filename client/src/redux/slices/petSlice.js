@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createNewPet } from "./petThunks";
 
 const initialState = {
   // basic:

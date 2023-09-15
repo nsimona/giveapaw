@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import PetsWrapper from "../../components/pets-wrapper";
-import { getPets } from "../../services/api";
+import { getPetQuery } from "../../services/api";
 import Loading from "../../components/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
@@ -14,7 +15,7 @@ function Favorites() {
 
   const fetchPets = async () => {
     try {
-      const petData = await getPets(ids);
+      const petData = await getPetQuery({ ids });
       setPets(petData);
     } catch (error) {
       console.error("Error fetching pets:", error);

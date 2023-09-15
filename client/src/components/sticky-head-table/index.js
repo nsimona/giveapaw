@@ -5,9 +5,8 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const columns = [
   { id: "name", label: "Дата", minWidth: 80 },
@@ -92,9 +91,6 @@ const rows = [
 ];
 
 const StickyHeadTable = () => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
   return (
     <Paper sx={{ width: "100%", overflow: "auto", my: 3, borderRadius: 3 }}>
       <TableContainer sx={{ maxHeight: 355 }}>

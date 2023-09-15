@@ -3,17 +3,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Badge,
-  BadgeMark,
-  Box,
-  Button,
-  CardActions,
-  Divider,
-  Grid,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { Badge, Box, Grid, Tooltip } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import PetCardActionButton from "../pet-card-action-button";

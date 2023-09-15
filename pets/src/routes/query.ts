@@ -9,10 +9,29 @@ router.get(
   "/api/pets/query",
   requireAuth,
   async (req: Request, res: Response) => {
+    // userId == query by user id, e.g. retrun all pets owned by userId
     const { userId, type, size, breed, age, ids } = req.query;
+    const queryParam = userId || ids;
 
-    if (!userId) {
+    if (queryParam === "undefined") {
       throw new BadRequestError("no query parameter provided");
+    }
+
+    // handle query pets by their ids
+    if (ids !== undefined) {
+      if (ids === "") {
+        res.send([]);
+        return;
+      }
+      const parseIds = ids.toString().split(",");
+
+      if (!isArrayOfValidMongoIds(parseIds)) {
+        throw new BadRequestError("Invalid id provided");
+      }
+
+      const pets = await Pet.find({ _id: { $in: parseIds } });
+      res.send(pets);
+      return;
     }
 
     const pets = await Pet.find(

@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 const PetCardActionButton = ({ id, isEditable = false }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.user.id);
 
   const isFavorite = useSelector(selectIsInFavorites(id));
 

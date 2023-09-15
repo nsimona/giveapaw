@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PetsWrapper from "../../components/pets-wrapper";
 import { getPetByStatus } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
+
+// TODO - test infinte loop on load?
 
 const PetsByStatusTab = ({ status }) => {
   const [pets, setPets] = useState([]);
 
   const dispatch = useDispatch();
 
-  const getPets = async () => {
+  const getPets = useCallback(async () => {
     try {
       const pets = await getPetByStatus(status);
       setPets(pets);
@@ -22,11 +24,11 @@ const PetsByStatusTab = ({ status }) => {
         })
       );
     }
-  };
+  }, [dispatch, status]);
 
   useEffect(() => {
     getPets();
-  }, []);
+  }, [getPets]);
 
   return <PetsWrapper pets={pets} />;
 };

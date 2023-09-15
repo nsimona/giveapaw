@@ -60,10 +60,9 @@ export const createPet = async (data) => {
   }
 };
 
-export const getPets = async (ids) => {
-  const query = ids ? `?ids=${ids}` : "";
+export const getPets = async () => {
   try {
-    const response = await axios.get(`/api/pets${query}`);
+    const response = await axios.get("/api/pets");
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -71,9 +70,13 @@ export const getPets = async (ids) => {
   }
 };
 
-export const getPetQuery = async ({ userId }) => {
+export const getPetQuery = async (data) => {
+  const query = Object.keys(data)
+    .map((param) => `${param}=${data[param]}`)
+    .join("&");
+
   try {
-    const response = await axios.get(`/api/pets/query?userId=${userId}`);
+    const response = await axios.get(`/api/pets/query?${query}`);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

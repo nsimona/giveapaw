@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import CustomAutocomplete from "../pet-form-inputs/custom-autocomplete";
 import {
   characteristicsOptions,
-  healthStateOptions,
   houseConditionsOptions,
   petTrainedOptions,
   petTypeOptions,

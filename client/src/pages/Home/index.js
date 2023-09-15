@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import PetsWrapper from "../../components/pets-wrapper";
 import { getPets } from "../../services/api";
@@ -30,6 +31,7 @@ function Home() {
   useEffect(() => {
     fetchPets();
   }, []);
+
   if (isLoading) {
     return <Loading />;
   }

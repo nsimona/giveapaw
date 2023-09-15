@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 // import { NotFound } from "navigation/NotFound";
 import {
@@ -29,20 +30,20 @@ import Favorites from "../pages/favorites";
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  const isCurrentUserLoading = useSelector((state) => state.user.isLoading);
+  const dispatch = useDispatch();
   const location = useLocation();
+
   const showHeader =
     location.pathname !== "/login" && location.pathname !== "/register";
 
-  const dispatch = useDispatch();
-  const isCurrentUserLoading = useSelector((state) => state.user.isLoading);
-
   const currentUser = async () => {
     dispatch(getCurrentUser());
+    setIsLoading(isCurrentUserLoading);
   };
 
   useEffect(() => {
     currentUser();
-    setIsLoading(isCurrentUserLoading);
   }, []);
 
   if (isLoading) {

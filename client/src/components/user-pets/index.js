@@ -31,29 +31,28 @@ const UserPets = () => {
     });
   };
 
-  const fetchUserPets = async () => {
-    try {
-      const pets = await getPetQuery({ userId });
-      setPets(pets);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
   React.useEffect(() => {
+    const fetchUserPets = async () => {
+      try {
+        const pets = await getPetQuery({ userId });
+        setPets(pets);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    };
     fetchUserPets();
   }, [userId]);
 
-  const onApplicationsButtonClick = (e) => {
-    e.preventDefault();
-  };
+  // const onApplicationsButtonClick = (e) => {
+  //   e.preventDefault();
+  // };
 
   if (isLoading) {
     return <Loading />;
   }
   return (
-    <Grid container xs={12} spacing={3}>
+    <Grid container spacing={3}>
       {pets.map((pet, index) => (
         <>
           <Grid item sx={{ display: "flex", gap: 3 }}>

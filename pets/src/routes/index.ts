@@ -6,24 +6,6 @@ import { BadRequestError } from "@giveapaw/common";
 const router = express.Router();
 
 router.get("/api/pets", async (req: Request, res: Response) => {
-  const { ids } = req.query;
-
-  if (ids !== undefined) {
-    if (ids === "") {
-      res.send([]);
-      return;
-    }
-    const parseIds = ids.toString().split(",");
-
-    if (!isArrayOfValidMongoIds(parseIds)) {
-      throw new BadRequestError("Invalid id provided");
-    }
-
-    const pets = await Pet.find({ _id: { $in: parseIds } });
-    res.send(pets);
-    return;
-  }
-
   const pets = await Pet.find(
     {},
     {

@@ -101,19 +101,43 @@ function ResponsiveAppBar() {
             maxWidth="xl"
             sx={{ display: "flex", justifyContent: "center", gap: 2 }}
           >
-            <Button variant="contained" disableElevation>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            >
               Кучета
             </Button>
-            <Button variant="contained" disableElevation>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            >
               Котки
             </Button>
-            <Button variant="contained" disableElevation>
-              Зайци
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            >
+              Птици
             </Button>
-            <Button variant="contained" disableElevation>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                setOpenMenu(false);
+              }}
+            >
               Други животни
             </Button>
-            <Button variant="contained" disableElevation>
+            <Button variant="contained" disableElevation disabled>
               Приюти
             </Button>
           </Container>

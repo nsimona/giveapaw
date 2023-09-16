@@ -5,6 +5,8 @@ import { getPets } from "../../services/api";
 import Loading from "../../components/loading";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
+import { Box } from "@mui/material";
+import MainSearch from "../../components/main-search";
 
 function Home() {
   const [pets, setPets] = useState([]);
@@ -14,6 +16,7 @@ function Home() {
 
   const fetchPets = async () => {
     try {
+      // add limit - 7
       const petData = await getPets();
       setPets(petData);
     } catch (error) {
@@ -36,7 +39,13 @@ function Home() {
     return <Loading />;
   }
 
-  return <PetsWrapper pets={pets} />;
+  return (
+    <>
+      <MainSearch />
+      {/* <Box>pets cards here</Box> */}
+      <PetsWrapper pets={pets} />;
+    </>
+  );
 }
 
 export default Home;

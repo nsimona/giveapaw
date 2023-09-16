@@ -23,7 +23,7 @@ export const updateFavorites = createAsyncThunk(
       thunkAPI.dispatch(
         setAlert({
           severity: "warning",
-          message: "Трябва да си логнат, за да добавиш животно в любими",
+          message: 'Трябва да си логнат, за да добавиш животно в "любими"',
         })
       );
     }

@@ -14,6 +14,7 @@ router.get("/api/pets", async (req: Request, res: Response) => {
       age: 1,
       size: 1,
       gender: 1,
+      type: 1,
       // TODO add cover pic also
     }
   );

@@ -11,6 +11,7 @@ import {
   PET,
   LOGINREQUIRED,
   FAVORITES,
+  SEARCHRESULT,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -26,6 +27,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/loading";
 import { getCurrentUser } from "../redux/slices/user/userThunk";
 import Favorites from "../pages/favorites";
+import SearchResult from "../pages/search-result";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +58,9 @@ export const RouterConfig = () => {
       <Routes>
         {/* List all public routes here */}
         <Route exact path={ROOT} element={<Home />} />
+        <Route exact path={SEARCHRESULT} element={<SearchResult />} />
+        <Route path={PET} element={<Pet />} />
+        {/* List all public routes, that required logout if the user is logged in, here */}
         <Route
           exact
           path={REGISTER}
@@ -73,7 +78,6 @@ export const RouterConfig = () => {
             </AuthWrapper>
           }
         />
-        <Route path={LOGINREQUIRED} element={<LoginRequired />} />
         {/* List all private/auth routes here */}
         <Route
           exact
@@ -102,13 +106,9 @@ export const RouterConfig = () => {
             </AuthWrapper>
           }
         />
-        <Route path={PET} element={<Pet />} />
-        {/* Do not hesitate to play around by moving some routes from public to private and vice-versa */}
-        {/* <PrivateRoute path={DASHBOARD}>
-          <Dashboard />
-        </PrivateRoute> */}
 
-        {/* List a generic 404-Not Found route here */}
+        {/* List error pages */}
+        <Route path={LOGINREQUIRED} element={<LoginRequired />} />
         {/* <Route path="*">
           <NotFound />
         </Route> */}

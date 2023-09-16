@@ -8,16 +8,20 @@ const CustomSelect = ({
   onChange,
   options,
   required = false,
+  selectProps,
 }) => {
   return (
     <FormControl fullWidth required={required}>
-      <InputLabel id={id}>{label}</InputLabel>
+      <InputLabel id={id} size={selectProps?.size || ""}>
+        {label}
+      </InputLabel>
       <Select
         labelId={id}
         id={id}
         label={label}
         value={value}
         onChange={onChange}
+        {...selectProps}
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>

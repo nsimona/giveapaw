@@ -14,7 +14,7 @@ const theme = createTheme({
     },
   },
   palette: {
-    tertiary: {
+    secondary: {
       light: "#bdeaf2",
       main: "#7ACEDF",
       dark: "#65bacf",
@@ -26,7 +26,7 @@ const theme = createTheme({
     //   dark: "#7f34a2",
     //   contrastText: "#fff",
     // },
-    secondary: {
+    tertiary: {
       light: "#feda5a",
       main: "#fed039",
       dark: "#ffc825",

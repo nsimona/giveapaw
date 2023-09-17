@@ -1,5 +1,5 @@
 export const ROOT = "/";
-export const SEARCHRESULT = "/search-result";
+export const SEARCH = "/search";
 export const LOGINREQUIRED = "/login-required";
 export const LOGIN = "/login";
 export const REGISTER = "/register";

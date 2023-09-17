@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Badge, Box, Grid, Tooltip } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import PetCardActionButton from "../pet-card-action-button";
 import { Link } from "react-router-dom";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
@@ -104,7 +104,7 @@ const PetCard = ({
             sx={{ display: "flex", alignItems: "center" }}
           >
             <MaleIcon /> {gender}
-            <AccessAlarmIcon sx={{ ml: 3 }} /> {age}
+            <AccessTimeOutlinedIcon sx={{ ml: 3 }} /> {age}
           </Typography>
         </Grid>
       </CardContent>

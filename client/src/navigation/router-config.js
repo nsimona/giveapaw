@@ -11,7 +11,7 @@ import {
   PET,
   LOGINREQUIRED,
   FAVORITES,
-  SEARCHRESULT,
+  SEARCH,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/loading";
 import { getCurrentUser } from "../redux/slices/user/userThunk";
 import Favorites from "../pages/favorites";
-import SearchResult from "../pages/search-result";
+import Search from "../pages/search-result";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +58,7 @@ export const RouterConfig = () => {
       <Routes>
         {/* List all public routes here */}
         <Route exact path={ROOT} element={<Home />} />
-        <Route exact path={SEARCHRESULT} element={<SearchResult />} />
+        <Route exact path={SEARCH} element={<Search />} />
         <Route path={PET} element={<Pet />} />
         {/* List all public routes, that required logout if the user is logged in, here */}
         <Route

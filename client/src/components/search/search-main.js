@@ -1,8 +1,8 @@
 import { Box, Button, Container, Grid } from "@mui/material";
-import CustomSelect from "../../components/pet-form-inputs/custom-select";
+import CustomSelect from "../pet-form-inputs/custom-select";
 import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
 
-const MainSearch = () => {
+const SearchMain = () => {
   return (
     <Box
       sx={{
@@ -76,4 +76,4 @@ const MainSearch = () => {
     </Box>
   );
 };
-export default MainSearch;
+export default SearchMain;

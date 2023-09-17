@@ -5,8 +5,7 @@ import { getPets } from "../../services/api";
 import Loading from "../../components/loading";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
-import { Box } from "@mui/material";
-import MainSearch from "../../components/main-search";
+import SearchMain from "../../components/search/search-main";
 
 function Home() {
   const [pets, setPets] = useState([]);
@@ -41,7 +40,7 @@ function Home() {
 
   return (
     <>
-      <MainSearch />
+      <SearchMain />
       {/* <Box>pets cards here</Box> */}
       <PetsWrapper pets={pets} />;
     </>

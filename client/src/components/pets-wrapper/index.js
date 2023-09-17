@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from "@mui/material";
 import PetCard from "../pet-card";
 
-const PetsWrapper = ({ pets }) => {
+const PetsWrapper = ({ pets, noResultsMessage }) => {
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Grid container spacing={3} justifyContent="center">
@@ -17,7 +17,7 @@ const PetsWrapper = ({ pets }) => {
             color="primary"
             sx={{ display: "flex", mx: "auto", my: 8 }}
           >
-            Няма добавени животни
+            {noResultsMessage || "Няма добавени животни"}
           </Typography>
         )}
       </Grid>

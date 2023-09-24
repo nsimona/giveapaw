@@ -12,6 +12,7 @@ import {
   LOGINREQUIRED,
   FAVORITES,
   SEARCH,
+  APPLICATION,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -28,6 +29,7 @@ import Loading from "../components/loading";
 import { getCurrentUser } from "../redux/slices/user/userThunk";
 import Favorites from "../pages/favorites";
 import Search from "../pages/search-result";
+import Application from "../pages/application";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +38,9 @@ export const RouterConfig = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const showHeader =
-    location.pathname !== "/login" && location.pathname !== "/register";
+  const noHeaderPages = ["/login", "/register", "/application"];
+
+  const showHeader = !noHeaderPages.includes(location.pathname);
 
   const currentUser = async () => {
     dispatch(getCurrentUser());
@@ -60,6 +63,7 @@ export const RouterConfig = () => {
         <Route exact path={ROOT} element={<Home />} />
         <Route exact path={SEARCH} element={<Search />} />
         <Route path={PET} element={<Pet />} />
+        <Route path={APPLICATION} element={<Application />} />
         {/* List all public routes, that required logout if the user is logged in, here */}
         <Route
           exact

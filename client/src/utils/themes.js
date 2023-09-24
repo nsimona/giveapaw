@@ -72,6 +72,12 @@ const theme = createTheme({
       dark: "#1565c0",
       contrastText: "#fff",
     },
+    yellow: {
+      light: "#feda5a",
+      main: "#fed039",
+      dark: "#ffc825",
+      contrastText: "#000",
+    },
   },
 });
 

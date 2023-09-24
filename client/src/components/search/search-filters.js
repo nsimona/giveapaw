@@ -7,15 +7,34 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
-import { petTypeOptions } from "../../assets/pet-options";
+import {
+  basicBreedsOptions,
+  petAgeOptions,
+  petColorsOptions,
+  petGenderOptions,
+  petSizeOptions,
+  petTypeOptions,
+} from "../../assets/pet-options";
+import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
-const CustomSelectFiltersWrapper = ({ id, options, label, value, icon }) => {
+// TODO export as select with icon separate component
+const CustomSelectFiltersWrapper = ({ id, options, label, icon }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectValue, setSelectValue] = useState(searchParams.get(id) || "");
+
+  const onChange = (e) => {
+    setSelectValue(e.target.value);
+    searchParams.set(id, e.target.value);
+    setSearchParams(searchParams);
+  };
+
   return (
     <CustomSelect
-      id="search-age"
-      options={petTypeOptions}
+      id={id}
+      options={options}
       label={label}
-      value="dog"
+      value={selectValue}
       fullWidth={false}
       selectProps={{
         size: "small",
@@ -23,7 +42,7 @@ const CustomSelectFiltersWrapper = ({ id, options, label, value, icon }) => {
           <InputAdornment position="start">{icon}</InputAdornment>
         ),
       }}
-      onChange={(e) => {}}
+      onChange={onChange}
       sx={{ flex: 1 }}
     />
   );
@@ -47,24 +66,42 @@ const SearchFilters = () => {
           my: 2,
         }}
       >
-        <CustomSelectFiltersWrapper icon={<PetsIcon />} label="Вид" />
         <CustomSelectFiltersWrapper
+          id="type"
+          icon={<PetsIcon />}
+          label="Вид"
+          options={petTypeOptions}
+        />
+        <CustomSelectFiltersWrapper
+          id="breed"
           icon={<TypeSpecimenOutlinedIcon />}
           label="Порода"
+          options={basicBreedsOptions}
         />
         <CustomSelectFiltersWrapper
+          id="age"
           icon={<AccessTimeOutlinedIcon />}
           label="Възраст"
+          options={petAgeOptions}
         />
         <CustomSelectFiltersWrapper
+          id="color"
           icon={<ColorLensOutlinedIcon />}
           label="Цвят"
+          options={petColorsOptions}
         />
         <CustomSelectFiltersWrapper
+          id="size"
           icon={<StraightenOutlinedIcon />}
           label="Размер"
+          options={petSizeOptions}
         />
-        <CustomSelectFiltersWrapper icon={<FemaleOutlinedIcon />} label="Пол" />
+        <CustomSelectFiltersWrapper
+          id="gender"
+          icon={<FemaleOutlinedIcon />}
+          label="Пол"
+          options={petGenderOptions}
+        />
       </Grid>
     </Container>
   );

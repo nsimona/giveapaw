@@ -13,6 +13,7 @@ const SearchMain = () => {
         backgroundPosition: "center center",
         display: "flex",
         alignItems: "end",
+        mb: 4,
       }}
     >
       <Container maxWidth="lg">

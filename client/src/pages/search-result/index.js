@@ -1,25 +1,40 @@
 import { Container, Typography } from "@mui/material";
 import SearchFilters from "../../components/search/search-filters";
 import PetsWrapper from "../../components/pets-wrapper";
-// import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPetQuery } from "../../services/api";
 
 const Search = () => {
-  // type, breed, age, color, size, gender
-  // const query = useSelector(
-  //   (state) => state.app.searchQuery
-  // );
+  const [pets, setPets] = useState([]);
+  const [searchParams] = useSearchParams();
 
-  // const
+  // TODO fix loading
+  useEffect(() => {
+    const params = {};
+    for (let [key, value] of searchParams.entries()) {
+      params[key] = value;
+    }
+
+    getPetQuery(params)
+      .then((response) => {
+        setPets(response);
+      })
+      .catch(() => {});
+
+    console.log(params);
+  }, [searchParams]);
 
   return (
     <>
       <SearchFilters />
       <Container maxWidth="lg">
         <Typography variant="h4" color="secondary" sx={{ mb: 4 }}>
-          136 резултата от търсенето
+          {pets.length} {pets.length === 1 ? "резултат" : "резултата"} от
+          търсенето
         </Typography>
         <PetsWrapper
-          pets={[]}
+          pets={pets}
           noResultsMessage="Няма намерени животни по зададените критерии"
         />
       </Container>

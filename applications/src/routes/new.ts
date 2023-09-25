@@ -30,7 +30,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { petId, message, userInfo } = req.body;
+    const { petId, message, candidatePhone, candidateEmail } = req.body;
     const pet = await Pet.findById(petId);
     if (!pet) {
       throw new NotFoundError();
@@ -39,7 +39,7 @@ router.post(
     const isAdopted = await pet.isAdopted();
     if (isAdopted) {
       throw new BadRequestError(
-        "Application for this pet has already been approved"
+        "An application for this pet has already been approved"
       );
     }
 
@@ -47,28 +47,31 @@ router.post(
     expiration.setDate(expiration.getDate() + EXPIRATION_DAYS);
 
     const application = Application.build({
+      // userId is the user that wants to adopt the pet
       userId: req.currentUser!.id,
       status: ApplicationStatus.Created,
       expiresAt: expiration,
       message,
       pet,
-      userInfo,
+      candidatePhone,
+      candidateEmail,
     });
 
     await application.save();
 
-    new ApplicationCreatedPublisher(natsWrapper.client).publish({
-      id: application.id,
-      status: application.status,
-      userId: application.id,
-      expiresAt: application.expiresAt.toISOString(),
-      version: application.version,
-      pet: {
-        id: pet.id,
-        name: pet.name,
-        type: pet.type,
-      },
-    });
+    // new ApplicationCreatedPublisher(natsWrapper.client).publish({
+    //   id: application.id,
+    //   status: application.status,
+    //   candidatePhone: application.candidatePhone,
+    //   candidateEmail: application.candidateEmail,
+    //   expiresAt: application.expiresAt.toISOString(),
+    //   version: application.version,
+    //   pet: {
+    //     id: pet.id,
+    //     name: pet.name,
+    //     type: pet.type,
+    //   },
+    // });
 
     res.status(201).send(application);
   }

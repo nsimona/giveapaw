@@ -19,22 +19,44 @@ import Face5Icon from "@mui/icons-material/Face5";
 import Face6Icon from "@mui/icons-material/Face6";
 import PetsIcon from "@mui/icons-material/Pets";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ApplicationMatch from "../../components/application-match";
 import ApplicationBox from "../../components/application-box";
 
-const Application = () => {
-  const navigate = useNavigate();
+const faces = [
+  <FaceIcon />,
+  <Face2Icon />,
+  <Face3Icon />,
+  <Face4Icon />,
+  <Face5Icon />,
+  <Face6Icon />,
+];
 
-  const faces = [
-    <FaceIcon />,
-    <Face2Icon />,
-    <Face3Icon />,
-    <Face4Icon />,
-    <Face5Icon />,
-    <Face6Icon />,
-  ];
+const Application = ({
+  name,
+  type,
+  id,
+  onApply,
+  readOnly = false,
+  application,
+}) => {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [candidatePhone, setCandidatePhone] = useState("");
+  const [candidateEmail, setCandidateEmail] = useState("");
   const [currentFaceIcon, setCurrentFaceIcon] = useState(0);
+
+  useEffect(() => {
+    if (application !== undefined) {
+      setCandidatePhone(application.candidatePhone);
+      setCandidateEmail(application.candidateEmail);
+      setMessage(application.message);
+    }
+  }, [application]);
+
+  const onApplyClick = () => {
+    onApply(message, candidatePhone, candidateEmail);
+  };
 
   return (
     <>
@@ -49,6 +71,7 @@ const Application = () => {
           }}
         >
           <Button
+            disabled={readOnly}
             startIcon={<ChevronLeftOutlined />}
             sx={{ alignSelf: "flex-start" }}
             color="neutral"
@@ -57,7 +80,7 @@ const Application = () => {
             Назад
           </Button>
           <Typography variant="body2" sx={{ color: "#fff" }}>
-            Кандидатура за осиновяване | Плутон
+            Кандидатура за осиновяване | {name}
           </Typography>
           <Typography variant="body2" sx={{ color: "#fff" }}>
             {new Date().toLocaleDateString("bg-BG")}
@@ -85,6 +108,7 @@ const Application = () => {
             }}
           >
             <IconButton
+              disabled={readOnly}
               onClick={() =>
                 currentFaceIcon === faces.length - 1
                   ? setCurrentFaceIcon(0)
@@ -107,7 +131,7 @@ const Application = () => {
           >
             <PetsIcon color="neutralText" />
             <Typography variant="subtitle1" sx={{ px: 1 }}>
-              <strong>Плутон</strong>
+              <strong>{name}</strong>
             </Typography>
           </Box>
         </Box>
@@ -132,44 +156,84 @@ const Application = () => {
             активен
           </Box>
         </ApplicationBox>
+
         <ApplicationBox title="Допълни своята кандидатура">
+          <TextField
+            disabled={readOnly}
+            required
+            multiline
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+            rows={5}
+            fullWidth
+            placeholder={`Изпрати персонално съобщение до собственика на ${name}`}
+          />
+        </ApplicationBox>
+        <ApplicationBox title="Информация*">
+          <TextField
+            disabled={readOnly}
+            required
+            id="name"
+            name="name"
+            label="Телефон"
+            value={candidatePhone}
+            onChange={(e) => {
+              setCandidatePhone(e.target.value);
+            }}
+            fullWidth
+          />
+          <TextField
+            disabled={readOnly}
+            required
+            id="name"
+            name="name"
+            label="Имейл"
+            value={candidateEmail}
+            onChange={(e) => {
+              setCandidateEmail(e.target.value);
+            }}
+            fullWidth
+            sx={{ my: 2 }}
+          />
+          {!readOnly && (
+            <Typography variant="body2" sx={{ px: 1 }} color="neutral">
+              *Задължително е да попълниш полетата преди да изпратиш
+              кандидатурата; провери два път данните, които предоставяш
+            </Typography>
+          )}
+        </ApplicationBox>
+
+        {!readOnly && (
+          <Button
+            variant="contained"
+            size="big"
+            sx={{ alignSelf: "center" }}
+            onClick={onApplyClick}
+          >
+            Изпрати
+          </Button>
+        )}
+        {/* 
+        <ApplicationBox title="Изпрати персонално съобщение до Юлия">
           <TextField
             required
             multiline
             rows={5}
             fullWidth
-            placeholder="Изпрати персонално съобщение до собственика на Плутон"
+            placeholder="Имейл, телефон..."
           />
-        </ApplicationBox>
-        <ApplicationBox title="Информация*">
-          <TextField
-            required
-            id="name"
-            name="name"
-            label="Телефон"
-            value=""
-            onChange={(e) => {}}
-            fullWidth
-          />
-          <TextField
-            required
-            id="name"
-            name="name"
-            label="Имейл"
-            value=""
-            onChange={(e) => {}}
-            fullWidth
-            sx={{ my: 2 }}
-          />
-          <Typography variant="body2" sx={{ px: 1 }} color="neutral">
-            *Задължително е да попълниш полетата преди да изпратиш
-            кандидатурата; провери два път данните, които предоставяш
-          </Typography>
         </ApplicationBox>
 
-        <Button variant="contained" size="big" sx={{ alignSelf: "center" }}>
-          Изпрати
-        </Button>
+        <Box display="flex" gap={3} justifyContent="center">
+          <Button variant="contained" size="big" color="red">
+            Отхвърли
+          </Button>
+          <Button variant="contained" size="big" color="green">
+            Одобри
+          </Button>
+        </Box> */}
       </Container>
     </>
   );

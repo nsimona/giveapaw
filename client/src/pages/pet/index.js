@@ -13,8 +13,9 @@ import {
 import PetCardActionButton from "../../components/pet-card-action-button";
 import { useEffect, useState } from "react";
 import { getPet } from "../../services/api";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { setApplicationPet } from "../../redux/slices/application/applicationSlice";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -55,6 +56,8 @@ const Pet = () => {
   let { id } = useParams();
   const userId = useSelector((state) => state.user.id);
   const userRole = useSelector((state) => state.user.role);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getPetInfo = async () => {
     const pet = await getPet(id);
@@ -64,6 +67,12 @@ const Pet = () => {
   useEffect(() => {
     getPetInfo();
   }, []);
+
+  const apply = () => {
+    const { name, type, id } = pet;
+    dispatch(setApplicationPet({ name, type, id }));
+    navigate("/application/create");
+  };
 
   return (
     <Grid>
@@ -129,7 +138,11 @@ const Pet = () => {
                     <strong>Искаш да осиновиш Плутон?</strong>
                   </Typography>
                   България, София-град
-                  <Button variant="contained" disabled={pet.userId === userId}>
+                  <Button
+                    variant="contained"
+                    disabled={pet.userId === userId}
+                    onClick={apply}
+                  >
                     Кандидатствай за осиновител
                   </Button>
                   <Typography variant="body2">

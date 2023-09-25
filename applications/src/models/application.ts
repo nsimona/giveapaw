@@ -9,7 +9,8 @@ interface ApplicationAttrs {
   expiresAt: Date;
   message: string;
   pet: PetDoc;
-  userInfo: string;
+  candidatePhone: string;
+  candidateEmail: string;
 }
 interface ApplicationDoc extends mongoose.Document {
   userId: string;
@@ -18,7 +19,8 @@ interface ApplicationDoc extends mongoose.Document {
   message: string;
   pet: PetDoc;
   version: number;
-  userInfo: string;
+  candidatePhone: string;
+  candidateEmail: string;
 }
 interface ApplicationModel extends mongoose.Model<ApplicationDoc> {
   build(attrs: ApplicationAttrs): ApplicationDoc;
@@ -47,9 +49,13 @@ const applicationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Pet",
     },
-    userInfo: {
+    candidatePhone: {
       type: String,
       required: true,
+    },
+    candidateEmail: {
+      type: String,
+      required: false,
     },
   },
   {

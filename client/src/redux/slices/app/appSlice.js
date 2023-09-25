@@ -5,14 +5,6 @@ const initialState = {
     severity: "",
     message: "",
   },
-  searchQuery: {
-    type: "",
-    breed: "",
-    age: "",
-    color: "",
-    size: "",
-    gender: "",
-  },
 };
 
 export const appSlice = createSlice({

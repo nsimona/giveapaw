@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// user
 export const signup = async (data) => {
   try {
     const response = await axios.post("/api/users/signup", data);
@@ -50,6 +51,7 @@ export const updateFavorites = async (data) => {
   }
 };
 
+// pet
 export const createPet = async (data) => {
   try {
     const response = await axios.post("/api/pets", data);
@@ -97,6 +99,37 @@ export const getPetByStatus = async ({ status }) => {
 export const getPet = async (id) => {
   try {
     const response = await axios.get(`/api/pets/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+// application
+export const createApplication = async (data) => {
+  try {
+    const response = await axios.post("/api/applications", data);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+export const getApplications = async () => {
+  try {
+    const response = await axios.get("/api/applications");
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+export const getApplication = async (id) => {
+  try {
+    const response = await axios.get(`/api/applications/${id}`);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

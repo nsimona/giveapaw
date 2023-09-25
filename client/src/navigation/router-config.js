@@ -12,7 +12,7 @@ import {
   LOGINREQUIRED,
   FAVORITES,
   SEARCH,
-  APPLICATION,
+  CREATEAPPLICATION,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -29,7 +29,7 @@ import Loading from "../components/loading";
 import { getCurrentUser } from "../redux/slices/user/userThunk";
 import Favorites from "../pages/favorites";
 import Search from "../pages/search-result";
-import Application from "../pages/application";
+import CreateApplicationWrapper from "../pages/application/create-application-wrapper";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ export const RouterConfig = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const noHeaderPages = ["/login", "/register", "/application"];
+  const noHeaderPages = ["/login", "/register", "/application/create"];
 
   const showHeader = !noHeaderPages.includes(location.pathname);
 
@@ -63,7 +63,6 @@ export const RouterConfig = () => {
         <Route exact path={ROOT} element={<Home />} />
         <Route exact path={SEARCH} element={<Search />} />
         <Route path={PET} element={<Pet />} />
-        <Route path={APPLICATION} element={<Application />} />
         {/* List all public routes, that required logout if the user is logged in, here */}
         <Route
           exact
@@ -83,6 +82,14 @@ export const RouterConfig = () => {
           }
         />
         {/* List all private/auth routes here */}
+        <Route
+          path={CREATEAPPLICATION}
+          element={
+            <AuthWrapper>
+              <CreateApplicationWrapper />
+            </AuthWrapper>
+          }
+        />
         <Route
           exact
           path={ACCOUNT}

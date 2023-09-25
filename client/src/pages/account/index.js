@@ -8,9 +8,15 @@ import UserPets from "../../components/user-pets";
 import { useSelector } from "react-redux";
 import PetsByStatusTab from "./pets-by-status-tab";
 import SettingsTab from "./settings-tab";
+import UserApplications from "../../components/user-applications";
 
 const tabsContent = {
-  user: [<UserPets />, <></>, <UserPreferences />, <SettingsTab />],
+  user: [
+    <UserPets />,
+    <UserApplications />,
+    <UserPreferences />,
+    <SettingsTab />,
+  ],
   admin: [
     <PetsByStatusTab status="pending" />,
     <PetsByStatusTab status="active" />,

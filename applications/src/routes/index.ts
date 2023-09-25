@@ -4,6 +4,7 @@ import { Application } from "../models/application";
 
 const router = express.Router();
 
+// return all applications made by the user
 router.get(
   "/api/applications",
   requireAuth,

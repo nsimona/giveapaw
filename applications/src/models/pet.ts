@@ -7,11 +7,13 @@ interface PetAttrs {
   name: string;
   type: string;
   id: string;
+  ownerId: string;
 }
 export interface PetDoc extends mongoose.Document {
   type: string;
   name: string;
   version: number;
+  ownerId: string;
   isAdopted(): Promise<boolean>;
 }
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -26,6 +28,10 @@ const petSchema = new mongoose.Schema(
       required: true,
     },
     name: {
+      type: String,
+      required: true,
+    },
+    ownerId: {
       type: String,
       required: true,
     },
@@ -54,6 +60,7 @@ petSchema.statics.build = (attrs: PetAttrs) => {
     _id: attrs.id,
     type: attrs.type,
     name: attrs.name,
+    ownerId: attrs.ownerId,
   });
 };
 

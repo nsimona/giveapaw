@@ -6,6 +6,7 @@ import { indexApplicationRouter } from "./routes";
 import { deleteApplciationRouter } from "./routes/delete";
 import { showApplicationRouter } from "./routes/show";
 import { newApplicationRouter } from "./routes/new";
+import { petApplicationsRouter } from "./routes/pet-applications";
 
 const app = express();
 app.use(json());
@@ -24,6 +25,7 @@ app.use(indexApplicationRouter);
 app.use(showApplicationRouter);
 app.use(newApplicationRouter);
 app.use(deleteApplciationRouter);
+app.use(petApplicationsRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

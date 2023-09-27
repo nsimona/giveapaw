@@ -117,7 +117,17 @@ export const createApplication = async (data) => {
   }
 };
 
-export const getApplications = async () => {
+export const getPetApplications = async (petId) => {
+  try {
+    const response = await axios.get(`/api/applications/pet/${petId}`);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+export const getUserApplications = async () => {
   try {
     const response = await axios.get("/api/applications");
     return response.data;

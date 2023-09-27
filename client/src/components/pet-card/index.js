@@ -34,6 +34,7 @@ const PetCard = ({
   isEditable,
   pet: { name, coverPhoto, age, gender, type, breed, size, id, status = null },
   onApplicationsButtonClick,
+  applications,
 }) => {
   return (
     <Card sx={{ width: "320px", maxWidth: "100%", borderRadius: 3 }}>
@@ -68,13 +69,10 @@ const PetCard = ({
             {labelCopy[status]}
           </Box>
         )}
-        {isEditable ? (
-          <Box
-            sx={{ position: "absolute", top: 20, right: 20 }}
-            onClick={onApplicationsButtonClick}
-          >
-            <Tooltip title="4 кандидатури">
-              <Badge badgeContent={4} color="primary">
+        {isEditable && applications ? (
+          <Box sx={{ position: "absolute", top: 20, right: 20 }}>
+            <Tooltip title={`${applications} кандидатури`}>
+              <Badge badgeContent={applications} color="primary">
                 <TextSnippetIcon color="secondary" />
               </Badge>
             </Tooltip>

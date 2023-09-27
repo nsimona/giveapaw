@@ -46,6 +46,8 @@ router.post(
     const expiration = new Date();
     expiration.setDate(expiration.getDate() + EXPIRATION_DAYS);
 
+    const now = new Date();
+
     const application = Application.build({
       // userId is the user that wants to adopt the pet
       userId: req.currentUser!.id,
@@ -55,6 +57,7 @@ router.post(
       pet,
       candidatePhone,
       candidateEmail,
+      createdAt: now,
     });
 
     await application.save();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StickyHeadTable from "../sticky-head-table";
-import { getApplications } from "../../services/api";
+import { getUserApplications } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
 import StatusTag from "../sticky-head-table/status-tag";
@@ -25,23 +25,22 @@ const UserApplications = () => {
   const [selectedApplicationId, setSelecetedApplicationId] = useState(false);
   const dispatch = useDispatch();
 
-  const getUserApplications = async () => {
-    try {
-      const applications = await getApplications();
-      setApplications(applications);
-    } catch (error) {
-      dispatch(
-        setAlert({
-          type: "error",
-          message: `Грешка при зареждане на кандидатури, ${error}`,
-        })
-      );
-    }
-  };
-
   useEffect(() => {
-    getUserApplications();
-  }, []);
+    const fetchUserApplications = async () => {
+      try {
+        const applications = await getUserApplications();
+        setApplications(applications);
+      } catch (error) {
+        dispatch(
+          setAlert({
+            type: "error",
+            message: `Грешка при зареждане на кандидатури, ${error}`,
+          })
+        );
+      }
+    };
+    fetchUserApplications();
+  }, [dispatch]);
 
   const onApplicationClick = (applicationId) => {
     setIsDialogOpen(true);

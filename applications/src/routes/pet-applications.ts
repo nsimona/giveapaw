@@ -10,33 +10,40 @@ import { Pet } from "../models/pet";
 
 const router = express.Router();
 
-// return all applications made by the user
+// return all applications for a specific pet
 router.get(
   "/api/applications/pet/:petId",
   requireAuth,
   async (req: Request, res: Response) => {
     const { petId } = req.params;
-    // const pet = await Pet.findOne({
-    //   _id: petId,
-    // });
+    const pet = await Pet.findOne({
+      _id: petId,
+    });
 
-    // if (!pet) {
-    //   console.log("pet not found");
-    //   throw new NotFoundError();
-    // }
+    if (!pet) {
+      throw new NotFoundError();
+    }
 
-    // if (req.currentUser!.id !== pet.ownerId) {
-    //   throw new NotAuthorizedError();
-    // }
+    if (req.currentUser!.id !== pet.ownerId) {
+      throw new NotAuthorizedError();
+    }
 
-    // const applications = await Application.find({
-    //   //   userId: req.currentUser!.id,
-    //   pet: {
-    //     ownerId: req.currentUser!.id,
-    //   },
-    // }).populate("pet");
+    const applications = await Application.find(
+      {
+        pet: {
+          _id: petId,
+        },
+      },
+      {
+        // candidateName: 1,
+        // candaidateCity: 1,
+        createdAt: 1,
+        status: 1,
+        id: 1,
+      }
+    ).populate("pet");
 
-    // res.send(applications);
+    res.send(applications);
   }
 );
 

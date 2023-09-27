@@ -6,9 +6,9 @@ import Loading from "../../components/loading";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
 import SearchMain from "../../components/search/search-main";
-import { Container, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
-import FlipCard from "../../components/flip-card";
+// import { Container, Grid } from "@mui/material";
+// import { Link } from "react-router-dom";
+// import FlipCard from "../../components/flip-card";
 
 function Home() {
   const [pets, setPets] = useState([]);

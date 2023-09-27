@@ -11,6 +11,7 @@ interface ApplicationAttrs {
   pet: PetDoc;
   candidatePhone: string;
   candidateEmail: string;
+  createdAt: Date;
 }
 interface ApplicationDoc extends mongoose.Document {
   userId: string;
@@ -21,7 +22,9 @@ interface ApplicationDoc extends mongoose.Document {
   version: number;
   candidatePhone: string;
   candidateEmail: string;
+  createdAt: Date;
 }
+
 interface ApplicationModel extends mongoose.Model<ApplicationDoc> {
   build(attrs: ApplicationAttrs): ApplicationDoc;
 }
@@ -56,6 +59,10 @@ const applicationSchema = new mongoose.Schema(
     candidateEmail: {
       type: String,
       required: false,
+    },
+    createdAt: {
+      type: mongoose.Schema.Types.Date,
+      required: true,
     },
   },
   {

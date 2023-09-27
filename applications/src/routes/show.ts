@@ -18,7 +18,12 @@ router.get(
     if (!application) {
       throw new NotFoundError();
     }
-    if (application.userId !== req.currentUser!.id) {
+
+    // the application is accessible only for the owner of the pet and for the creator of the application
+    if (
+      req.currentUser!.id !== application.userId &&
+      req.currentUser!.id !== application.pet.ownerId
+    ) {
       throw new NotAuthorizedError();
     }
     res.send(application);

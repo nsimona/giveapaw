@@ -19,7 +19,7 @@ import Face5Icon from "@mui/icons-material/Face5";
 import Face6Icon from "@mui/icons-material/Face6";
 import PetsIcon from "@mui/icons-material/Pets";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ApplicationMatch from "../../components/application-match";
 import ApplicationBox from "../../components/application-box";
 
@@ -33,30 +33,13 @@ const faces = [
 ];
 
 const Application = ({
-  name,
-  type,
-  id,
-  onApply,
+  pet: { name, type, id },
   readOnly = false,
-  application,
+  date = new Date().toLocaleDateString("bg-BG"),
+  children,
 }) => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  const [candidatePhone, setCandidatePhone] = useState("");
-  const [candidateEmail, setCandidateEmail] = useState("");
   const [currentFaceIcon, setCurrentFaceIcon] = useState(0);
-
-  useEffect(() => {
-    if (application !== undefined) {
-      setCandidatePhone(application.candidatePhone);
-      setCandidateEmail(application.candidateEmail);
-      setMessage(application.message);
-    }
-  }, [application]);
-
-  const onApplyClick = () => {
-    onApply(message, candidatePhone, candidateEmail);
-  };
 
   return (
     <>
@@ -83,7 +66,7 @@ const Application = ({
             Кандидатура за осиновяване | {name}
           </Typography>
           <Typography variant="body2" sx={{ color: "#fff" }}>
-            {new Date().toLocaleDateString("bg-BG")}
+            {date}
           </Typography>
         </Container>
       </AppBar>
@@ -139,9 +122,6 @@ const Application = ({
 
         <ApplicationMatch type="full-match" />
         <ApplicationMatch type="good-match" />
-
-        {/* <ApplicationBox title="Повече за Юлия">
-        </ApplicationBox> */}
         <ApplicationBox title="Идеалният домашен любимец на Юлия е">
           <Box
             sx={{
@@ -156,84 +136,7 @@ const Application = ({
             активен
           </Box>
         </ApplicationBox>
-
-        <ApplicationBox title="Допълни своята кандидатура">
-          <TextField
-            disabled={readOnly}
-            required
-            multiline
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            rows={5}
-            fullWidth
-            placeholder={`Изпрати персонално съобщение до собственика на ${name}`}
-          />
-        </ApplicationBox>
-        <ApplicationBox title="Информация*">
-          <TextField
-            disabled={readOnly}
-            required
-            id="name"
-            name="name"
-            label="Телефон"
-            value={candidatePhone}
-            onChange={(e) => {
-              setCandidatePhone(e.target.value);
-            }}
-            fullWidth
-          />
-          <TextField
-            disabled={readOnly}
-            required
-            id="name"
-            name="name"
-            label="Имейл"
-            value={candidateEmail}
-            onChange={(e) => {
-              setCandidateEmail(e.target.value);
-            }}
-            fullWidth
-            sx={{ my: 2 }}
-          />
-          {!readOnly && (
-            <Typography variant="body2" sx={{ px: 1 }} color="neutral">
-              *Задължително е да попълниш полетата преди да изпратиш
-              кандидатурата; провери два път данните, които предоставяш
-            </Typography>
-          )}
-        </ApplicationBox>
-
-        {!readOnly && (
-          <Button
-            variant="contained"
-            size="big"
-            sx={{ alignSelf: "center" }}
-            onClick={onApplyClick}
-          >
-            Изпрати
-          </Button>
-        )}
-        {/* 
-        <ApplicationBox title="Изпрати персонално съобщение до Юлия">
-          <TextField
-            required
-            multiline
-            rows={5}
-            fullWidth
-            placeholder="Имейл, телефон..."
-          />
-        </ApplicationBox>
-
-        <Box display="flex" gap={3} justifyContent="center">
-          <Button variant="contained" size="big" color="red">
-            Отхвърли
-          </Button>
-          <Button variant="contained" size="big" color="green">
-            Одобри
-          </Button>
-        </Box> */}
+        {children}
       </Container>
     </>
   );

@@ -55,7 +55,7 @@ const UserPets = () => {
               date: new Date(application.createdAt).toLocaleDateString(),
               name: "test", // Replace with actual name if needed
               status: <StatusTag status={application.status} />,
-              applicationId: application.id,
+              id: application.id,
             }));
           })
         );
@@ -104,7 +104,10 @@ const UserPets = () => {
             <PetCard
               isEditable
               pet={pet}
-              applications={applications[pet.id]?.length}
+              applications={
+                applications[pet.id]?.filter((a) => a.status === "created")
+                  .length
+              }
             />
             <Grid item>
               <Grid item sx={{ width: "100%" }}>

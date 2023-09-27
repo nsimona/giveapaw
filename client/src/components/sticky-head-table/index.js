@@ -7,8 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-// refactor onRowClick application id
-
 const StickyHeadTable = ({ columns = [{}], rows = [{}], onRowClick }) => {
   return (
     <Paper sx={{ width: "100%", overflow: "auto", my: 3, borderRadius: 3 }}>
@@ -36,7 +34,7 @@ const StickyHeadTable = ({ columns = [{}], rows = [{}], onRowClick }) => {
                   tabIndex={-1}
                   key={row.code}
                   sx={onRowClick ? { cursor: "pointer" } : {}}
-                  onClick={() => onRowClick(row.applicationId)}
+                  onClick={() => onRowClick(row.id)}
                 >
                   {columns.map((column) => {
                     const value = row[column.id];

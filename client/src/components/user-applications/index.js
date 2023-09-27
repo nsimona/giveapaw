@@ -61,7 +61,7 @@ const UserApplications = () => {
           </Link>
         ),
         status: <StatusTag status={application.status} />,
-        applicationId: application.id,
+        id: application.id,
       };
     });
     setRows(rowsData);

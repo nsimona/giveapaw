@@ -69,9 +69,9 @@ const PetCard = ({
             {labelCopy[status]}
           </Box>
         )}
-        {isEditable && applications ? (
+        {isEditable && applications !== undefined ? (
           <Box sx={{ position: "absolute", top: 20, right: 20 }}>
-            <Tooltip title={`${applications} кандидатури`}>
+            <Tooltip title={`${applications} активни кандидатури`}>
               <Badge badgeContent={applications} color="primary">
                 <TextSnippetIcon color="secondary" />
               </Badge>

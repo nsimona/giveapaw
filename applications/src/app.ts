@@ -3,7 +3,7 @@ import "express-async-errors";
 import { currentUser, errorHandler, NotFoundError } from "@giveapaw/common";
 import cookieSession from "cookie-session";
 import { indexApplicationRouter } from "./routes";
-import { deleteApplciationRouter } from "./routes/delete";
+import { changeStatusApplciationRouter } from "./routes/change-status";
 import { showApplicationRouter } from "./routes/show";
 import { newApplicationRouter } from "./routes/new";
 import { petApplicationsRouter } from "./routes/pet-applications";
@@ -24,7 +24,7 @@ app.use(currentUser);
 app.use(indexApplicationRouter);
 app.use(showApplicationRouter);
 app.use(newApplicationRouter);
-app.use(deleteApplciationRouter);
+app.use(changeStatusApplciationRouter);
 app.use(petApplicationsRouter);
 
 app.all("*", async () => {

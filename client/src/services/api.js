@@ -146,3 +146,13 @@ export const getApplication = async (id) => {
     throw error;
   }
 };
+
+export const changeApplicationStatus = async (data) => {
+  try {
+    const response = await axios.patch("/api/applications/", data);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};

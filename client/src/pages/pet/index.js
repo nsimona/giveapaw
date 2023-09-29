@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
-  Button,
   Container,
   Divider,
   Grid,
   ImageList,
   ImageListItem,
-  TextField,
   Typography,
 } from "@mui/material";
 import PetCardActionButton from "../../components/pet-card-action-button";
 import { useEffect, useState } from "react";
-import { getPet } from "../../services/api";
+import { changePetStatus, getPet } from "../../services/api";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationPet } from "../../redux/slices/application/applicationSlice";
+import AdminPetControls from "./admin-pet-controls";
+import UserPetControls from "./user-pet-controls";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -55,13 +56,13 @@ const Pet = () => {
   const [pet, setPet] = useState({});
   let { id } = useParams();
   const userId = useSelector((state) => state.user.id);
-  const userRole = useSelector((state) => state.user.role);
+  const adminView = useSelector((state) => state.user.role === "admin");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getPetInfo = async () => {
-    const pet = await getPet(id);
-    setPet({ ...pet, status: "pending" });
+    const petInfo = await getPet(id);
+    setPet(petInfo);
   };
 
   useEffect(() => {
@@ -72,6 +73,28 @@ const Pet = () => {
     const { name, type, id } = pet;
     dispatch(setApplicationPet({ name, type, id }));
     navigate("/application/create");
+  };
+
+  // admin controls
+
+  const onChangeStatusButtonClick = async (status, message) => {
+    try {
+      const updatedPet = await changePetStatus({ petId: id, status, message });
+      setPet(updatedPet);
+      dispatch(
+        setAlert({
+          severity: "success",
+          message: "Успешно променен статус",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        setAlert({
+          severity: "error",
+          message: "Грешка, статусът не беше променен",
+        })
+      );
+    }
   };
 
   return (
@@ -132,69 +155,16 @@ const Pet = () => {
                 flexDirection: "column",
               }}
             >
-              {userRole === "user" ? (
-                <>
-                  <Typography variant="h6">
-                    <strong>Искаш да осиновиш Плутон?</strong>
-                  </Typography>
-                  България, София-град
-                  <Button
-                    variant="contained"
-                    disabled={pet.userId === userId}
-                    onClick={apply}
-                  >
-                    Кандидатствай за осиновител
-                  </Button>
-                  <Typography variant="body2">
-                    За да се свържеш със собственика на Плутон, канидадатствай
-                    през платформата
-                  </Typography>
-                </>
+              {adminView ? (
+                <AdminPetControls
+                  petStatus={pet.status}
+                  onButtonClick={onChangeStatusButtonClick}
+                />
               ) : (
-                <>
-                  <Typography variant="h6">
-                    <strong>Промени статуса на обявата за Плутон</strong>
-                  </Typography>
-                  {pet.status === "pending" && (
-                    <>
-                      <Button variant="contained" color="green">
-                        Одобри
-                      </Button>
-                      <Button variant="contained" color="red">
-                        Отхвърли
-                      </Button>
-                    </>
-                  )}
-
-                  {pet.status === "active" && (
-                    <Button variant="contained" color="blue">
-                      Архивирай
-                    </Button>
-                  )}
-
-                  {pet.status === "archived" && (
-                    <Typography variant="body2">
-                      Обявата не е активна и не могат да бъдат правени промени
-                      по нейния статус
-                    </Typography>
-                  )}
-
-                  {pet.status !== "archived" && (
-                    <>
-                      <Typography variant="body2">
-                        Задължително е да оставиш коментар преди да промениш
-                        статуса на обявата
-                      </Typography>
-                      <TextField
-                        multiline
-                        rows={3}
-                        fullWidth
-                        required
-                        placeholder="Коментар при промяна на статус"
-                      />
-                    </>
-                  )}
-                </>
+                <UserPetControls
+                  buttonDisabled={!userId || pet.userId === userId}
+                  onButtonClick={apply}
+                />
               )}
             </Box>
           </Grid>

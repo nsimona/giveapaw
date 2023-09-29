@@ -23,17 +23,22 @@ const flagStyles = {
     backgroundColor: "neutral.main",
     color: "neutral.contrastText",
   },
+  declined: {
+    backgroundColor: "red.light",
+    color: "neutral.light",
+  },
 };
 const labelCopy = {
   match: "Перфектно съвпадние",
   pending: "Изчаква одобрение",
   archived: "Архивирана",
+  declined: "Неодобрена",
 };
 
 const PetCard = ({
   isEditable,
-  pet: { name, coverPhoto, age, gender, type, breed, size, id, status = null },
-  onApplicationsButtonClick,
+  disableFavorites,
+  pet: { name, coverPhoto, age, gender, type, breed, size, id, status },
   applications,
 }) => {
   return (
@@ -49,11 +54,7 @@ const PetCard = ({
         <CardMedia
           component="img"
           height="180"
-          sx={
-            status === "pending" || status === "archived"
-              ? { filter: "grayscale(1)" }
-              : {}
-          }
+          sx={status === "archived" ? { filter: "grayscale(1)" } : {}}
           image="https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
         />
         {status && (
@@ -95,7 +96,11 @@ const PetCard = ({
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <PetCardActionButton id={id} isEditable={isEditable} />
+            <PetCardActionButton
+              id={id}
+              isEditable={isEditable}
+              disableFavorites={disableFavorites}
+            />
           </Grid>
           <Typography
             variant="body2"

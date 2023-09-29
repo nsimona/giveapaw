@@ -51,7 +51,7 @@ export const updateFavorites = async (data) => {
   }
 };
 
-// pet
+// pets
 export const createPet = async (data) => {
   try {
     const response = await axios.post("/api/pets", data);
@@ -86,7 +86,7 @@ export const getPetQuery = async (data) => {
   }
 };
 
-export const getPetByStatus = async ({ status }) => {
+export const getPetsByStatus = async ({ status }) => {
   try {
     const response = await axios.get(`/api/pets/status/${status}`);
     return response.data;
@@ -99,6 +99,16 @@ export const getPetByStatus = async ({ status }) => {
 export const getPet = async (id) => {
   try {
     const response = await axios.get(`/api/pets/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
+export const changePetStatus = async (data) => {
+  try {
+    const response = await axios.patch("/api/pets/status", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

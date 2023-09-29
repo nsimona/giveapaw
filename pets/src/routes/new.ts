@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import { Pet } from "../models/pet";
 import { PetCreatedPublisher } from "../events/publisher/pet-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
+import { PetStatus } from "../pet-status-enum";
 // import multer from "multer";
 
 // const storage = multer.diskStorage({
@@ -89,7 +90,7 @@ router.post(
       description,
       selectedFiles,
       selectedCoverIndex,
-      isActive: false,
+      status: PetStatus.Pending,
     });
     await pet.save();
 
@@ -110,6 +111,7 @@ router.post(
       characteristics,
       description,
       version: pet.version,
+      // status: "pending",
     });
 
     res.status(201).send(pet);

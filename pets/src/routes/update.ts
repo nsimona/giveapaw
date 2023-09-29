@@ -36,6 +36,10 @@ router.put(
       throw new BadRequestError("Pet has pending applications");
     }
 
+    if (pet.status !== "active") {
+      throw new BadRequestError("You can't update this pet");
+    }
+
     const {
       name,
       type,

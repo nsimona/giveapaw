@@ -49,7 +49,7 @@ router.post(
     const user = User.build({
       email,
       password,
-      role: "user",
+      role: "admin",
       firstName,
       lastName,
       city,

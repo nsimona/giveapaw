@@ -8,6 +8,7 @@ import { indexPetRouter } from "./routes";
 import { updatePetRouter } from "./routes/update";
 import { queryPetRouter } from "./routes/query";
 import { statusPetRouter } from "./routes/status";
+import { changeStatusPetRouter } from "./routes/change-status";
 
 const app = express();
 app.use(json());
@@ -28,6 +29,7 @@ app.use(createPetRouter);
 app.use(showPetRouter);
 app.use(indexPetRouter);
 app.use(updatePetRouter);
+app.use(changeStatusPetRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

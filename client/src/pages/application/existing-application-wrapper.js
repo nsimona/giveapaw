@@ -87,7 +87,7 @@ const ExisitingApplicationWrapper = ({ applictionId, ownerView = false }) => {
           </Button>
         </Box>
       ) : (
-        <Typography variant="body2" color="primary">
+        <Typography variant="body2" color="secondary">
           <strong>{candidateStatusMessage[application.status]}</strong>
         </Typography>
       )}

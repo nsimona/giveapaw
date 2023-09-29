@@ -102,7 +102,8 @@ const UserPets = () => {
         <>
           <Grid item sx={{ display: "flex", gap: 3 }}>
             <PetCard
-              isEditable
+              isEditable={pet.status === "active"}
+              disableFavorites
               pet={pet}
               applications={
                 applications[pet.id]?.filter((a) => a.status === "created")

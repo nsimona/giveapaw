@@ -7,7 +7,7 @@ const PetsWrapper = ({ pets, noResultsMessage }) => {
       <Grid container spacing={3} justifyContent="center">
         {pets.length ? (
           pets.map((pet) => (
-            <Grid md={3} item key={pet.id}>
+            <Grid md={4} item key={pet.id}>
               <PetCard pet={pet} />
             </Grid>
           ))

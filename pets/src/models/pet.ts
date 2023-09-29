@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import { PetStatus } from "../pet-status-enum";
 
 interface PetAttrs {
   // basic
@@ -21,7 +22,7 @@ interface PetAttrs {
   // photos
   selectedFiles: string[];
   selectedCoverIndex: number;
-  isActive: boolean;
+  status: PetStatus;
 }
 
 interface PetDoc extends mongoose.Document {
@@ -47,7 +48,7 @@ interface PetDoc extends mongoose.Document {
   version: number;
   // applciation
   applicationId?: string;
-  isActive: boolean;
+  status: PetStatus;
 }
 
 interface PetModel extends mongoose.Model<PetDoc> {
@@ -122,10 +123,10 @@ const petSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    isActive: {
-      type: Boolean,
+    status: {
+      type: String,
       required: true,
-      default: false,
+      enum: Object.values(PetStatus),
     },
   },
   {

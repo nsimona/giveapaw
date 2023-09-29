@@ -45,7 +45,7 @@ const start = async () => {
     throw new DatabaseConnectionError();
   }
   app.listen(3000, () => {
-    console.log("Pets -> Listening on port 3000!!!");
+    console.log("Pets -> Listening on port 3000");
   });
 };
 

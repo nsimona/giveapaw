@@ -27,7 +27,7 @@ const CreateApplicationWrapper = () => {
       if (application.id) {
         dispatch(
           setAlert({
-            type: "success",
+            severity: "success",
             message: `Успешно кандидатсва за осиновител на ${pet.name}`,
           })
         );
@@ -36,7 +36,7 @@ const CreateApplicationWrapper = () => {
     } catch (error) {
       dispatch(
         setAlert({
-          type: "error",
+          severity: "error",
           message: `Кандидатурата не е изпратена ${error}`,
         })
       );

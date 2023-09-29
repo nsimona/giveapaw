@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { Pet } from "../models/pet";
 import { isArrayOfValidMongoIds } from "../utils";
 import { BadRequestError } from "@giveapaw/common";
+import { petProjection } from "../pet-projection";
 
 const router = express.Router();
 
@@ -29,15 +30,7 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
     return;
   }
 
-  const pets = await Pet.find(req.query, {
-    name: 1,
-    breed: 1,
-    age: 1,
-    size: 1,
-    gender: 1,
-    type: 1,
-    // TODO add cover pic also
-  });
+  const pets = await Pet.find(req.query, petProjection);
 
   res.send(pets);
 });

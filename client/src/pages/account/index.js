@@ -20,6 +20,7 @@ const tabsContent = {
   admin: [
     <PetsByStatusTab status="pending" />,
     <PetsByStatusTab status="active" />,
+    <PetsByStatusTab status="declined" />,
     <PetsByStatusTab status="archived" />,
     <SettingsTab />,
   ],

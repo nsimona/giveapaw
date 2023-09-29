@@ -9,7 +9,11 @@ import { setPetEditorData } from "../../redux/slices/petSlice";
 import { getPet } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-const PetCardActionButton = ({ id, isEditable = false }) => {
+const PetCardActionButton = ({
+  id,
+  isEditable = false,
+  disableFavorites = false,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,11 +30,12 @@ const PetCardActionButton = ({ id, isEditable = false }) => {
   };
   return (
     <>
-      {isEditable ? (
+      {isEditable && (
         <IconButton onClick={handleEdit}>
           <EditIcon color="secondary" />
         </IconButton>
-      ) : (
+      )}
+      {!disableFavorites && (
         <IconButton color="primary" onClick={handlePetFavorite}>
           {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>

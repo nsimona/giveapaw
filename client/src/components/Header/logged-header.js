@@ -42,9 +42,9 @@ function LoggedHeader() {
 
   const signout = async () => {
     try {
+      navigate("/", { replace: true }); // <-- redirect
       const response = await api.signout();
       dispatch(setUser(response));
-      navigate("/", { replace: true }); // <-- redirect
     } catch (error) {
       dispatch(
         setAlert({

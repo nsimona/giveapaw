@@ -33,7 +33,7 @@ const UserApplications = () => {
       } catch (error) {
         dispatch(
           setAlert({
-            type: "error",
+            severity: "error",
             message: `Грешка при зареждане на кандидатури, ${error}`,
           })
         );

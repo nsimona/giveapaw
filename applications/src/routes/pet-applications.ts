@@ -28,7 +28,7 @@ router.get(
       throw new NotAuthorizedError();
     }
 
-    const applications = await Application.find(
+    const application = await Application.find(
       {
         pet: {
           _id: petId,
@@ -43,7 +43,7 @@ router.get(
       }
     ).populate("pet");
 
-    res.send(applications);
+    res.send(application);
   }
 );
 

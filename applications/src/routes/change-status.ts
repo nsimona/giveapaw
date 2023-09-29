@@ -19,6 +19,8 @@ function isStatusValid(status: any): status is ApplicationStatus {
 
 const router = express.Router();
 
+// todo - send all data for application, not only the status
+
 router.patch(
   "/api/applications",
   requireAuth,

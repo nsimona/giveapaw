@@ -4,7 +4,7 @@ import PetCard from "../pet-card";
 import StickyHeadTable from "../sticky-head-table";
 import { getPetApplications, getPetQuery } from "../../services/api";
 import { useSelector } from "react-redux";
-import { Dialog, Typography } from "@mui/material";
+import { Dialog, Divider, Typography } from "@mui/material";
 import Loading from "../loading";
 import ExisitingApplicationWrapper from "../../pages/application/existing-application-wrapper";
 import StatusTag from "../sticky-head-table/status-tag";
@@ -100,7 +100,7 @@ const UserPets = () => {
       </Dialog>
       {pets.map((pet, index) => (
         <>
-          <Grid item sx={{ display: "flex", gap: 3 }}>
+          <Grid container item sx={{ display: "flex", gap: 3, mb: 3 }}>
             <PetCard
               isEditable={pet.status === "active"}
               disableFavorites
@@ -110,8 +110,8 @@ const UserPets = () => {
                   .length
               }
             />
-            <Grid item>
-              <Grid item sx={{ width: "100%" }}>
+            <Grid md={8} sx={12} item>
+              <Grid item>
                 {applications[pet.id] ? (
                   <StickyHeadTable
                     columns={columns}
@@ -124,6 +124,7 @@ const UserPets = () => {
               </Grid>
             </Grid>
           </Grid>
+          <Divider sx={{ width: "100%" }} />
         </>
       ))}
       {!pets.length && (

@@ -14,7 +14,7 @@ const CreateApplicationWrapper = () => {
   const pet = useSelector((state) => state.application);
   const dispatch = useDispatch();
 
-  const apply = async (message, candidatePhone, candidateEmail) => {
+  const apply = async () => {
     try {
       const application = await createApplication({
         petId: pet.id,
@@ -44,7 +44,7 @@ const CreateApplicationWrapper = () => {
   };
 
   return (
-    <Application pet={pet} onApply={apply}>
+    <Application pet={pet}>
       <ApplicationBox title="Допълни своята кандидатура">
         <TextField
           required

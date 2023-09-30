@@ -1,4 +1,5 @@
-interface Pet {
+interface Features {
+  // features
   type: string;
   age: number;
   breed: string;
@@ -6,41 +7,31 @@ interface Pet {
   color: string;
   size: string;
   trained: boolean;
-  livedInAHouse: string[];
-  healthState: string[];
-  goodWith: string[];
-  characteristics: string[];
+  livedInAHouse: string[] | null;
+  healthState: string[] | null;
+  goodWith: string[] | null;
+  characteristics: string[] | null;
 }
 
-interface Preferences {
-  preferredPetType: string;
-  preferredPetAge: number;
-  preferredPetBreed: string;
-  preferredPetSize: string;
-  preferredPetColor: string;
-  preferredPetIsTrained: boolean | null;
-  preferredPetLivedInAHouse: string[];
-  preferredPetGoodWith: string[];
-  preferredPetGender: string;
-  prefferedPetCharacteristics: string[];
-}
-
-// Sample user preferences
-const userPreferences: Preferences = {
-  preferredPetType: "Dog",
-  preferredPetAge: 3,
-  preferredPetBreed: "Husky",
-  preferredPetGender: "Female",
-  preferredPetSize: "Large",
-  preferredPetColor: "Grey",
-  preferredPetIsTrained: null,
-  preferredPetLivedInAHouse: ["With Yard"],
-  preferredPetGoodWith: ["Children"],
-  prefferedPetCharacteristics: ["No Allergies"],
+type FeatureWeights = {
+  [Key in keyof Features]: number;
 };
 
-// Sample pet data
-const pet: Pet = {
+const preferences: Features = {
+  type: "Dog",
+  age: 3,
+  breed: "Husky",
+  gender: "Female",
+  color: "Grey",
+  size: "Large",
+  trained: true,
+  livedInAHouse: null,
+  healthState: null,
+  goodWith: null,
+  characteristics: null,
+};
+
+const pet: Features = {
   type: "Dog",
   age: 4,
   breed: "Husky",
@@ -54,55 +45,39 @@ const pet: Pet = {
   characteristics: ["Independent"],
 };
 
-// Define a custom return type for calculateMatch
-type MatchResult = {
-  score: number;
-  matchedFeatures: Record<string, any>;
-  // unknownPreferences: Record<string, any>;
+// 50 in total
+const weights: FeatureWeights = {
+  type: 10,
+  breed: 7,
+  gender: 6,
+  size: 6,
+  age: 5,
+  color: 2,
+  trained: 2,
+  livedInAHouse: 1,
+  healthState: 1,
+  goodWith: 1,
+  characteristics: 1,
 };
 
-const mapFeatures: any = {
-  type: "preferredPetType",
-  age: "preferredPetAge",
-  breed: "preferredPetBreed",
-  size: "preferredPetSize",
-  color: "preferredPetColor",
-  gender: "preferredPetGender",
-  trained: "preferredPetIsTrained",
-  livedInAHouse: "preferredPetLivedInAHouse",
-  goodWith: "preferredPetGoodWith",
-  characteristics: "prefferedPetCharacteristics",
-};
-
-const weights: Record<string, number> = {
-  preferredPetType: 10, // Higher weight for type
-  preferredPetBreed: 7, // Higher weight for breed
-  preferredPetAge: 6, // Higher weight for age
-  preferredPetGender: 6, // Higher weight for size
-  preferredPetSize: 5, // Higher weight for size
-  preferredPetColor: 2, // Higher weight for color
-  preferredPetIsTrained: 1,
-  preferredPetLivedInAHouse: 1,
-  preferredPetGoodWith: 1,
-  prefferedPetCharacteristics: 1,
-  // preferredPetHouseConditions: 1,
-};
-
-// Function to calculate the match score based on preferences
-const calculateMatch = (pet: Pet, preferences: Preferences): MatchResult => {
+const calculateMatch = (
+  pet: Features,
+  preferences: Features,
+  weights: FeatureWeights
+): { score: number; matchedFeatures: Record<string, any> } => {
   const matchedFeatures: Record<string, any> = {};
 
   let totalWeight = 0;
   let totalScore = 0;
 
-  Object.keys(mapFeatures).forEach((featureKey) => {
-    const preferenceKey = mapFeatures[featureKey];
-    const petValue = pet[featureKey as keyof Pet];
-    const prefValue = preferences[preferenceKey as keyof Preferences];
+  for (const feature of Object.keys(preferences)) {
+    const petValue = pet[feature as keyof Features];
+    const prefValue = preferences[feature as keyof Features];
+    const weightsValue = weights[feature as keyof Features];
 
-    if (prefValue === null) {
-      // Skip preferences with null values
-      return;
+    if (prefValue === null || prefValue === undefined) {
+      // Skip preferences with null or undefined values
+      continue;
     }
 
     if (Array.isArray(petValue) && Array.isArray(prefValue)) {
@@ -110,25 +85,24 @@ const calculateMatch = (pet: Pet, preferences: Preferences): MatchResult => {
         prefValue.includes(value)
       );
       if (intersection.length > 0) {
-        matchedFeatures[preferenceKey] = intersection;
-        totalScore +=
-          (intersection.length / prefValue.length) * weights[preferenceKey];
+        matchedFeatures[feature] = intersection;
+        totalScore += (intersection.length / prefValue.length) * weightsValue;
       }
     } else if (petValue === prefValue) {
-      matchedFeatures[preferenceKey] = petValue;
-      totalScore += weights[preferenceKey];
+      matchedFeatures[feature] = petValue;
+      totalScore += weightsValue;
     }
-
-    totalWeight += weights[preferenceKey];
-  });
+    totalWeight += weightsValue;
+  }
 
   const normalizedScore = totalWeight > 0 ? totalScore / totalWeight : 0;
 
   return { score: (normalizedScore * 100) | 0, matchedFeatures };
 };
 
-// Calculate the match score and preferences for the pet and user preferences
-const matchResult = calculateMatch(pet, userPreferences);
+const matchResult = calculateMatch(pet, preferences, weights);
 
-console.log(`Score: ${matchResult.score}/100`);
-console.log("Matched Preferences:", matchResult.matchedFeatures);
+export { matchResult };
+
+// console.log(`Score: ${matchResult.score}/100`);
+// console.log("Matched Preferences:", matchResult.matchedFeatures);

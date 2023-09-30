@@ -1,20 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import Application from ".";
-import { createApplication } from "../../services/api";
+import { createApplication, matchUserToPet } from "../../services/api";
 import { setAlert } from "../../redux/slices/app/appSlice";
 import ApplicationBox from "../../components/application-box";
 import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreateApplicationWrapper = () => {
   const [message, setMessage] = useState("");
   const [candidatePhone, setCandidatePhone] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
+  const [matchedFeatures, setMatchedFeatures] = useState();
+  const [matchedScore, setMatchedScore] = useState();
 
   const pet = useSelector((state) => state.application);
   const dispatch = useDispatch();
 
-  const apply = async () => {
+  const createAdoptionApplication = async () => {
     try {
       const application = await createApplication({
         petId: pet.id,
@@ -42,6 +44,21 @@ const CreateApplicationWrapper = () => {
       );
     }
   };
+
+  const getMatchScoreAndFeatures = async () => {
+    try {
+      const matchResult = await matchUserToPet();
+      setMatchedFeatures(matchResult.matchedFeatures);
+      setMatchedScore(matchResult.score);
+    } catch (error) {
+      console.log(error);
+      // alert here
+    }
+  };
+
+  useEffect(() => {
+    getMatchScoreAndFeatures();
+  }, []);
 
   return (
     <Application pet={pet}>
@@ -92,7 +109,7 @@ const CreateApplicationWrapper = () => {
         variant="contained"
         size="big"
         sx={{ alignSelf: "center" }}
-        onClick={apply}
+        onClick={createAdoptionApplication}
       >
         Изпрати
       </Button>

@@ -15,12 +15,16 @@ const icons = (type, style) => {
   return i[type];
 };
 
-const ApplicationMatch = ({ type, userStatement, petStatement }) => {
+const ApplicationMatch = ({ type, userPreference, petValue }) => {
   const color = colors[type];
   const icon = icons(type, {
     flex: { md: 0.5, sm: 1 },
     color,
   });
+
+  if (!userPreference || !petValue) {
+    return;
+  }
 
   return (
     <Grid
@@ -28,7 +32,9 @@ const ApplicationMatch = ({ type, userStatement, petStatement }) => {
       sx={{ mt: 2, justifyContent: "space-between", alignItems: "center" }}
     >
       <Grid item md={4} flex={1}>
-        <Typography variant="body2">Иска немска овчарка</Typography>
+        <Typography variant="body2">
+          {userPreference[0]}:{userPreference[1]}
+        </Typography>
       </Grid>
       <Grid
         item
@@ -58,7 +64,7 @@ const ApplicationMatch = ({ type, userStatement, petStatement }) => {
       </Grid>
       <Grid item md={4} flex={1}>
         <Typography textAlign="right" variant="body2">
-          Е немска овчарка
+          {petValue[0]}:{petValue[1]}
         </Typography>
       </Grid>
     </Grid>

@@ -166,3 +166,15 @@ export const changeApplicationStatus = async (data) => {
     throw error;
   }
 };
+
+// recommendation, e.g. match
+
+export const matchUserToPet = async () => {
+  try {
+    const response = await axios.post("/api/recommendations/match");
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};

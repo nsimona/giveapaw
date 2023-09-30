@@ -22,7 +22,7 @@ import { useState } from "react";
 import ApplicationMatch from "../../components/application-match";
 import ApplicationBox from "../../components/application-box";
 
-const faces = [
+const faceIcons = [
   <FaceIcon />,
   <Face2Icon />,
   <Face3Icon />,
@@ -30,6 +30,14 @@ const faces = [
   <Face5Icon />,
   <Face6Icon />,
 ];
+
+const mock = {
+  breed: "Husky",
+  gender: "Female",
+  color: "Grey",
+  size: "Large",
+  trained: true,
+};
 
 const Application = ({
   pet: { name, type, id },
@@ -92,12 +100,12 @@ const Application = ({
             <IconButton
               disabled={readOnly}
               onClick={() =>
-                currentFaceIcon === faces.length - 1
+                currentFaceIcon === faceIcons.length - 1
                   ? setCurrentFaceIcon(0)
                   : setCurrentFaceIcon(currentFaceIcon + 1)
               }
             >
-              {faces[currentFaceIcon]}
+              {faceIcons[currentFaceIcon]}
             </IconButton>
             <Typography variant="subtitle1" sx={{ px: 1 }}>
               <strong>Юлия</strong>
@@ -118,9 +126,16 @@ const Application = ({
           </Box>
         </Box>
         <Divider />
-
+        {Object.keys(mock).map((feature, index) => (
+          <ApplicationMatch
+            key={index}
+            type="full-match"
+            petValue={[feature, mock[feature]]}
+            userPreference={[feature, mock[feature]]}
+          />
+        ))}
         <ApplicationMatch type="full-match" />
-        <ApplicationMatch type="good-match" />
+        {/* <ApplicationMatch type="good-match" /> */}
         <ApplicationBox title="Идеалният домашен любимец на Юлия е">
           <Box
             sx={{

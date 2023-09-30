@@ -32,6 +32,14 @@ build:
         manual:
           - src: "src/***/*.ts"
             dest: .
+    - image: nssimona/recommendations
+      context: recommendations
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/***/*.ts"
+            dest: .
     - image: nssimona/client
       context: client
       docker:

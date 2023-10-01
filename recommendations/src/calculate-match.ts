@@ -1,4 +1,4 @@
-interface Features {
+export interface Features {
   // features
   type: string;
   age: number;
@@ -17,7 +17,7 @@ type FeatureWeights = {
   [Key in keyof Features]: number;
 };
 
-const preferences: Features = {
+export const preferences: Features = {
   type: "Dog",
   age: 3,
   breed: "Husky",
@@ -31,7 +31,21 @@ const preferences: Features = {
   characteristics: null,
 };
 
-const pet: Features = {
+export const preferences2: Features = {
+  type: "Cat",
+  age: 3,
+  breed: "Husky",
+  gender: "Female",
+  color: "Grey",
+  size: "Large",
+  trained: true,
+  livedInAHouse: null,
+  healthState: null,
+  goodWith: null,
+  characteristics: null,
+};
+
+export const pet: Features = {
   type: "Dog",
   age: 4,
   breed: "Husky",
@@ -45,8 +59,36 @@ const pet: Features = {
   characteristics: ["Independent"],
 };
 
+export const pet2: Features = {
+  type: "Dog",
+  age: 3,
+  breed: "Unknown",
+  gender: "Female",
+  color: "Grey",
+  size: "Large",
+  trained: true,
+  livedInAHouse: ["With Yard"],
+  healthState: ["Good"],
+  goodWith: ["Children", "Travel"],
+  characteristics: ["Independent"],
+};
+
+export const pet3: Features = {
+  type: "Cat",
+  age: 3,
+  breed: "Unknown",
+  gender: "Female",
+  color: "Grey",
+  size: "Large",
+  trained: true,
+  livedInAHouse: ["With Yard"],
+  healthState: ["Good"],
+  goodWith: ["Children", "Travel"],
+  characteristics: ["Independent"],
+};
+
 // 50 in total
-const weights: FeatureWeights = {
+export const weights: FeatureWeights = {
   type: 10,
   breed: 7,
   gender: 6,
@@ -60,7 +102,7 @@ const weights: FeatureWeights = {
   characteristics: 1,
 };
 
-const calculateMatch = (
+export const calculateMatch = (
   pet: Features,
   preferences: Features,
   weights: FeatureWeights

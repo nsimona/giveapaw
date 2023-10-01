@@ -57,6 +57,7 @@ router.patch(
         type: application.pet.type,
       },
     });
+    // TODO does not return application
     res.status(204).send(application);
   }
 );

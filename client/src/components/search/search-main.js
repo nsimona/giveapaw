@@ -6,9 +6,9 @@ const SearchMain = () => {
   return (
     <Box
       sx={{
-        // height: "500px",
+        height: "500px",
         backgroundImage:
-          "url(https://images.unsplash.com/photo-1532386236358-a33d8a9434e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2587&q=80)",
+          "url(https://images.unsplash.com/photo-1557495235-340eb888a9fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2613&q=80)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
         display: "flex",

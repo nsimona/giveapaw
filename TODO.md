@@ -33,11 +33,11 @@
 [] BE create listener for recommended pets (in the future)\
 [] BE update pet show - show only active pets (look below)\
 [] FE admins and pet owners still can see archived single pets, other users NO\
-[]\
+[] FE update pet is not working (on save - it adds a new pet)
 
 ### Applications
 
-[] HIGH PRIORITY service is currently unavailable\
+[x] HIGH PRIORITY service is currently unavailable\
 
 ### Recommendations
 

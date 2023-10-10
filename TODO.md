@@ -12,7 +12,7 @@
 ### Auth
 
 - user\
-  [] FE update preferences - handle change, API request\
+  [/] FE update preferences - handle change, API request\
   [] FE handle dropdowns - add aditional - no preference for each field\
   [] FE create a map to handle en-bg and bg-en translation\
   [] BE rename preference properties - nested {}?\

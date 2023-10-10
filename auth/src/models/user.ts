@@ -10,24 +10,26 @@ interface RequiredUserAttrs {
   lastName: string;
 }
 
+interface UserPreferences {
+  type: string;
+  age: number;
+  size: string;
+  color: string;
+  trained: string;
+  livedInAHouse: string[];
+  goodWith: string[];
+  houseConditions: string[];
+  characteristics: string[];
+}
+
 interface UserAttrs extends RequiredUserAttrs {
   // user related
   city: string;
   address: string;
   zipCode: string;
-  favorites: string[]; // ids of the fav pets
-  // basic pet preferences
-  firstTimeOwner: boolean;
-  preferredPetType: string;
-  preferredPetAge: number;
-  preferredPetBreed: string;
-  preferredPetSize: string;
-  preferredPetColor: string;
-  // additional pet preferences
-  preferredPetIsTrained: string; // search for a trained/no trained pet, no preferences
-  preferredPetLivedInAHouse: string[]; // with kids, without pets etc
-  preferredPetGoodWith: string[]; // pets, kids etc
-  preferredPetHouseConditions: string[]; // with a yard, without pets etc.
+  favorites: string[];
+  firstTimeOwner: string;
+  preferences: UserPreferences;
 }
 
 // describes the properties that a User Model has
@@ -49,16 +51,18 @@ interface UserDoc extends mongoose.Document {
   zipCode: string;
   favorites: [string];
   // user preferences
-  firstTimeOwner: boolean;
-  preferredPetType: string;
-  preferredPetAge: number;
-  preferredPetBreed: string;
-  preferredPetSize: string;
-  preferredPetColor: string;
-  preferredPetIsTrained: string;
-  preferredPetLivedInAHouse: [string];
-  preferredPetGoodWith: [string];
-  preferredPetHouseConditions: [string];
+  preferences: {
+    firstTimeOwner: string;
+    type: string;
+    age: number;
+    size: string;
+    color: string;
+    trained: string;
+    livedInAHouse: [string];
+    goodWith: [string];
+    houseConditions: [string];
+    characteristics: [string];
+  };
 }
 
 const userSchema = new mongoose.Schema(
@@ -99,16 +103,20 @@ const userSchema = new mongoose.Schema(
       type: [String],
       required: false,
     },
-    firstTimeOwner: { type: String, required: false },
-    preferredPetType: { type: String, required: false },
-    preferredPetAge: { type: Number, required: false },
-    preferredPetBreed: { type: String, required: false },
-    preferredPetSize: { type: String, required: false },
-    preferredPetColor: { type: String, required: false },
-    preferredPetIsTrained: { type: String, required: false },
-    preferredPetLivedInAHouse: { type: [String], required: false },
-    preferredPetGoodWith: { type: [String], required: false },
-    preferredPetHouseConditions: { type: [String], required: false },
+    preferences: {
+      type: Object,
+      required: false,
+    },
+    // firstTimeOwner: { type: String, required: false },
+    // preferredPetType: { type: String, required: false },
+    // preferredPetAge: { type: Number, required: false },
+    // preferredPetBreed: { type: String, required: false },
+    // preferredPetSize: { type: String, required: false },
+    // preferredPetColor: { type: String, required: false },
+    // preferredPetIsTrained: { type: String, required: false },
+    // preferredPetLivedInAHouse: { type: [String], required: false },
+    // preferredPetGoodWith: { type: [String], required: false },
+    // preferredPetHouseConditions: { type: [String], required: false },
   },
   {
     toJSON: {

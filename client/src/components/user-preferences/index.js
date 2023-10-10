@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import CustomAutocomplete from "../pet-form-inputs/custom-autocomplete";
 import {
@@ -10,7 +11,6 @@ import {
 import { Button, Typography } from "@mui/material";
 import CustomSelect from "../pet-form-inputs/custom-select";
 import {
-  basicBreedsOptions,
   petAgeOptions,
   petColorsOptions,
   petGenderOptions,
@@ -21,8 +21,56 @@ import {
   outdoorSpacesOptions,
 } from "../../assets/preferences-options";
 import CustomRadioGroup from "../pet-form-inputs/custom-radio-group";
+import { updatePreferences } from "../../services/api";
+
+const enhnaceOptions = (options) => {
+  const removedUnknownOption = options.filter((o) => o.value !== "unknown");
+  return [
+    ...removedUnknownOption,
+    { value: "noPreference", title: "Без преференции" },
+  ];
+};
 
 const UserPreferences = () => {
+  const [preferences, setPreferences] = React.useState({
+    ownerType: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setPreferences((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const handleAutocompleteChange = (_e, values, name) => {
+    setPreferences((prev) => {
+      return {
+        ...prev,
+        [name]: values,
+      };
+    });
+  };
+
+  const submitPreferences = async () => {
+    try {
+      const updatedPreferences = await updatePreferences(preferences);
+      setPreferences(updatedPreferences);
+    } catch (error) {
+      // dispatch();
+      // setAlert({
+      //   severity: "error",
+      //   message: `Грешка при запис на преференции, ${
+      //     error.response.data.errors[0].message || ""
+      //   }`,
+      // })
+    }
+  };
+
   return (
     <Grid container>
       <Grid item md={6} sm={12}>
@@ -34,26 +82,31 @@ const UserPreferences = () => {
             <CustomSelect
               id="owner-type"
               label="Имаш ли други домашни любимци"
-              value=""
-              onChange={() => {}}
+              value={preferences.ownerType}
+              selectProps={{ name: "ownerType" }}
+              onChange={handleChange}
               options={ownerTypeOptions}
             />
           </Grid>
           <Grid item xs={12}>
             <CustomAutocomplete
-              id="current-house-tags"
+              id="current-house"
               options={houseConditionsOptions}
-              value={[]}
-              onChange={() => {}}
+              value={preferences.currentHouseTags}
+              onChange={(e, values) => {
+                handleAutocompleteChange(e, values, "currentHouseTags");
+              }}
               label="Домът ти е"
             />
           </Grid>
           <Grid item xs={12}>
             <CustomAutocomplete
-              id="outdoor-spaces-tags"
+              id="outdoor-spaces"
               options={outdoorSpacesOptions}
-              value={[]}
-              onChange={() => {}}
+              value={preferences.outdoorSpacesTags}
+              onChange={(e, values) => {
+                handleAutocompleteChange(e, values, "outdoorSpacesTags");
+              }}
               label="Външни пространства"
             />
           </Grid>
@@ -64,97 +117,96 @@ const UserPreferences = () => {
         <Grid container spacing={3} sx={{ justifyContent: "end" }}>
           <Grid item xs={12}>
             <CustomRadioGroup
-              id="pet-type"
+              id="type"
               options={petTypeOptions}
               label="Бих искал да осиновя"
-              value="dog"
-              onChange={() => {}}
+              value={preferences.type}
+              onChange={handleChange}
             />
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <CustomSelect
-              required
               id="pet-breed"
-              options={basicBreedsOptions}
+              options={enhnaceOptions(basicBreedsOptions)}
               label="Порода"
-              value=""
-              onChange={() => {}}
+              value={preferences.breed}
+              selectProps={{ name: "breed" }}
+              onChange={handleChange}
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12}>
             <CustomAutocomplete
-              id="pet-color-tags"
-              options={petColorsOptions}
-              value={[]}
-              onChange={() => {}}
+              id="color"
+              options={enhnaceOptions(petColorsOptions)}
+              value={preferences.color}
+              onChange={(e, values) => {
+                handleAutocompleteChange(e, values, "color");
+              }}
               label="Предпочитания за цвят"
             />
           </Grid>
 
           <Grid item xs={12}>
             <CustomSelect
-              required
-              id="pet-age"
-              options={petAgeOptions}
+              id="age"
+              options={enhnaceOptions(petAgeOptions)}
               label="Възраст"
-              value=""
-              onChange={() => {}}
+              value={preferences.age}
+              selectProps={{ name: "age" }}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
             <CustomRadioGroup
-              id="pet-gender"
-              options={petGenderOptions}
+              id="gender"
+              options={enhnaceOptions(petGenderOptions)}
               label="Пол"
-              value=""
-              onChange={() => {}}
+              value={preferences.gender}
+              onChange={handleChange}
             />
           </Grid>
 
           <Grid item xs={12}>
             <CustomRadioGroup
-              id="pet-size"
-              options={petSizeOptions}
+              id="size"
+              options={enhnaceOptions(petSizeOptions)}
               label="Размер"
-              value=""
-              onChange={() => {}}
+              value={preferences.size}
+              onChange={handleChange}
             />
           </Grid>
 
           <Grid item xs={12}>
             <Grid item xs={12}>
               <CustomRadioGroup
-                id="pet-trained"
-                options={petTrainedOptions}
+                id="trained"
+                options={enhnaceOptions(petTrainedOptions)}
                 label="Предпочитание за дресиран домашен любимец"
-                value=""
-                onChange={() => {}}
+                value={preferences.trained}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
 
-          {/* <Grid item xs={12}>
-            <CustomAutocomplete
-              id="healthState-tags"
-              options={healthStateOptions}
-              value={[]}
-              onChange={() => {}}
-              label="Здравословно състояние"
-            />
-          </Grid> */}
-
           <Grid item xs={12}>
             <CustomAutocomplete
-              id="characteristics-tags"
-              options={characteristicsOptions}
-              value={[]}
-              onChange={() => {}}
+              id="characteristics"
+              options={enhnaceOptions(characteristicsOptions)}
+              value={preferences.characteristics}
+              onChange={(e, values) => {
+                handleAutocompleteChange(e, values, "characteristics");
+              }}
               label="Моят домашен любимец трябва да е"
             />
           </Grid>
-          <Button variant="contained" size="large" sx={{ my: 3 }}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ my: 3 }}
+            onClick={submitPreferences}
+          >
             Запази
           </Button>
         </Grid>

@@ -51,6 +51,16 @@ export const updateFavorites = async (data) => {
   }
 };
 
+export const updatePreferences = async (data) => {
+  try {
+    const response = await axios.patch("/api/users/preferences", data);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
 // pets
 export const createPet = async (data) => {
   try {

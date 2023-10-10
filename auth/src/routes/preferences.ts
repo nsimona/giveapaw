@@ -13,32 +13,31 @@ router.patch(
   requireAuth,
   async (req: Request, res: Response) => {
     const {
-      userId,
       firstTimeOwner,
-      preferredPetType,
-      preferredPetAge,
-      preferredPetBreed,
-      preferredPetSize,
-      preferredPetColor,
-      preferredPetIsTrained,
-      preferredPetLivedInAHouse,
-      preferredPetGoodWith,
-      currentHouseConditions,
+      type,
+      age,
+      size,
+      color,
+      trained,
+      livedInAHouse,
+      goodWith,
+      houseConditions,
+      characteristics,
     } = req.body;
 
     const preferences = {
       firstTimeOwner,
-      preferredPetType,
-      preferredPetAge,
-      preferredPetBreed,
-      preferredPetSize,
-      preferredPetColor,
-      preferredPetIsTrained,
-      preferredPetLivedInAHouse,
-      preferredPetGoodWith,
-      currentHouseConditions,
+      type,
+      age,
+      size,
+      color,
+      trained,
+      livedInAHouse,
+      goodWith,
+      houseConditions,
+      characteristics,
     };
-
+    const userId = req.currentUser?.id;
     const user = await User.findById(userId);
 
     if (!user) {
@@ -46,17 +45,20 @@ router.patch(
     }
 
     // use aggregate function
-    if (user._id.toString() !== req.currentUser!.id) {
+    if (user._id.toString() !== userId) {
       throw new NotAuthorizedError();
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $set: preferences },
-      { new: true } // Return the updated document
-    );
+    // const updatedUser = await User.findByIdAndUpdate(
+    //   userId,
+    //   { $set: preferences },
+    //   { new: true } // Return the updated document
+    // );
+    user.preferences = preferences;
 
-    res.status(200).send(updatedUser);
+    await user.save();
+
+    res.status(200).send(user);
   }
 );
 

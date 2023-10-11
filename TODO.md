@@ -12,10 +12,11 @@
 ### Auth
 
 - user\
-  [/] FE update preferences - handle change, API request\
-  [] FE handle dropdowns - add aditional - no preference for each field\
-  [] FE create a map to handle en-bg and bg-en translation\
-  [] BE rename preference properties - nested {}?\
+  [x] FE update preferences - handle change, API request\
+  [x] FE handle dropdowns - add aditional - no preference for each field\
+  [x] FE create a map to handle en-bg and bg-en translation\
+  [x] BE rename preference properties - nested {}?\
+  [] FE handle preferences change via redux
   [] BE create a publisher on pref change\
   [] BE create liseneter for application for the current user and lock preference updates\
 - admin
@@ -25,6 +26,7 @@
 [] BE handle conditional GET /pets; - admin should be able to see all pets - users see only active pets - users see their own pets no matter the status\
 [] BE a user can also delete their pets\
 [] BE upload files (create pet)\
+[] FE create a map to handle en-bg and bg-en translation\
 [] FE fetch update a pet\
 [] FE single pet - handle UI\
 [] FE search - add aditional options - no preference which removes from the query?\

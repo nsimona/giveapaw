@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import CustomAutocomplete from "../pet-form-inputs/custom-autocomplete";
 import {
@@ -32,9 +32,8 @@ const enhnaceOptions = (options) => {
 };
 
 const UserPreferences = () => {
-  const [preferences, setPreferences] = React.useState({
-    ownerType: "",
-  });
+  const savedPreferences = useSelector((state) => state.user.preferences);
+  const [preferences, setPreferences] = React.useState({});
 
   const dispatch = useDispatch();
 
@@ -59,7 +58,7 @@ const UserPreferences = () => {
   const submitPreferences = async () => {
     try {
       const updatedPreferences = await updatePreferences(preferences);
-      setPreferences(updatedPreferences);
+      // setPreferences(updatedPreferences);
     } catch (error) {
       // dispatch();
       // setAlert({

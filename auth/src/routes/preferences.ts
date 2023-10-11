@@ -17,6 +17,7 @@ router.patch(
       type,
       age,
       size,
+      gender,
       color,
       trained,
       livedInAHouse,
@@ -31,6 +32,7 @@ router.patch(
       age,
       size,
       color,
+      gender,
       trained,
       livedInAHouse,
       goodWith,
@@ -45,9 +47,9 @@ router.patch(
     }
 
     // use aggregate function
-    if (user._id.toString() !== userId) {
-      throw new NotAuthorizedError();
-    }
+    // if (user._id.toString() !== userId) {
+    //   throw new NotAuthorizedError();
+    // }
 
     // const updatedUser = await User.findByIdAndUpdate(
     //   userId,
@@ -55,7 +57,6 @@ router.patch(
     //   { new: true } // Return the updated document
     // );
     user.preferences = preferences;
-
     await user.save();
 
     res.status(200).send(user);

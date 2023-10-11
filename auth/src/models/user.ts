@@ -12,9 +12,10 @@ interface RequiredUserAttrs {
 
 interface UserPreferences {
   type: string;
-  age: number;
+  age: string;
   size: string;
   color: string;
+  gender: string;
   trained: string;
   livedInAHouse: string[];
   goodWith: string[];
@@ -54,8 +55,9 @@ interface UserDoc extends mongoose.Document {
   preferences: {
     firstTimeOwner: string;
     type: string;
-    age: number;
+    age: string;
     size: string;
+    gender: string;
     color: string;
     trained: string;
     livedInAHouse: [string];
@@ -107,16 +109,6 @@ const userSchema = new mongoose.Schema(
       type: Object,
       required: false,
     },
-    // firstTimeOwner: { type: String, required: false },
-    // preferredPetType: { type: String, required: false },
-    // preferredPetAge: { type: Number, required: false },
-    // preferredPetBreed: { type: String, required: false },
-    // preferredPetSize: { type: String, required: false },
-    // preferredPetColor: { type: String, required: false },
-    // preferredPetIsTrained: { type: String, required: false },
-    // preferredPetLivedInAHouse: { type: [String], required: false },
-    // preferredPetGoodWith: { type: [String], required: false },
-    // preferredPetHouseConditions: { type: [String], required: false },
   },
   {
     toJSON: {

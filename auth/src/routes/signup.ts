@@ -27,16 +27,6 @@ router.post(
       zipCode = null,
       favorites = [],
       firstTimeOwner = null,
-      preferredPetType = null,
-      preferredPetAge = null,
-      preferredPetBreed = null,
-      preferredPetSize = null,
-      preferredPetColor = null,
-      // additional pet preferences
-      preferredPetIsTrained = null,
-      preferredPetLivedInAHouse = [],
-      preferredPetGoodWith = [],
-      preferredPetHouseConditions = [],
     } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -57,16 +47,18 @@ router.post(
       zipCode,
       favorites,
       firstTimeOwner,
-      preferredPetType,
-      preferredPetAge,
-      preferredPetBreed,
-      preferredPetSize,
-      preferredPetColor,
-      // additional pet preferences
-      preferredPetIsTrained,
-      preferredPetLivedInAHouse,
-      preferredPetGoodWith,
-      preferredPetHouseConditions,
+      preferences: {
+        type: "",
+        age: "",
+        size: "",
+        color: "",
+        gender: "",
+        trained: "",
+        livedInAHouse: [],
+        goodWith: [],
+        houseConditions: [],
+        characteristics: [],
+      },
     });
     await user.save();
 

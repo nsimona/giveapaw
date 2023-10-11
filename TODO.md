@@ -36,16 +36,23 @@
 [] BE update pet show - show only active pets (look below)\
 [] FE admins and pet owners still can see archived single pets, other users NO\
 [] FE update pet is not working (on save - it adds a new pet)
+[] Consume recommended pets, store them in a collection
+[] Lock updates for a pet if applications exists
+[] Subscirbe for recommendations event, applications event
 
 ### Applications
 
 [x] HIGH PRIORITY service is currently unavailable\
+[] cancel all applications if there is 1 approved\
 
 ### Recommendations
 
-[] ...\
+[] setup redis\
+[] Subscribe for pets and preferences upsert and store them\
+[] Publish a msg with top 20 recommendations for each user\
+[] Handle match route with real data\
 
-## DONE
+## Basic requirements
 
 [] Handle image upload [depends on BE]\
 [x] Handle pet creation\

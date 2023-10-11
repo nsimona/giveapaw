@@ -46,18 +46,10 @@ router.patch(
       throw new NotFoundError();
     }
 
-    // use aggregate function
-    // if (user._id.toString() !== userId) {
-    //   throw new NotAuthorizedError();
-    // }
-
-    // const updatedUser = await User.findByIdAndUpdate(
-    //   userId,
-    //   { $set: preferences },
-    //   { new: true } // Return the updated document
-    // );
     user.preferences = preferences;
     await user.save();
+
+    //create publisher
 
     res.status(200).send(user);
   }

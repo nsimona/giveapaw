@@ -33,7 +33,7 @@ const enhnaceOptions = (options) => {
 
 const UserPreferences = () => {
   const savedPreferences = useSelector((state) => state.user.preferences);
-  const [preferences, setPreferences] = React.useState({});
+  const [preferences, setPreferences] = React.useState(savedPreferences);
 
   const dispatch = useDispatch();
 
@@ -58,6 +58,7 @@ const UserPreferences = () => {
   const submitPreferences = async () => {
     try {
       const updatedPreferences = await updatePreferences(preferences);
+      // update redux store
       // setPreferences(updatedPreferences);
     } catch (error) {
       // dispatch();

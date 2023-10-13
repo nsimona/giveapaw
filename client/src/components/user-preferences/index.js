@@ -22,6 +22,7 @@ import {
 } from "../../assets/preferences-options";
 import CustomRadioGroup from "../pet-form-inputs/custom-radio-group";
 import { updatePreferences } from "../../services/api";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 const enhnaceOptions = (options) => {
   const removedUnknownOption = options.filter((o) => o.value !== "unknown");
@@ -33,9 +34,27 @@ const enhnaceOptions = (options) => {
 
 const UserPreferences = () => {
   const savedPreferences = useSelector((state) => state.user.preferences);
-  const [preferences, setPreferences] = React.useState(savedPreferences);
+  const [preferences, setPreferences] = React.useState({
+    ownerType: "",
+    currentHouse: [],
+    outdoorSpaces: [],
+    type: "",
+    age: null,
+    size: "",
+    color: [],
+    gender: "",
+    trained: "",
+    livedInAHouse: [],
+    goodWith: [],
+    houseConditions: [],
+    characteristics: [],
+  });
 
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setPreferences({ ...preferences, savedPreferences });
+  }, savedPreferences);
 
   const handleChange = (e) => {
     setPreferences((prev) => {
@@ -57,17 +76,24 @@ const UserPreferences = () => {
 
   const submitPreferences = async () => {
     try {
-      const updatedPreferences = await updatePreferences(preferences);
+      await updatePreferences(preferences);
+      dispatch(
+        setAlert({
+          severity: "success",
+          message: "Успешно запази преференциите си!",
+        })
+      );
       // update redux store
       // setPreferences(updatedPreferences);
     } catch (error) {
-      // dispatch();
-      // setAlert({
-      //   severity: "error",
-      //   message: `Грешка при запис на преференции, ${
-      //     error.response.data.errors[0].message || ""
-      //   }`,
-      // })
+      dispatch(
+        setAlert({
+          severity: "error",
+          message: `Грешка при запис на преференции, ${
+            error.response.data.errors[0].message || ""
+          }`,
+        })
+      );
     }
   };
 
@@ -92,9 +118,9 @@ const UserPreferences = () => {
             <CustomAutocomplete
               id="current-house"
               options={houseConditionsOptions}
-              value={preferences.currentHouseTags}
+              value={preferences.currentHouse}
               onChange={(e, values) => {
-                handleAutocompleteChange(e, values, "currentHouseTags");
+                handleAutocompleteChange(e, values, "currentHouse");
               }}
               label="Домът ти е"
             />
@@ -103,9 +129,9 @@ const UserPreferences = () => {
             <CustomAutocomplete
               id="outdoor-spaces"
               options={outdoorSpacesOptions}
-              value={preferences.outdoorSpacesTags}
+              value={preferences.outdoorSpaces}
               onChange={(e, values) => {
-                handleAutocompleteChange(e, values, "outdoorSpacesTags");
+                handleAutocompleteChange(e, values, "outdoorSpaces");
               }}
               label="Външни пространства"
             />

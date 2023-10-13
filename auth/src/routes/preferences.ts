@@ -5,6 +5,8 @@ import {
 } from "@giveapaw/common";
 import express, { Request, Response } from "express";
 import { User } from "../models/user";
+import { UserPreferencesUpdatedPublisher } from "../events/publishers/user-preferences-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -12,6 +14,7 @@ router.patch(
   "/api/users/preferences",
   requireAuth,
   async (req: Request, res: Response) => {
+    // add outdoorSpaces, currentHouse, ownerType
     const {
       firstTimeOwner,
       type,
@@ -39,7 +42,7 @@ router.patch(
       houseConditions,
       characteristics,
     };
-    const userId = req.currentUser?.id;
+    const userId = req.currentUser!.id;
     const user = await User.findById(userId);
 
     if (!user) {
@@ -49,7 +52,20 @@ router.patch(
     user.preferences = preferences;
     await user.save();
 
-    //create publisher
+    new UserPreferencesUpdatedPublisher(natsWrapper.client).publish({
+      type,
+      age,
+      size,
+      color,
+      gender,
+      trained,
+      livedInAHouse,
+      goodWith,
+      houseConditions,
+      characteristics,
+      userId,
+      version: 1, //TODO
+    });
 
     res.status(200).send(user);
   }

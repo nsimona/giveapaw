@@ -16,9 +16,9 @@
   [x] FE handle dropdowns - add aditional - no preference for each field\
   [x] FE create a map to handle en-bg and bg-en translation\
   [x] BE rename preference properties - nested {}?\
-  [] FE handle preferences change via redux
-  [] BE create a publisher on pref change\
-  [] BE create liseneter for application for the current user and lock preference updates\
+  [0] FE handle preferences change via redux (ignore for now - no need to implement for now - on refresh everything works :D)
+  [x] BE create a publisher on pref change\
+  - BE create liseneter for application for the current user and lock preference updates (v2)
 - admin
 
 ### Pets

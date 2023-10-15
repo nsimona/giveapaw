@@ -112,15 +112,17 @@ export const calculateMatch = (
   let totalWeight = 0;
   let totalScore = 0;
 
-  for (const feature of Object.keys(preferences)) {
+  // Filter out null or undefined preferences
+  const validPreferences = Object.keys(preferences).filter(
+    (feature) =>
+      preferences[feature as keyof Features] !== null &&
+      preferences[feature as keyof Features] !== undefined
+  );
+
+  for (const feature of validPreferences) {
     const petValue = pet[feature as keyof Features];
     const prefValue = preferences[feature as keyof Features];
     const weightsValue = weights[feature as keyof Features];
-
-    if (prefValue === null || prefValue === undefined) {
-      // Skip preferences with null or undefined values
-      continue;
-    }
 
     if (Array.isArray(petValue) && Array.isArray(prefValue)) {
       const intersection = petValue.filter((value) =>
@@ -129,12 +131,13 @@ export const calculateMatch = (
       if (intersection.length > 0) {
         matchedFeatures[feature] = intersection;
         totalScore += (intersection.length / prefValue.length) * weightsValue;
+        totalWeight += weightsValue; // Add to total weight only if there's an intersection
       }
     } else if (petValue === prefValue) {
       matchedFeatures[feature] = petValue;
       totalScore += weightsValue;
+      totalWeight += weightsValue; // Add to total weight if there's an exact match
     }
-    totalWeight += weightsValue;
   }
 
   const normalizedScore = totalWeight > 0 ? totalScore / totalWeight : 0;

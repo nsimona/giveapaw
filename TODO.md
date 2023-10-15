@@ -35,10 +35,11 @@
 [] BE create listener for recommended pets (in the future)\
 [] BE update pet show - show only active pets (look below)\
 [] FE admins and pet owners still can see archived single pets, other users NO\
-[] FE update pet is not working (on save - it adds a new pet)
-[] Consume recommended pets, store them in a collection
-[] Lock updates for a pet if applications exists
-[] Subscirbe for recommendations event, applications event
+[] FE update pet is not working (on save - it adds a new pet)\
+[] Consume recommended pets, store them in a collection\
+
+- Lock updates for a pet if applications exists (v2)\
+  [] Subscirbe for recommendations event, applications event\
 
 ### Applications
 

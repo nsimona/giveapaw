@@ -38,7 +38,18 @@ const labelCopy = {
 const PetCard = ({
   isEditable,
   disableFavorites,
-  pet: { name, coverPhoto, age, gender, type, breed, size, id, status },
+  pet: {
+    name,
+    selectedFiles,
+    selectedCoverIndex,
+    age,
+    gender,
+    type,
+    breed,
+    size,
+    id,
+    status,
+  },
   applications,
 }) => {
   return (
@@ -55,7 +66,10 @@ const PetCard = ({
           component="img"
           height="180"
           sx={status === "archived" ? { filter: "grayscale(1)" } : {}}
-          image="https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
+          image={
+            selectedFiles[0]?.url ||
+            "https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
+          }
         />
         {status && (
           <Box

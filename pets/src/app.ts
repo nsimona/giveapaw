@@ -30,6 +30,7 @@ app.use(showPetRouter);
 app.use(indexPetRouter);
 app.use(updatePetRouter);
 app.use(changeStatusPetRouter);
+app.use("/uploads", express.static("uploads"));
 
 app.all("*", async () => {
   throw new NotFoundError();

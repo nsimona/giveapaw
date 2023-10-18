@@ -20,7 +20,7 @@ interface PetAttrs {
   goodWith: string[]; // pets, kids etc
   characteristics: string[]; // with a yard, without pets etc.
   // photos
-  selectedFiles: string[];
+  selectedFiles: any[];
   selectedCoverIndex: number;
   status: PetStatus;
 }

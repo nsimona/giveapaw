@@ -19,9 +19,12 @@ const PetEditorUploadPhotos = () => {
   const dispatch = useDispatch();
 
   const handleFileChange = (event) => {
-    const files = Array.from(event.target.files).map((file) =>
-      window.URL.createObjectURL(file)
-    );
+    const files = Array.from(event.target.files).map((file) => {
+      return {
+        name: file.name,
+        url: window.URL.createObjectURL(file),
+      };
+    });
     dispatch(setPetEditorData({ selectedFiles: [...selectedFiles, ...files] }));
   };
 
@@ -75,7 +78,7 @@ const PetEditorUploadPhotos = () => {
                   component="div"
                   style={{
                     backgroundSize: "cover",
-                    backgroundImage: `url(${selectedFiles[index]})`,
+                    backgroundImage: `url(${selectedFiles[index].url})`,
                     height: 150,
                   }}
                 />

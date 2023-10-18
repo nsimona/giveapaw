@@ -1,41 +1,43 @@
 import { requireAuth, validateRequest } from "@giveapaw/common";
 import { body } from "express-validator";
-import express, { Request, Response } from "express";
+import express, { Request, Response, Express } from "express";
 import { Pet } from "../models/pet";
 import { PetCreatedPublisher } from "../events/publisher/pet-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
 import { PetStatus } from "../pet-status-enum";
-// import multer from "multer";
+import multer, { Multer } from "multer";
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, uniqueSuffix + "-" + file.originalname);
-//   },
-// });
+type DestinationCallback = (error: Error | null, destination: string) => void;
+type FileNameCallback = (error: Error | null, filename: string) => void;
 
-// const upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 2 * 1024 * 1024, // 2MB in bytes
-//   },
-//   fileFilter: (req, file, cb) => {
-//     if (file.mimetype.startsWith("image/")) {
-//       cb(null, true);
-//     } else {
-//       cb(new Error("Invalid file type"));
-//     }
-//   },
-// });
+// Create a Multer instance with explicit types
+const storage = multer.diskStorage({
+  destination: (
+    request: Request,
+    file: Express.Multer.File,
+    callback: DestinationCallback
+  ) => {
+    // Define the destination directory for storing files
+    callback(null, "uploads/");
+  },
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    callback: FileNameCallback
+  ) => {
+    // Define the filename for the uploaded file
+    callback(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 const router = express.Router();
 
 router.post(
   "/api/pets",
   requireAuth,
+  upload.array("selectedFiles", 5), // 5 is the maximum number of files
   [
     body("name").not().isEmpty().withMessage("Name is required"),
     body("type").not().isEmpty().withMessage("Type is required"),
@@ -57,21 +59,13 @@ router.post(
       characteristics = [],
       description = null,
       selectedFiles = [],
-      selectedCoverIndex = null,
+      selectedCoverIndex = 0,
     } = req.body;
 
-    // try {
-
-    //   // Extract file paths from req.files
-    //   const photos = selectedFiles.map((file) => file.path);
-
-    //   await pet.save();
-
-    //   // ... remaining code
-    // } catch (error) {
-    //   console.error("Error uploading files:", error);
-    //   res.status(400).json({ error: error.message });
-    // }
+    const filesMetadataArray = selectedFiles.map((file: any) => ({
+      name: file.name,
+      url: `/uploads/${file.name}`, // Adjust the URL as needed
+    }));
 
     const pet = Pet.build({
       name,
@@ -88,7 +82,7 @@ router.post(
       goodWith,
       characteristics,
       description,
-      selectedFiles,
+      selectedFiles: filesMetadataArray,
       selectedCoverIndex,
       status: PetStatus.Pending,
     });

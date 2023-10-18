@@ -9,12 +9,12 @@ import PetEditorBasicInfo from "./pet-editor-basic-info";
 import PetEditorCharacteristics from "./pet-editor-characteristics";
 import Wrapper from "../../components/wrapper";
 import PetEditorUploadPhotos from "./pet-editor-upload-photos";
-import PetEditorSummary from "./pet-editor-summary";
+// import PetEditorSummary from "./pet-editor-summary";
 import { Link, Tooltip } from "@mui/material";
 import { createNewPet } from "../../redux/slices/petThunks";
 import { useDispatch, useSelector } from "react-redux";
 
-const steps = ["Основна информация", "Характеристики", "Снимки", "Запази"];
+const steps = ["Основна информация", "Характеристики", "Снимки"];
 
 function getStepContent(step) {
   switch (step) {
@@ -24,8 +24,8 @@ function getStepContent(step) {
       return <PetEditorCharacteristics />;
     case 2:
       return <PetEditorUploadPhotos />;
-    case 3:
-      return <PetEditorSummary />;
+    // case 3:
+    //   return <PetEditorSummary />;
     default:
       throw new Error("Unknown step");
   }
@@ -82,17 +82,6 @@ const PetEditor = () => {
     });
   };
 
-  const isSaveDisabled = () => {
-    return (
-      activeStep === steps.length - 1 &&
-      (name === "" ||
-        type === "" ||
-        breed === "" ||
-        gender === "" ||
-        age === "")
-    );
-  };
-
   return (
     <Wrapper sx={{ width: "100%" }}>
       <Box sx={{ width: "100%" }}>
@@ -147,24 +136,12 @@ const PetEditor = () => {
                 </Button>
               )}
               <Tooltip
-                title={
-                  isSaveDisabled()
-                    ? "Полетата име, порода и възраст са задължителни"
-                    : ""
-                }
+                title="За да преминеш към следващата стъпка, първо трябва да завършиш тази"
                 followCursor
               >
                 <span>
-                  <Button
-                    onClick={handleNext}
-                    variant={
-                      activeStep === steps.length - 1 ? "contained" : "outlined"
-                    }
-                    disabled={isSaveDisabled()}
-                  >
-                    {activeStep === steps.length - 1
-                      ? "Запази"
-                      : "Следваща стъпка"}
+                  <Button onClick={handleNext} variant="contained">
+                    Завърши тази стъпка
                   </Button>
                 </span>
               </Tooltip>

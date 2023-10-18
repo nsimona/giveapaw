@@ -61,8 +61,12 @@ const Pet = () => {
   const navigate = useNavigate();
 
   const getPetInfo = async () => {
-    const petInfo = await getPet(id);
-    setPet(petInfo);
+    try {
+      const petInfo = await getPet(id);
+      setPet(petInfo);
+    } catch (error) {
+      console.error("Cannot fetch pet", error);
+    }
   };
 
   useEffect(() => {

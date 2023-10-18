@@ -7,6 +7,7 @@ export const createNewPet = createAsyncThunk(
   "pets/createNew",
   async (_, thunkAPI) => {
     const data = thunkAPI.getState().petEditor;
+
     const pet = {
       ...data,
       healthState: normalizePetEditorData(data.healthState),

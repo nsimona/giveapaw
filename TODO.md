@@ -18,13 +18,13 @@
   [x] BE rename preference properties - nested {}?\
   [0] FE handle preferences change via redux (ignore for now - no need to implement for now - on refresh everything works :D)
   [x] BE create a publisher on pref change\
-  - BE create liseneter for application for the current user and lock preference updates (v2)
+  [v2] BE create liseneter for application for the current user and lock preference updates\
 - admin
 
 ### Pets
 
-[] BE handle conditional GET /pets; - admin should be able to see all pets - users see only active pets - users see their own pets no matter the status\
-[] BE a user can also delete their pets\
+[x] BE handle conditional GET /pets; - admin should be able to see all pets - users see only active pets - users see their own pets no matter the status\
+[v2] BE a user can also delete their pets\
 [] BE upload files (create pet)\
 [] FE create a map to handle en-bg and bg-en translation\
 [] FE fetch update a pet\

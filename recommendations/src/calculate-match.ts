@@ -141,8 +141,9 @@ export const calculateMatch = (
   }
 
   const normalizedScore = totalWeight > 0 ? totalScore / totalWeight : 0;
+  const score = (normalizedScore * 100) | 0;
 
-  return { score: (normalizedScore * 100) | 0, matchedFeatures };
+  return { score, matchedFeatures };
 };
 
 const matchResult = calculateMatch(pet, preferences, weights);

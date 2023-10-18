@@ -31,13 +31,13 @@ const PetEditorSummary = () => {
           </Grid>
           <Grid container item xs={12} md={6} spacing={3}>
             {photos.map((file, index) => (
-              <Grid item md={6} xs={12} key={file.name}>
+              <Grid item xs={12} key={file.name}>
                 <Card key={index}>
                   <CardMedia
                     component="div"
                     style={{
                       backgroundSize: "cover",
-                      backgroundImage: `url(${file})`,
+                      backgroundImage: `url(${file.url})`,
                       height: 150,
                     }}
                   />

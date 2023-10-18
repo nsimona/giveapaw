@@ -7,9 +7,17 @@ import { petProjection } from "../pet-projection";
 const router = express.Router();
 
 router.get("/api/pets", async (req: Request, res: Response) => {
-  const pets = await Pet.find({}, petProjection);
+  const pets = await Pet.find({}, { ...petProjection, userId: 1 });
 
-  res.send(pets);
+  if (req.currentUser?.role === "admin") {
+    res.send(pets);
+    return;
+  }
+
+  const filteredPets = pets.filter(
+    (pet) => req.currentUser?.id === pet.userId || pet.status === "active"
+  );
+  res.send(filteredPets);
 });
 
 export { router as indexPetRouter };

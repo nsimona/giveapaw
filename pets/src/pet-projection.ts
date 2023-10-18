@@ -6,5 +6,7 @@ export const petProjection = {
   gender: 1,
   type: 1,
   status: 1,
+  selectedFiles: 1,
+  selectedCoverIndex: 1,
   // TODO add cover pic also
 };

@@ -25,12 +25,13 @@
 
 [x] BE handle conditional GET /pets; - admin should be able to see all pets - users see only active pets - users see their own pets no matter the status\
 [v2] BE a user can also delete their pets\
-[] BE upload files (create pet)\
+[x] BE upload files (create pet)\
+[] BE upload files, handle validation, refactor current code\
 [] FE create a map to handle en-bg and bg-en translation\
 [] FE fetch update a pet\
 [] FE single pet - handle UI\
 [] FE search - add aditional options - no preference which removes from the query?\
-[] FE handle delete pet ONLY by the owner\
+[v2] FE handle delete pet ONLY by the owner\
 [] BE create listener for application and lock updates if application is active\
 [] BE create listener for recommended pets (in the future)\
 [] BE update pet show - show only active pets (look below)\

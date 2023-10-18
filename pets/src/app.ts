@@ -1,4 +1,5 @@
 import express, { json } from "express";
+import path from "path";
 import "express-async-errors";
 import { currentUser, errorHandler, NotFoundError } from "@giveapaw/common";
 import cookieSession from "cookie-session";
@@ -30,7 +31,7 @@ app.use(showPetRouter);
 app.use(indexPetRouter);
 app.use(updatePetRouter);
 app.use(changeStatusPetRouter);
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.all("*", async () => {
   throw new NotFoundError();

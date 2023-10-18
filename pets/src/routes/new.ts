@@ -6,6 +6,7 @@ import { PetCreatedPublisher } from "../events/publisher/pet-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
 import { PetStatus } from "../pet-status-enum";
 import multer, { Multer } from "multer";
+import path from "path";
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
@@ -17,15 +18,13 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: DestinationCallback
   ) => {
-    // Define the destination directory for storing files
-    callback(null, "uploads/");
+    callback(null, path.join(__dirname, "../uploads"));
   },
   filename: (
     req: Request,
     file: Express.Multer.File,
     callback: FileNameCallback
   ) => {
-    // Define the filename for the uploaded file
     callback(null, file.originalname);
   },
 });
@@ -37,12 +36,12 @@ const router = express.Router();
 router.post(
   "/api/pets",
   requireAuth,
-  upload.array("selectedFiles", 5), // 5 is the maximum number of files
-  [
-    body("name").not().isEmpty().withMessage("Name is required"),
-    body("type").not().isEmpty().withMessage("Type is required"),
-  ],
-  validateRequest,
+  upload.array("selectedFiles", 5),
+  // [
+  //   body("name").not().isEmpty().withMessage("Name is required"),
+  //   body("type").not().isEmpty().withMessage("Type is required"),
+  // ],
+  // validateRequest,
   async (req: Request, res: Response) => {
     const {
       name,
@@ -62,9 +61,10 @@ router.post(
       selectedCoverIndex = 0,
     } = req.body;
 
-    const filesMetadataArray = selectedFiles.map((file: any) => ({
-      name: file.name,
-      url: `/uploads/${file.name}`, // Adjust the URL as needed
+    const files = req.files as Express.Multer.File[];
+    const filesMetadataArray = files.map((file: Express.Multer.File) => ({
+      name: file.originalname,
+      url: `/uploads/${file.originalname}`, // Adjust the URL as needed
     }));
 
     const pet = Pet.build({

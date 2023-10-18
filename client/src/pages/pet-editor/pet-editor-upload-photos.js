@@ -12,7 +12,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setPetEditorData } from "../../redux/slices/petSlice";
 
-const PetEditorUploadPhotos = () => {
+const PetEditorUploadPhotos = ({ onUploadPhotos }) => {
   const { selectedFiles, selectedCoverIndex } = useSelector(
     (state) => state.petEditor
   );
@@ -26,6 +26,13 @@ const PetEditorUploadPhotos = () => {
       };
     });
     dispatch(setPetEditorData({ selectedFiles: [...selectedFiles, ...files] }));
+
+    // test if this works with multar
+    const formData = new FormData();
+    Array.from(event.target.files).forEach((file) => {
+      formData.append("selectedFiles", file);
+    });
+    onUploadPhotos(formData);
   };
 
   const handleDelete = (index) => {

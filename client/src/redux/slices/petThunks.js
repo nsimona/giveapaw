@@ -5,18 +5,19 @@ import { setAlert } from "./app/appSlice";
 
 export const createNewPet = createAsyncThunk(
   "pets/createNew",
-  async (_, thunkAPI) => {
-    const data = thunkAPI.getState().petEditor;
-
+  async (formData, thunkAPI) => {
+    const petData = thunkAPI.getState().petEditor;
     const pet = {
-      ...data,
-      healthState: normalizePetEditorData(data.healthState),
-      livedInAHouse: normalizePetEditorData(data.livedInAHouse),
-      goodWith: normalizePetEditorData(data.goodWith),
-      characteristics: normalizePetEditorData(data.characteristics),
+      ...petData,
+      healthState: normalizePetEditorData(petData.healthState),
+      livedInAHouse: normalizePetEditorData(petData.livedInAHouse),
+      goodWith: normalizePetEditorData(petData.goodWith),
+      characteristics: normalizePetEditorData(petData.characteristics),
+      selectedFiles: formData,
     };
+
     try {
-      const response = await createPet(pet);
+      const response = await createPet(formData);
       thunkAPI.dispatch(
         setAlert({
           severity: "success",

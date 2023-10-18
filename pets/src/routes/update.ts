@@ -36,64 +36,57 @@ router.put(
       throw new BadRequestError("Pet has pending applications");
     }
 
-    if (pet.status !== "active") {
-      throw new BadRequestError("You can't update this pet");
-    }
+    // if (pet.status !== "active") {
+    //   throw new BadRequestError("You can't update this pet");
+    // }
 
-    const {
-      name,
-      type,
-      age = null,
-      breed,
-      gender,
-      color,
-      size,
-      trained = null,
-      livedInAHouse = [],
-      healthState = null,
-      goodWith = [],
-      characteristics = [],
-      description = null,
-      selectedFiles = [],
-      selectedCoverIndex = null,
-    } = req.body;
+    const allowedProperties = [
+      "name",
+      "type",
+      "age",
+      "breed",
+      "gender",
+      "color",
+      "size",
+      "trained",
+      "livedInAHouse",
+      "healthState",
+      "goodWith",
+      "characteristics",
+      "description",
+      "selectedFiles",
+      "selectedCoverIndex",
+      // Add other allowed properties as needed
+    ];
 
-    pet.set({
-      name,
-      type,
-      age,
-      breed,
-      gender,
-      color,
-      size,
-      trained,
-      livedInAHouse,
-      healthState,
-      goodWith,
-      characteristics,
-      description,
-      selectedFiles,
-      selectedCoverIndex,
+    const data: Record<string, any> = {};
+
+    allowedProperties.forEach((property) => {
+      if (req.body[property] !== undefined) {
+        data[property] = req.body[property];
+      }
     });
+
+    pet.set(data);
 
     await pet.save();
 
     await new PetUpdatedPublisher(natsWrapper.client).publish({
       id: pet.id,
-      name,
-      type,
+      name: pet.name,
+      type: pet.type,
       userId: pet.userId,
-      age,
-      breed,
-      gender,
-      color,
-      size,
-      trained,
-      livedInAHouse,
-      healthState,
-      goodWith,
-      characteristics,
-      description,
+      age: pet.age,
+      breed: pet.breed,
+      gender: pet.gender,
+      color: pet.color,
+      size: pet.size,
+      trained: pet.trained,
+      livedInAHouse: pet.livedInAHouse,
+      healthState: pet.healthState,
+      goodWith: pet.goodWith,
+      characteristics: pet.characteristics,
+      description: pet.description,
       version: pet.version,
     });
 

@@ -64,7 +64,11 @@ export const updatePreferences = async (data) => {
 // pets
 export const createPet = async (data) => {
   try {
-    const response = await axios.post("/api/pets", data);
+    const response = await axios.post("/api/pets", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

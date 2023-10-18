@@ -59,15 +59,15 @@ const petSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: false,
     },
     type: {
       type: String,
-      required: true,
+      required: false,
     },
     userId: {
       type: String,
-      required: true,
+      required: false,
     },
     age: {
       type: Number,
@@ -75,15 +75,15 @@ const petSchema = new mongoose.Schema(
     },
     breed: {
       type: String,
-      required: true,
+      required: false,
     },
     gender: {
       type: String,
-      required: true,
+      required: false,
     },
     size: {
       type: String,
-      required: true,
+      required: false,
     },
     trained: {
       type: Boolean,
@@ -125,7 +125,7 @@ const petSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
+      required: false,
       enum: Object.values(PetStatus),
     },
   },

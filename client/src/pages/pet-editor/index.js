@@ -16,14 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 const steps = ["Основна информация", "Характеристики", "Снимки"];
 
-function getStepContent(step) {
+function getStepContent(step, onUploadPhotos) {
   switch (step) {
     case 0:
       return <PetEditorBasicInfo />;
     case 1:
       return <PetEditorCharacteristics />;
     case 2:
-      return <PetEditorUploadPhotos />;
+      return <PetEditorUploadPhotos onUploadPhotos={onUploadPhotos} />;
     // case 3:
     //   return <PetEditorSummary />;
     default:
@@ -34,11 +34,16 @@ function getStepContent(step) {
 const PetEditor = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [photos, setPhotos] = React.useState();
   const dispatch = useDispatch();
 
   const { name, type, breed, gender, age } = useSelector(
     (state) => state.petEditor
   );
+
+  const onUploadPhotos = (formData) => {
+    setPhotos(formData);
+  };
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -50,7 +55,7 @@ const PetEditor = () => {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      dispatch(createNewPet());
+      dispatch(createNewPet(photos));
       return;
     }
     let newSkipped = skipped;
@@ -113,7 +118,7 @@ const PetEditor = () => {
           </Typography>
         ) : (
           <React.Fragment>
-            {getStepContent(activeStep)}
+            {getStepContent(activeStep, onUploadPhotos)}
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 color="neutralText"
@@ -141,7 +146,9 @@ const PetEditor = () => {
               >
                 <span>
                   <Button onClick={handleNext} variant="contained">
-                    Завърши тази стъпка
+                    {activeStep === steps.length - 1
+                      ? "Запази"
+                      : "Следваща стъпка"}
                   </Button>
                 </span>
               </Tooltip>

@@ -37,11 +37,15 @@ router.post(
   "/api/pets",
   requireAuth,
   upload.array("selectedFiles", 5),
-  // [
-  //   body("name").not().isEmpty().withMessage("Name is required"),
-  //   body("type").not().isEmpty().withMessage("Type is required"),
-  // ],
-  // validateRequest,
+  [
+    body("name").not().isEmpty().withMessage("Name is required"),
+    body("type").not().isEmpty().withMessage("Type is required"),
+    body("breed").not().isEmpty().withMessage("Breed is required"),
+    body("gender").not().isEmpty().withMessage("Gender is required"),
+    body("size").not().isEmpty().withMessage("Size is required"),
+    body("age").not().isEmpty().withMessage("Age is required"),
+  ],
+  validateRequest,
   async (req: Request, res: Response) => {
     const {
       name,

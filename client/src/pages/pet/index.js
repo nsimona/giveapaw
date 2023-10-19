@@ -17,6 +17,14 @@ import { setApplicationPet } from "../../redux/slices/application/applicationSli
 import AdminPetControls from "./admin-pet-controls";
 import UserPetControls from "./user-pet-controls";
 import { setAlert } from "../../redux/slices/app/appSlice";
+import { i18n } from "../../assets/i18n";
+import IconCard from "../../components/icon-card";
+import Tag from "../../components/tag";
+import FemaleOutlined from "@mui/icons-material/FemaleOutlined";
+import MaleOutlined from "@mui/icons-material/MaleOutlined";
+import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -27,30 +35,15 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const images = [
-  {
-    img: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/06154034/Akita-standing-outdoors-in-the-summer.jpg",
-    title: "Breakfast",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://cdn.britannica.com/59/234759-050-DA4F2DCF/Akita-dog-Japan.jpg",
-    title: "Burger",
-  },
-  {
-    img: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/06155050/Akita-puppy-standing-in-the-grass.jpg",
-    title: "Camera",
-  },
-  {
-    img: "https://www.thefarmersdog.com/digest/wp-content/uploads/2022/08/Akita.jpg",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.saymedia-content.com/.image/t_share/MTczOTQ1NTY2MTM5OTE3NjE5/dog-breeds-the-akita.jpg",
-    title: "Hats",
-  },
+const iterableCharacteristics = [
+  "livedInAHouse",
+  "healthState",
+  "goodWith",
+  "characteristics",
 ];
+
+const imagePlaceholderUrl =
+  "https://i0.wp.com/thinkfirstcommunication.com/wp-content/uploads/2022/05/placeholder-1-1.png?w=1200&ssl=1";
 
 const Pet = () => {
   const [pet, setPet] = useState({});
@@ -63,7 +56,18 @@ const Pet = () => {
   const getPetInfo = async () => {
     try {
       const petInfo = await getPet(id);
-      setPet(petInfo);
+      const files = [...petInfo.selectedFiles];
+      files.length = 5;
+      files.fill(
+        { name: "placeholder", url: imagePlaceholderUrl },
+        petInfo.selectedFiles.length,
+        files.length
+      );
+
+      setPet({
+        ...petInfo,
+        selectedFiles: files,
+      });
     } catch (error) {
       console.error("Cannot fetch pet", error);
     }
@@ -109,15 +113,15 @@ const Pet = () => {
         cols={4}
         rowHeight={260}
       >
-        {images.map((item) => (
+        {pet.selectedFiles?.map((item, index) => (
           <ImageListItem
             key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
+            cols={index === 0 ? 2 : 1}
+            rows={index === 0 ? 2 : 1}
           >
             <img
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
+              {...srcset(item.url, 121, item.rows, item.cols)}
+              alt={item.name}
               loading="lazy"
             />
           </ImageListItem>
@@ -130,17 +134,59 @@ const Pet = () => {
               <Typography variant="h4" color="text.primary">
                 <strong>{pet.name}</strong>
               </Typography>
-              България, София-град
+              {i18n[pet.type]}, порода- {i18n[pet.breed]}
               <Divider sx={{ my: 4 }} />
               <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
                 Основна информация
               </Typography>
-              порода, вид, пол...
+              <Grid container flexDirection="row">
+                <IconCard
+                  Icon={pet.gender === "male" ? MaleOutlined : FemaleOutlined}
+                  title={i18n.gender}
+                  text={i18n[pet.gender]}
+                />
+                <IconCard
+                  Icon={StraightenOutlinedIcon}
+                  title={i18n.size}
+                  text={i18n[pet.size]}
+                />
+                <IconCard
+                  Icon={AccessTimeOutlinedIcon}
+                  title={i18n.age}
+                  text={i18n[pet.age]}
+                />
+                <IconCard
+                  Icon={ColorLensOutlinedIcon}
+                  title={i18n.color}
+                  text={i18n[pet.color]}
+                />
+              </Grid>
               <Divider sx={{ my: 4 }} />
               <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-                Опознай Плутон
+                Характеристики
               </Typography>
-              Описание...
+              {iterableCharacteristics.map((c) => {
+                if (pet[c]?.length === 0) {
+                  return "";
+                }
+                return (
+                  <>
+                    <Typography variant="body1">
+                      <strong>{i18n[c]}</strong>
+                    </Typography>
+                    {pet[c]?.map((value) => (
+                      <Tag text={value} />
+                    ))}
+                  </>
+                );
+              })}
+              <Divider sx={{ my: 4 }} />
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
+                Опознай {pet.name}
+              </Typography>
+              <Typography variant="body2">
+                {pet.description || "Липсва описание"}
+              </Typography>
               <Divider sx={{ my: 4 }} />
             </Grid>
             <Grid item xs={2} justifyContent="end">
@@ -168,12 +214,13 @@ const Pet = () => {
                 <UserPetControls
                   buttonDisabled={!userId || pet.userId === userId}
                   onButtonClick={apply}
+                  petName={pet.name}
                 />
               )}
             </Box>
           </Grid>
         </Grid>
-        <Grid xs={12}>suggested pets</Grid>
+        {/* <Grid xs={12}>suggested pets</Grid> */}
       </Container>
     </Grid>
   );

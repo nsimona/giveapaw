@@ -13,6 +13,7 @@ import {
   FAVORITES,
   SEARCH,
   CREATEAPPLICATION,
+  PETUPDATE,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -102,6 +103,15 @@ export const RouterConfig = () => {
         <Route
           exact
           path={PETEDITOR}
+          element={
+            <AuthWrapper>
+              <PetEditor />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          exact
+          path={PETUPDATE}
           element={
             <AuthWrapper>
               <PetEditor />

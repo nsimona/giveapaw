@@ -9,6 +9,7 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import PetCardActionButton from "../pet-card-action-button";
 import { Link } from "react-router-dom";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import { i18n } from "../../assets/i18n";
 
 const flagStyles = {
   match: {
@@ -106,7 +107,7 @@ const PetCard = ({
               <strong>{name}</strong>
             </Typography>
             <Typography variant="body2" sx={{ my: 2, height: "45px" }}>
-              {type} &#183; {breed} &#183; {size}
+              {i18n[type]} &#183; {i18n[breed]} &#183; {i18n[size]}
             </Typography>
           </Grid>
           <Grid item xs={2}>
@@ -120,8 +121,8 @@ const PetCard = ({
             variant="body2"
             sx={{ display: "flex", alignItems: "center" }}
           >
-            <MaleIcon /> {gender}
-            <AccessTimeOutlinedIcon sx={{ ml: 3 }} /> {age}
+            <MaleIcon /> {i18n[gender]}
+            <AccessTimeOutlinedIcon sx={{ ml: 3, mr: 1 }} /> {age} години
           </Typography>
         </Grid>
       </CardContent>

@@ -62,10 +62,11 @@ router.put(
     const data: Record<string, any> = {};
 
     allowedProperties.forEach((property) => {
-      if (req.body[property] !== undefined) {
+      if (req.body[property] !== undefined && req.body[property] !== null) {
         data[property] = req.body[property];
       }
     });
+    console.log(data);
 
     pet.set(data);
 

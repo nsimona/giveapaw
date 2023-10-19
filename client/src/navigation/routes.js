@@ -5,6 +5,7 @@ export const LOGIN = "/login";
 export const REGISTER = "/register";
 export const ACCOUNT = "/account";
 export const PETEDITOR = "/pet-editor";
+export const PETUPDATE = "/pet-update/:id";
 export const PET = "/pet/:id";
 export const FAVORITES = "/favorites";
 export const CREATEAPPLICATION = "/application/create";

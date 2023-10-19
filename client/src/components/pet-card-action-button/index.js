@@ -22,7 +22,7 @@ const PetCardActionButton = ({
   const handleEdit = async () => {
     const pet = await getPet(id);
     dispatch(setPetEditorData(pet));
-    navigate("/pet-editor");
+    navigate(`/pet-update/${id}`);
   };
 
   const handlePetFavorite = () => {

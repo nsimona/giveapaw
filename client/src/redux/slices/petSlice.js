@@ -8,7 +8,7 @@ const initialState = {
   color: "",
   age: "",
   gender: "unknown",
-  size: "",
+  size: "medium",
   description: "",
   // characteristics:
   trained: false,
@@ -18,7 +18,7 @@ const initialState = {
   characteristics: [],
   // photos:
   selectedFiles: [],
-  selectedCoverIndex: null,
+  selectedCoverIndex: 0,
 };
 
 export const petSlice = createSlice({

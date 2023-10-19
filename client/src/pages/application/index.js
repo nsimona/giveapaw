@@ -137,6 +137,7 @@ const Application = ({
         <ApplicationMatch type="full-match" />
         {/* <ApplicationMatch type="good-match" /> */}
         <ApplicationBox title="Идеалният домашен любимец на Юлия е">
+          {/* <Tag text="активен"/> */}
           <Box
             sx={{
               bgcolor: "neutral.grey",

@@ -9,10 +9,13 @@ import PetEditorBasicInfo from "./pet-editor-basic-info";
 import PetEditorCharacteristics from "./pet-editor-characteristics";
 import Wrapper from "../../components/wrapper";
 import PetEditorUploadPhotos from "./pet-editor-upload-photos";
-// import PetEditorSummary from "./pet-editor-summary";
 import { Link, Tooltip } from "@mui/material";
-import { createNewPet } from "../../redux/slices/petThunks";
+import { createNewPet, updateExistingPet } from "../../redux/slices/petThunks";
 import { useDispatch, useSelector } from "react-redux";
+import { getPet } from "../../services/api";
+import { useParams } from "react-router";
+import { setPetEditorData } from "../../redux/slices/petSlice";
+import { setAlert } from "../../redux/slices/app/appSlice";
 
 const steps = ["Основна информация", "Характеристики", "Снимки"];
 
@@ -24,8 +27,6 @@ function getStepContent(step, onUploadPhotos) {
       return <PetEditorCharacteristics />;
     case 2:
       return <PetEditorUploadPhotos onUploadPhotos={onUploadPhotos} />;
-    // case 3:
-    //   return <PetEditorSummary />;
     default:
       throw new Error("Unknown step");
   }
@@ -34,15 +35,40 @@ function getStepContent(step, onUploadPhotos) {
 const PetEditor = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [photos, setPhotos] = React.useState();
+  const [formDataWithAppendedPhotos, setFormDataWithAppendedPhotos] =
+    React.useState();
   const dispatch = useDispatch();
+  let { id } = useParams();
 
-  const { name, type, breed, gender, age } = useSelector(
-    (state) => state.petEditor
-  );
+  React.useEffect(() => {
+    if (id) {
+      getPet(id)
+        .then((resp) => {
+          dispatch(setPetEditorData(resp));
+        })
+        .catch((error) => {
+          dispatch(
+            setAlert({
+              severity: "error",
+              message: `Грешка при зареждане, ${error}`,
+            })
+          );
+        });
+    }
+  }, [id]);
 
+  // this is generally not a good practice; need to refactor this, but for this project it is not worth it
   const onUploadPhotos = (formData) => {
-    setPhotos(formData);
+    if (id) {
+      dispatch(
+        setAlert({
+          severity: "warning",
+          message:
+            "Промяна на снимките няма да бъде отразена към настоящия момент",
+        })
+      );
+    }
+    setFormDataWithAppendedPhotos(formData);
   };
 
   const isStepOptional = (step) => {
@@ -53,10 +79,15 @@ const PetEditor = () => {
     return skipped.has(step);
   };
 
+  // obviously I am in hurry, otherwise this won't be like that
+  // I hate being in hurry :/
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      dispatch(createNewPet(photos));
-      return;
+      if (id) {
+        dispatch(updateExistingPet({ formData: formDataWithAppendedPhotos }));
+        return;
+      }
+      dispatch(createNewPet({ formData: formDataWithAppendedPhotos }));
     }
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {

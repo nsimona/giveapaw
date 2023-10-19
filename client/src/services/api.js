@@ -130,6 +130,17 @@ export const changePetStatus = async (data) => {
   }
 };
 
+// currently updating photos is not maintained, because of the complexity of operation
+export const updatePet = async (data) => {
+  try {
+    const response = await axios.put(`/api/pets/${data.id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("API Request Error:", error);
+    throw error;
+  }
+};
+
 // application
 export const createApplication = async (data) => {
   try {

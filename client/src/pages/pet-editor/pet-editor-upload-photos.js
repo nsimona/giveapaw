@@ -27,7 +27,7 @@ const PetEditorUploadPhotos = ({ onUploadPhotos }) => {
     });
     dispatch(setPetEditorData({ selectedFiles: [...selectedFiles, ...files] }));
 
-    // test if this works with multar
+    // needs refactorin, but probably in v2
     const formData = new FormData();
     Array.from(event.target.files).forEach((file) => {
       formData.append("selectedFiles", file);

@@ -21,11 +21,14 @@ import { useState } from "react";
 // TODO export as select with icon separate component
 const CustomSelectFiltersWrapper = ({ id, options, label, icon }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectValue, setSelectValue] = useState(searchParams.get(id) || "");
+  const [selectValue, setSelectValue] = useState(searchParams.get(id) || "all");
 
   const onChange = (e) => {
     setSelectValue(e.target.value);
     searchParams.set(id, e.target.value);
+    if (e.target.value === "all") {
+      searchParams.delete(id);
+    }
     setSearchParams(searchParams);
   };
 
@@ -46,6 +49,13 @@ const CustomSelectFiltersWrapper = ({ id, options, label, icon }) => {
       sx={{ flex: 1 }}
     />
   );
+};
+
+const enhanceOptions = (options) => {
+  return [
+    ...options.filter((o) => o.value !== "unknown"),
+    { value: "all", title: "Всички", selected: true },
+  ];
 };
 
 const SearchFilters = () => {
@@ -70,37 +80,37 @@ const SearchFilters = () => {
           id="type"
           icon={<PetsIcon />}
           label="Вид"
-          options={petTypeOptions}
+          options={enhanceOptions(petTypeOptions)}
         />
         <CustomSelectFiltersWrapper
           id="breed"
           icon={<TypeSpecimenOutlinedIcon />}
           label="Порода"
-          options={basicBreedsOptions}
+          options={enhanceOptions(basicBreedsOptions)}
         />
         <CustomSelectFiltersWrapper
           id="age"
           icon={<AccessTimeOutlinedIcon />}
           label="Възраст"
-          options={petAgeOptions}
+          options={enhanceOptions(petAgeOptions)}
         />
         <CustomSelectFiltersWrapper
           id="color"
           icon={<ColorLensOutlinedIcon />}
           label="Цвят"
-          options={petColorsOptions}
+          options={enhanceOptions(petColorsOptions)}
         />
         <CustomSelectFiltersWrapper
           id="size"
           icon={<StraightenOutlinedIcon />}
           label="Размер"
-          options={petSizeOptions}
+          options={enhanceOptions(petSizeOptions)}
         />
         <CustomSelectFiltersWrapper
           id="gender"
           icon={<FemaleOutlinedIcon />}
           label="Пол"
-          options={petGenderOptions}
+          options={enhanceOptions(petGenderOptions)}
         />
       </Grid>
     </Container>

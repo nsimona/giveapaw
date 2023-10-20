@@ -4,6 +4,7 @@ import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
 import { ApplicationCancelledListener } from "./events/listeners/application-status-updated-listener";
 import { ApplicationCreatedListener } from "./events/listeners/application-created-listener";
+import { RecommendationsGeneratedListener } from "./events/listeners/recommendations-genreated-listener";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -34,8 +35,11 @@ const start = async () => {
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
 
-    new ApplicationCancelledListener(natsWrapper.client).listen();
-    new ApplicationCreatedListener(natsWrapper.client).listen();
+    // v2 Listen for created applications and lock updates if there are pending
+    // new ApplicationCancelledListener(natsWrapper.client).listen();
+    // new ApplicationCreatedListener(natsWrapper.client).listen();
+
+    new RecommendationsGeneratedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log("connected to MongoDB");

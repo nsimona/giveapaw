@@ -4,12 +4,12 @@ const Tag = ({ text }) => {
   return (
     <Box
       sx={{
-        bgcolor: "neutral.grey",
+        bgcolor: "secondary.main",
         px: 2,
         py: 1,
-        mx: 1,
+        m: 1,
         borderRadius: 5,
-        color: "neutral.contrastText",
+        color: "secondary.contrast",
         display: "inline-flex",
       }}
     >

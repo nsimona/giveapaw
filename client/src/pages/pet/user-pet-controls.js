@@ -3,11 +3,12 @@ import { Button, Typography } from "@mui/material";
 const UserPetControls = ({ petName, buttonDisabled, onButtonClick }) => {
   return (
     <>
-      <Typography variant="h6">
+      <Typography variant="h6" color="primary">
         <strong>Искаш да осиновиш {petName}?</strong>
       </Typography>
       <Button
         variant="contained"
+        color="secondary"
         disabled={buttonDisabled}
         onClick={onButtonClick}
       >

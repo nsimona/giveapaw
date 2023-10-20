@@ -25,6 +25,7 @@ import MaleOutlined from "@mui/icons-material/MaleOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
+import PetsIcon from "@mui/icons-material/Pets";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -153,12 +154,17 @@ const Pet = () => {
                 <IconCard
                   Icon={AccessTimeOutlinedIcon}
                   title={i18n.age}
-                  text={i18n[pet.age]}
+                  text={i18n.years[pet.age]}
                 />
                 <IconCard
                   Icon={ColorLensOutlinedIcon}
                   title={i18n.color}
                   text={i18n[pet.color]}
+                />
+                <IconCard
+                  Icon={PetsIcon}
+                  title={i18n.trained}
+                  text={i18n[pet.trained]}
                 />
               </Grid>
               <Divider sx={{ my: 4 }} />
@@ -171,11 +177,11 @@ const Pet = () => {
                 }
                 return (
                   <>
-                    <Typography variant="body1">
-                      <strong>{i18n[c]}</strong>
+                    <Typography variant="body1" sx={{ m: 1 }}>
+                      {i18n[c]}
                     </Typography>
                     {pet[c]?.map((value) => (
-                      <Tag text={value} />
+                      <Tag text={i18n[value]} />
                     ))}
                   </>
                 );

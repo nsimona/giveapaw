@@ -29,23 +29,23 @@
 [x] BE upload files, handle validation, refactor current code\
 [x] FE create a map to handle en-bg and bg-en translation\
 [x] FE fetch update a pet\
-[/] FE single pet - handle UI\
-[] FE search - add aditional options - no preference which removes from the query?\
+[x] FE single pet - handle UI\
+[x] FE search - add aditional options - no preference which removes from the query?\
 [v2] FE handle delete pet ONLY by the owner\
 [v2] BE create listener for application and lock updates if application is active\
-[] BE create listener for recommended pets (in the future)\
+[x] BE create listener for recommended pets (in the future)\
 [x] BE update pet show - show only active pets (look below)\
 [x] FE admins and pet owners still can see archived single pets, other users NO\
 [x] FE update pet is not working (on save - it adds a new pet)\
-[] Consume recommended pets, store them in a collection\
+[x] Consume recommended pets, store them in a collection\
 
 - Lock updates for a pet if applications exists (v2)\
-  [] Subscirbe for recommendations event, applications event\
+  [v2] Subscirbe for applications event\
 
 ### Applications
 
 [x] HIGH PRIORITY service is currently unavailable\
-[] cancel all applications if there is 1 approved\
+[x] cancel all applications if there is 1 approved\
 
 ### Recommendations
 

@@ -10,7 +10,9 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
   const { ids } = req.query;
 
   if (Object.keys(req.query).length === 0) {
-    throw new BadRequestError("no query parameter provided");
+    const allPets = await Pet.find({}, petProjection);
+    res.send(allPets);
+    return;
   }
 
   // handle query pets by their ids

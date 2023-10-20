@@ -21,8 +21,6 @@ const Search = () => {
         setPets(response);
       })
       .catch(() => {});
-
-    console.log(params);
   }, [searchParams]);
 
   return (

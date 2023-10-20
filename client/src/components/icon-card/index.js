@@ -8,18 +8,16 @@ const IconCard = ({ Icon, title, text }) => {
         sx={{
           flexDirection: "row",
           display: "flex",
-          alignItems: "center",
+          alignItems: "start",
         }}
       >
-        <Icon color="primary" size="big" sx={{ mr: 1 }} />
-        <Typography variant="h6" color="primary">
-          {title}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography variant="body2" sx={{ px: 1 }}>
-          {text}
-        </Typography>
+        <Icon color="primary" size="big" sx={{ m: 0.5, mr: 1 }} />
+        <Grid item>
+          <Typography variant="h6" color="primary">
+            {title}
+          </Typography>
+          <Typography variant="body2">{text}</Typography>
+        </Grid>
       </Grid>
     </Grid>
   );

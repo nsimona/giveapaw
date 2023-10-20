@@ -107,7 +107,8 @@ const PetCard = ({
               <strong>{name}</strong>
             </Typography>
             <Typography variant="body2" sx={{ my: 2, height: "45px" }}>
-              {i18n[type]} &#183; {i18n[breed]} &#183; {i18n[size]}
+              {i18n[type]} &#183; порода - {i18n[breed]} &#183; {i18n[size]}{" "}
+              размер
             </Typography>
           </Grid>
           <Grid item xs={2}>

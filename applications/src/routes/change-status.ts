@@ -9,11 +9,12 @@ import express, { Request, Response } from "express";
 import { Application } from "../models/application";
 import { ApplicationCancelledPublisher } from "../events/publishers/application-cancelled-publisher";
 import { natsWrapper } from "../nats-wrapper";
+import { Pet } from "src/models/pet";
 
 function isStatusValid(status: any): status is ApplicationStatus {
   return (
     status === ApplicationStatus.Approved ||
-    status === ApplicationStatus.Declined
+    status === ApplicationStatus.Cancelled
   );
 }
 
@@ -42,6 +43,13 @@ router.patch(
       );
     }
     application.status = status;
+
+    if (status === "approved") {
+      await Application.updateMany(
+        { "pet.id": { $eq: application.pet.id } },
+        { $set: { status: ApplicationStatus.Cancelled } }
+      );
+    }
     // if status eq approved => decline all exisiting
     // tell nats that this happened
     await application.save();

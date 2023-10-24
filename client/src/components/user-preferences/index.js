@@ -54,6 +54,7 @@ const UserPreferences = () => {
 
   React.useEffect(() => {
     setPreferences({ ...preferences, savedPreferences });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, savedPreferences);
 
   const handleChange = (e) => {

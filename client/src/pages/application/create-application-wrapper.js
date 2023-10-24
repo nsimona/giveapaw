@@ -10,7 +10,9 @@ const CreateApplicationWrapper = () => {
   const [message, setMessage] = useState("");
   const [candidatePhone, setCandidatePhone] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [matchedFeatures, setMatchedFeatures] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [matchedScore, setMatchedScore] = useState();
 
   const pet = useSelector((state) => state.application);

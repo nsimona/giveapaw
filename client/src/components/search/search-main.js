@@ -1,6 +1,12 @@
 import { Box, Button, Container, Grid } from "@mui/material";
 import CustomSelect from "../pet-form-inputs/custom-select";
 import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
+// import PetsIcon from "@mui/icons-material/Pets";
+// import TypeSpecimenOutlinedIcon from "@mui/icons-material/TypeSpecimenOutlined";
+// import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+// import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
+// import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
+// import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
 
 const SearchMain = () => {
   return (
@@ -19,27 +25,33 @@ const SearchMain = () => {
       <Container maxWidth="lg">
         <Box
           sx={{
-            background: " rgba( 255, 255, 255, 0.8 )",
-            backdropFilter: " blur( 5px )",
-            borderRadius: " 16px",
-            border: " 1px solid rgba( 255, 255, 255, 0.18 )",
-            width: "100%",
+            background: "rgba( 255, 255, 255, 0.8 )",
+            backdropFilter: "blur( 5px )",
+            borderRadius: "16px",
+            border: "1px solid rgba( 255, 255, 255, 0.18 )",
             p: 5,
           }}
         >
           <Grid container gap={2}>
-            <Grid item md={3}>
+            <Grid item flex={1}>
               <CustomSelect
                 id="search-type"
                 options={petTypeOptions}
                 label="Вид"
                 value=""
-                selectProps={{ size: "small" }}
+                selectProps={{
+                  size: "small",
+                  // startAdornment: (
+                  //   <InputAdornment position="start">
+                  //     <PetsIcon />
+                  //   </InputAdornment>
+                  // ),
+                }}
                 onChange={(e) => {}}
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item flex={1}>
               <CustomSelect
                 id="search-breed"
                 options={basicBreedsOptions}
@@ -50,7 +62,7 @@ const SearchMain = () => {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item flex={1}>
               <CustomSelect
                 id="search-age"
                 options={basicBreedsOptions}
@@ -61,13 +73,8 @@ const SearchMain = () => {
               />
             </Grid>
 
-            <Grid item md={2}>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="big"
-                sx={{ px: 2 }}
-              >
+            <Grid item>
+              <Button variant="contained" color="secondary" sx={{ px: 2 }}>
                 Търсене
               </Button>
             </Grid>

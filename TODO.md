@@ -49,10 +49,10 @@
 
 ### Recommendations
 
-[] setup redis\
-[] Subscribe for pets and preferences upsert and store them\
-[] Publish a msg with top 20 recommendations for each user\
-[] Handle match route with real data\
+[x] setup redis\
+[x] Subscribe for pets and preferences upsert and store them\
+[x] Publish a msg with top 20 recommendations for each user\
+[x] Handle match route with real data\
 
 ## Basic requirements
 

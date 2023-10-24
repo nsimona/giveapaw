@@ -11,7 +11,7 @@ import Wrapper from "../../components/wrapper";
 import PetEditorUploadPhotos from "./pet-editor-upload-photos";
 import { Link, Tooltip } from "@mui/material";
 import { createNewPet, updateExistingPet } from "../../redux/slices/petThunks";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPet } from "../../services/api";
 import { useParams } from "react-router";
 import { setPetEditorData } from "../../redux/slices/petSlice";
@@ -55,7 +55,7 @@ const PetEditor = () => {
           );
         });
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   // this is generally not a good practice; need to refactor this, but for this project it is not worth it
   const onUploadPhotos = (formData) => {

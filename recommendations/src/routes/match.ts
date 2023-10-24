@@ -1,44 +1,50 @@
 import mongoose from "mongoose";
-import {
-  ApplicationStatus,
-  BadRequestError,
-  NotFoundError,
-  requireAuth,
-  validateRequest,
-} from "@giveapaw/common";
+import { NotFoundError, requireAuth, validateRequest } from "@giveapaw/common";
 
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { matchResult } from "../calculate-match";
-// import { Pet } from "../models/pet";
-// import { Application } from "../models/application";
-// import { ApplicationCreatedPublisher } from "../events/publishers/application-created-publisher";
-// import { natsWrapper } from "../nats-wrapper";
+import { calculateMatch } from "../utils/calculate-match";
+import { client } from "../index";
+import { generalWeights } from "../utils/weights";
 
 const router = express.Router();
 
 router.post(
   "/api/recommendations/match",
   requireAuth,
-  //   [
-  //     body("userId")
-  //       .not()
-  //       .isEmpty()
-  //       .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-  //       .withMessage("valid userId must be provided"),
-  //     body("petId")
-  //       .not()
-  //       .isEmpty()
-  //       .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-  //       .withMessage("valid petId must be provided"),
-  //   ],
+  [
+    body("userId")
+      .not()
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage("valid userId must be provided"),
+    body("petId")
+      .not()
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage("valid petId must be provided"),
+  ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { score, matchedFeatures } = matchResult;
-    // get the preferences
-    // get pet features
-    // calculate score and matching fields
-    // return score and matching fields
+    const { userId, petId } = req.body;
+    const preferences = await client.get(`preference:${userId}`);
+    const pet = await client.get(`pet:${petId}`);
+
+    if (!pet) {
+      console.error("Pet not found", petId);
+      throw new NotFoundError();
+    }
+
+    if (!preferences) {
+      res.send({ score: 0, matchedFeatures: [] });
+      return;
+    }
+
+    const { score, matchedFeatures } = calculateMatch(
+      JSON.parse(pet),
+      JSON.parse(preferences),
+      generalWeights
+    );
 
     res.send({ score, matchedFeatures });
   }

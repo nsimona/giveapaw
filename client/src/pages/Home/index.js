@@ -26,7 +26,7 @@ function Home() {
       dispatch(
         setAlert({
           severity: "error",
-          message: `Грешка при зареждане на всички животни, ${error.response.data.errors[0].message}`,
+          message: `Грешка при зареждане на всички животни`,
         })
       );
     }

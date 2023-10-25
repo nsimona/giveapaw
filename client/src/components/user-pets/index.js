@@ -100,18 +100,25 @@ const UserPets = () => {
       </Dialog>
       {pets.map((pet, index) => (
         <>
-          <Grid container item sx={{ display: "flex", gap: 3, mb: 3 }}>
-            <PetCard
-              isEditable={pet.status === "active"}
-              disableFavorites
-              pet={pet}
-              applications={
-                applications[pet.id]?.filter((a) => a.status === "created")
-                  .length
-              }
-            />
-            <Grid md={8} sx={12} item>
-              <Grid item>
+          <Grid
+            container
+            item
+            sx={{ display: "flex", gap: 3, mb: 3 }}
+            key={index}
+          >
+            <Grid md={5} sx={12} item>
+              <PetCard
+                isEditable={pet.status === "active"}
+                disableFavorites
+                pet={pet}
+                applications={
+                  applications[pet.id]?.filter((a) => a.status === "created")
+                    .length
+                }
+              />
+            </Grid>
+            <Grid md={6} sx={12} item container>
+              <Grid item flex={1}>
                 {applications[pet.id] ? (
                   <StickyHeadTable
                     columns={columns}

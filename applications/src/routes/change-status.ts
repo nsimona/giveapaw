@@ -45,7 +45,7 @@ router.patch(
     application.status = status;
 
     if (status === "approved") {
-      await Application.updateMany(
+      await Application.updateOne(
         { "pet.id": { $eq: application.pet.id } },
         { $set: { status: ApplicationStatus.Cancelled } }
       );

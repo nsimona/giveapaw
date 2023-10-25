@@ -39,6 +39,7 @@ const mock = {
   trained: true,
 };
 
+// TODO
 const Application = ({
   pet: { name, type, id },
   readOnly = false,

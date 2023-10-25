@@ -54,7 +54,7 @@ const PetCard = ({
   applications,
 }) => {
   return (
-    <Card sx={{ width: "320px", maxWidth: "100%", borderRadius: 3 }}>
+    <Card sx={{ minWidth: "320px", maxWidth: "100%", borderRadius: 3 }}>
       <Link
         style={{
           textDecoration: "none",

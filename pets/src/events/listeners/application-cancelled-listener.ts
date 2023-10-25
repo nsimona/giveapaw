@@ -17,7 +17,7 @@ export class ApplicationCancelledListener extends Listener<ApplicationCancelledE
     if (!pet) {
       throw new Error("Pet not found");
     }
-    pet.set({ applicationId: undefined });
+    pet.set({ status: "cancelled" });
     await pet.save();
 
     await new PetUpdatedPublisher(this.client).publish({

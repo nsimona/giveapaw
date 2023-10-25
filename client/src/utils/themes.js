@@ -5,7 +5,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 25,
           paddingTop: 8,
           paddingBottom: 8,
           textTransform: "none",
@@ -16,16 +16,28 @@ const theme = createTheme({
   palette: {
     primary: {
       light: "#8ECDDD",
-      main: "#22668D",
-      dark: "#13384d",
+      main: "#01b0bc",
+      dark: "#018b95",
+      contrastText: "#fff",
+    },
+    primaryLight: {
+      light: "#8ECDDD",
+      main: "#8ECDDD",
+      dark: "#22668D",
       contrastText: "#fff",
     },
     secondary: {
-      light: "#FFCC70",
-      main: "#FFCC70",
-      dark: "#65bacf",
+      light: "#ffab91",
+      main: "#ffbd59",
+      dark: "#ff7043",
       contrastText: "#fff",
     },
+    // secondary: {
+    //   light: "#ffab91",
+    //   main: "#ff8a65",
+    //   dark: "#ff7043",
+    //   contrastText: "#fff",
+    // },
     tertiary: {
       light: "#feda5a",
       main: "#fed039",
@@ -36,6 +48,7 @@ const theme = createTheme({
       grey: "#ECECEC",
       light: "#FFFFFF",
       dark: "#0000001f",
+      darker: "#333",
       main: "#ECECEC",
       contrastText: "#444",
     },

@@ -7,7 +7,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 3px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 }
 .tile:before {
   content: "";
@@ -53,12 +53,12 @@
 .tile .details .title {
   line-height: 1;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 24px;
 }
 .tile .details .info {
   line-height: 1.2;
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .tile:focus:before,
 .tile:focus span,

@@ -218,7 +218,7 @@ export default function Register() {
             </Grid>
             <Grid container sx={{ justifyContent: "center" }}>
               <Grid item>
-                <NavLink to="/login">Вече имаш акаунт? Влез тук.</NavLink>
+                Вече имаш акаунт? Влез <NavLink to="/login">тук</NavLink>.
               </Grid>
             </Grid>
           </Box>

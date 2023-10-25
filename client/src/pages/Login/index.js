@@ -113,9 +113,8 @@ export default function Login() {
             </Grid>
             <Grid container sx={{ justifyContent: "center" }}>
               <Grid item>
-                <NavLink to="/register">
-                  Нямаш акаунт? Регистрирай се тук.
-                </NavLink>
+                Нямаш акаунт? Регистрирай се{" "}
+                <NavLink to="/register">тук</NavLink>.
               </Grid>
             </Grid>
           </Box>

@@ -2,12 +2,12 @@
 
 ### UI
 
-[] front page - add all sections\
+[x] front page - add all sections\
 [] footer\
 [] front page search\
-[] top menus - handle close on click\
+[x] top menus - handle close on click\
 [] handle account tabs links\
-[] handle top menu - redirect to search\
+[x] handle top menu - redirect to search\
 
 ### Auth
 

@@ -26,6 +26,8 @@ import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import PetsIcon from "@mui/icons-material/Pets";
+import Banner from "../../components/banner";
+import placeholder from "../../assets/images/placeholder.png";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -43,8 +45,7 @@ const iterableCharacteristics = [
   "characteristics",
 ];
 
-const imagePlaceholderUrl =
-  "https://i0.wp.com/thinkfirstcommunication.com/wp-content/uploads/2022/05/placeholder-1-1.png?w=1200&ssl=1";
+const imagePlaceholderUrl = placeholder;
 
 const Pet = () => {
   const [pet, setPet] = useState({});
@@ -226,7 +227,7 @@ const Pet = () => {
             </Box>
           </Grid>
         </Grid>
-        {/* <Grid xs={12}>suggested pets</Grid> */}
+        <Banner image="https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </Container>
     </Grid>
   );

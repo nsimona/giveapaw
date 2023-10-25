@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { DatabaseConnectionError } from "@giveapaw/common";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
-import { ApplicationCancelledListener } from "./events/listeners/application-status-updated-listener";
+import { ApplicationCancelledListener } from "./events/listeners/application-cancelled-listener";
 import { ApplicationCreatedListener } from "./events/listeners/application-created-listener";
 import { RecommendationsGeneratedListener } from "./events/listeners/recommendations-genreated-listener";
 

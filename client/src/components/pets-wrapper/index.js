@@ -1,14 +1,29 @@
 import { Container, Grid, Typography } from "@mui/material";
 import PetCard from "../pet-card";
+import { useMemo } from "react";
+import AdItem from "../ad-item";
 
-const PetsWrapper = ({ pets, noResultsMessage }) => {
+const PetsWrapper = ({
+  pets,
+  noResultsMessage,
+  withAd = false,
+  adPosition = 4,
+}) => {
+  const updatedPets = useMemo(() => {
+    const clonedPets = [...pets];
+    if (withAd) {
+      clonedPets.splice(adPosition, 0, { type: "ad" });
+    }
+    return clonedPets;
+  }, [adPosition, pets, withAd]);
+
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Grid container spacing={3} justifyContent="center">
         {pets.length ? (
-          pets.map((pet) => (
+          updatedPets.map((pet) => (
             <Grid md={4} item key={pet.id}>
-              <PetCard pet={pet} />
+              {pet.type === "ad" ? <AdItem /> : <PetCard pet={pet} />}
             </Grid>
           ))
         ) : (

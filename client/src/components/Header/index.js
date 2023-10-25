@@ -12,34 +12,21 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LoggedHeader from "./logged-header";
 import DefaultHeader from "./default-header";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
+import logo from "../../assets/images/logo.png";
+// import logoDog from "../../assets/images/logo-dog.svg";
 
 function ResponsiveAppBar() {
   const [openMenu, setOpenMenu] = React.useState(false);
   const isLoggedin = useSelector((state) => state.user.id !== undefined);
+  const navigate = useNavigate();
 
   return (
     <AppBar color="transparent" elevation={0} sx={{ position: "relative" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              flexGrow: 0,
-            }}
-          >
-            LOGO
-          </Typography>
-          <IconButton
+          {/* <IconButton
             aria-label="menu"
             color="primary"
             sx={{
@@ -52,26 +39,10 @@ function ResponsiveAppBar() {
               setOpenMenu(!openMenu);
             }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 0,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+            <MenuIcon /> */}
+          <img src={logo} alt="logo" height="40px" />
+
+          {/* </IconButton> */}
 
           <Box
             sx={{ flexGrow: 1, gap: 2, display: { xs: "none", md: "flex" } }}
@@ -106,6 +77,7 @@ function ResponsiveAppBar() {
               disableElevation
               onClick={() => {
                 setOpenMenu(false);
+                navigate("/search?type=dog");
               }}
             >
               Кучета
@@ -115,6 +87,7 @@ function ResponsiveAppBar() {
               disableElevation
               onClick={() => {
                 setOpenMenu(false);
+                navigate("/search?type=cat");
               }}
             >
               Котки
@@ -124,6 +97,7 @@ function ResponsiveAppBar() {
               disableElevation
               onClick={() => {
                 setOpenMenu(false);
+                navigate("/search?type=bird");
               }}
             >
               Птици
@@ -133,6 +107,7 @@ function ResponsiveAppBar() {
               disableElevation
               onClick={() => {
                 setOpenMenu(false);
+                navigate("/search?type=other");
               }}
             >
               Други животни

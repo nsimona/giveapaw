@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import CustomSelect from "../pet-form-inputs/custom-select";
 import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
 // import PetsIcon from "@mui/icons-material/Pets";
@@ -7,6 +7,7 @@ import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
 // import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 // import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 // import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
+// https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 
 const SearchMain = () => {
   return (
@@ -14,7 +15,7 @@ const SearchMain = () => {
       sx={{
         height: "500px",
         backgroundImage:
-          "url(https://images.unsplash.com/photo-1557495235-340eb888a9fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2613&q=80)",
+          "url(https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
         display: "flex",
@@ -25,10 +26,25 @@ const SearchMain = () => {
       <Container maxWidth="lg">
         <Box
           sx={{
-            background: "rgba( 255, 255, 255, 0.8 )",
+            textAlign: "center",
+            py: 5,
+          }}
+        >
+          <Typography variant="h2" color="#fff">
+            <strong>Намери своя нов най-добър приятел</strong>
+          </Typography>
+
+          <Typography variant="h4" color="#fff">
+            Разгледай над 300 домашни любимци от България
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            background: "rgba( 255, 255, 255, 0.7 )",
             backdropFilter: "blur( 5px )",
-            borderRadius: "16px",
+            borderRadius: "24px",
             border: "1px solid rgba( 255, 255, 255, 0.18 )",
+            mb: 5,
             p: 5,
           }}
         >

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
 import { ApplicationCancelledEvent } from "@giveapaw/common";
 import { natsWrapper } from "../../../nats-wrapper";
-import { ApplicationCancelledListener } from "../application-status-updated-listener";
+import { ApplicationCancelledListener } from "../application-cancelled-listener";
 import { Pet } from "../../../models/pet";
 import { petMock } from "../../../test/helper";
 

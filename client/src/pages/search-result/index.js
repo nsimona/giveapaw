@@ -27,12 +27,13 @@ const Search = () => {
     <>
       <SearchFilters />
       <Container maxWidth="lg">
-        <Typography variant="h4" color="secondary" sx={{ mb: 4 }}>
+        <Typography variant="h4" color="secondary" sx={{ mt: 4 }}>
           {pets.length} {pets.length === 1 ? "резултат" : "резултата"} от
           търсенето
         </Typography>
         <PetsWrapper
           pets={pets}
+          withAd
           noResultsMessage="Няма намерени животни по зададените критерии"
         />
       </Container>

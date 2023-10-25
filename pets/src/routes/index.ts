@@ -8,26 +8,37 @@ import { Recommendation } from "../models/recommendation";
 const router = express.Router();
 
 router.get("/api/pets", async (req: Request, res: Response) => {
-  const pets = await Pet.find({}, { ...petProjection, userId: 1 });
+  const { limit } = req.query;
+  let query = Pet.find({}, { ...petProjection, userId: 1 });
 
   if (req.currentUser?.role === "admin") {
-    res.send(pets);
-    return;
+    if (limit) {
+      query = query.limit(parseInt(limit as string, 10));
+    }
+
+    const pets = await query.exec();
+    return res.send(pets);
   }
 
-  const filteredPets = pets.filter(
+  if (limit) {
+    query = query.limit(parseInt(limit as string, 10));
+  }
+
+  const filteredPets = await query.exec(); // Execute the query
+
+  const filteredAndSortedPets = filteredPets.filter(
     (pet) => req.currentUser?.id === pet.userId || pet.status === "active"
   );
+
   const recommendations = await Recommendation.findOne({
     userId: req.currentUser?.id,
   });
 
   if (!recommendations) {
-    res.send(filteredPets);
-    return;
+    return res.send(filteredAndSortedPets);
   }
 
-  const sortedPets = filteredPets.sort((a, b) => {
+  const sortedPets = filteredAndSortedPets.sort((a, b) => {
     const { pets } = recommendations;
     const idA = a.id;
     const idB = b.id;

@@ -31,6 +31,7 @@ import { getCurrentUser } from "../redux/slices/user/userThunk";
 import Favorites from "../pages/favorites";
 import Search from "../pages/search-result";
 import CreateApplicationWrapper from "../pages/application/create-application-wrapper";
+import Footer from "../components/footer";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,8 +41,10 @@ export const RouterConfig = () => {
   const location = useLocation();
 
   const noHeaderPages = ["/login", "/register", "/application/create"];
+  const noFooterPages = ["/login", "/register", "/application/create"];
 
   const showHeader = !noHeaderPages.includes(location.pathname);
+  const showFooter = !noFooterPages.includes(location.pathname);
 
   const currentUser = async () => {
     dispatch(getCurrentUser());
@@ -134,6 +137,7 @@ export const RouterConfig = () => {
           <NotFound />
         </Route> */}
       </Routes>
+      {showFooter && <Footer />}
     </div>
   );
 };

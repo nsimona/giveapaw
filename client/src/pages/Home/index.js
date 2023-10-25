@@ -6,7 +6,14 @@ import Loading from "../../components/loading";
 import { useDispatch } from "react-redux";
 import { setAlert } from "../../redux/slices/app/appSlice";
 import SearchMain from "../../components/search/search-main";
-import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import FlipCard from "../../components/flip-card";
 import SectionWrapper from "./section-wrapper";
 import AccordionItem from "./accordion-item";
@@ -15,6 +22,7 @@ import Banner from "../../components/banner";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
+import arrowShape from "../../assets/images/arrowShape.png";
 
 const faqs = [
   {
@@ -106,6 +114,14 @@ const process = [
   },
 ];
 
+const petsProcess = [
+  { title: "Регистирай се и добави нов домашен любимец" },
+  { title: "Обявата ти трябва да бъде одобрена от администратор" },
+  { title: "Обявата ти ще бъде показана първо на подходящи осиновители" },
+  { title: "Ще получиш информация за кандидатите в твоя профил" },
+  { title: "Разгледай всички кандидати в профила си" },
+];
+
 function Home() {
   const [pets, setPets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -194,9 +210,57 @@ function Home() {
           </Grid>
         </Container>
       </SectionWrapper>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ my: 1 }}>
         <Banner image="https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
       </Container>
+
+      <Container maxWidth="lg">
+        <SectionWrapper
+          left
+          h6="публикуване на обява"
+          h3="Лесно и бързо намери нов дом на твоя домашен любимец"
+        ></SectionWrapper>
+      </Container>
+      <Box
+        sx={{
+          backgroundImage: `url(${arrowShape})`,
+          backgroundPosition: "right center",
+          backgroundRepeat: "no-repeat",
+          p: 3,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container justifyContent="space-between" gap={1}>
+            {petsProcess.map((p, i) => {
+              return (
+                <Grid key={i} item md={2} sm={12}>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      borderRadius: "50%",
+                      width: 210,
+                      height: 210,
+                      backgroundColor: "neutral.grey",
+                      textAlign: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography variant="h3" color="primary.dark">
+                      <strong>{i + 1}</strong>
+                    </Typography>
+                    <p color="neutral.text" style={{ padding: "8px" }}>
+                      {p.title}
+                    </p>
+                  </Box>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Container>
+      </Box>
       <Container maxWidth="lg">
         <SectionWrapper left h6="избери категория" h3="Разгледай ДайЛапа">
           <Grid container gap={2}>

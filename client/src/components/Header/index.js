@@ -40,14 +40,14 @@ function ResponsiveAppBar() {
             }}
           >
             <MenuIcon /> */}
-          <img src={logo} alt="logo" height="40px" />
+          <img src={logo} alt="logo" height="60px" />
 
           {/* </IconButton> */}
 
           <Box
             sx={{ flexGrow: 1, gap: 2, display: { xs: "none", md: "flex" } }}
           >
-            <div>
+            {/* <div>
               <Button
                 onClick={() => {
                   setOpenMenu(!openMenu);
@@ -58,7 +58,7 @@ function ResponsiveAppBar() {
               >
                 Намери животни
               </Button>
-            </div>
+            </div> */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

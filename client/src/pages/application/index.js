@@ -21,6 +21,9 @@ import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import ApplicationMatch from "../../components/application-match";
 import ApplicationBox from "../../components/application-box";
+import { useSelector } from "react-redux";
+import Tag from "../../components/tag";
+import { i18n } from "../../assets/i18n";
 
 const faceIcons = [
   <FaceIcon />,
@@ -31,23 +34,20 @@ const faceIcons = [
   <Face6Icon />,
 ];
 
-const mock = {
-  breed: "Husky",
-  gender: "Female",
-  color: "Grey",
-  size: "Large",
-  trained: true,
-};
-
 // TODO
 const Application = ({
   pet: { name, type, id },
   readOnly = false,
   date = new Date().toLocaleDateString("bg-BG"),
+  matchedFeatures,
   children,
 }) => {
   const navigate = useNavigate();
   const [currentFaceIcon, setCurrentFaceIcon] = useState(0);
+  const userName = useSelector((state) => state.user?.firstName);
+  const userPreferenceCharacteristics = useSelector(
+    (state) => state.user?.preferences.characteristics
+  );
 
   return (
     <>
@@ -109,7 +109,7 @@ const Application = ({
               {faceIcons[currentFaceIcon]}
             </IconButton>
             <Typography variant="subtitle1" sx={{ px: 1 }}>
-              <strong>Юлия</strong>
+              <strong>{userName}</strong>
             </Typography>
           </Box>
           <Box
@@ -127,31 +127,37 @@ const Application = ({
           </Box>
         </Box>
         <Divider />
-        {Object.keys(mock).map((feature, index) => (
-          <ApplicationMatch
-            key={index}
-            type="full-match"
-            petValue={[feature, mock[feature]]}
-            userPreference={[feature, mock[feature]]}
-          />
-        ))}
+        {matchedFeatures ? (
+          Object.keys(matchedFeatures).map((feature, index) => {
+            let property = i18n[matchedFeatures[feature]];
+            if (feature === "age") {
+              property = i18n.years[matchedFeatures[feature]];
+            }
+
+            return (
+              <ApplicationMatch
+                key={index}
+                type="full-match"
+                petValue={`е ${property}`}
+                userPreference={`предпочита ${property}`}
+              />
+            );
+          })
+        ) : (
+          <Typography
+            sx={{ my: 2 }}
+            variant="body2"
+          >{`Нямаш съвпадения с ${name}, но все пак можеш да канидатстваш за осиновител`}</Typography>
+        )}
         <ApplicationMatch type="full-match" />
         {/* <ApplicationMatch type="good-match" /> */}
-        <ApplicationBox title="Идеалният домашен любимец на Юлия е">
-          {/* <Tag text="активен"/> */}
-          <Box
-            sx={{
-              bgcolor: "neutral.grey",
-              px: 2,
-              py: 1,
-              borderRadius: 5,
-              color: "neutral.contrastText",
-              display: "inline-flex",
-            }}
-          >
-            активен
-          </Box>
-        </ApplicationBox>
+        {userPreferenceCharacteristics.length ? (
+          <ApplicationBox title={`Идеалният домашен любимец на ${userName} е`}>
+            {userPreferenceCharacteristics.map((c) => (
+              <Tag text={c} />
+            ))}
+          </ApplicationBox>
+        ) : null}
         {children}
       </Container>
     </>

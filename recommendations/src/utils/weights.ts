@@ -12,4 +12,6 @@ export const generalWeights: FeatureWeights = {
   healthState: 1,
   goodWith: 1,
   characteristics: 1,
+  version: 0,
+  userId: 0,
 };

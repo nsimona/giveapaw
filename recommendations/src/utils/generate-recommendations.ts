@@ -4,9 +4,10 @@ import { client } from "../index";
 import { calculateMatch } from "./calculate-match";
 import { generalWeights } from "./weights";
 
-const limit = 20;
+const limit = 10;
 
 const generateRecommendations = async (userId: string) => {
+  console.log("generating recommendations");
   try {
     const preferences = await client.get(`preference:${userId}`);
     const petKeys = await client.keys("pet:*");
@@ -28,10 +29,10 @@ const generateRecommendations = async (userId: string) => {
     const petData = await Promise.all(petPromises);
 
     const recommendations = petData
-      .map((normalizePet) => ({
-        petId: normalizePet.id,
+      .map((normalizedPet) => ({
+        petId: normalizedPet.id,
         score: calculateMatch(
-          normalizePet,
+          normalizedPet,
           JSON.parse(preferences),
           generalWeights
         ).score,

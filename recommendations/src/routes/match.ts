@@ -36,7 +36,7 @@ router.post(
     }
 
     if (!preferences) {
-      res.send({ score: 0, matchedFeatures: [] });
+      res.send({ score: 0, matchedFeatures: {} });
       return;
     }
 

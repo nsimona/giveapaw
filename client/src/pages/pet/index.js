@@ -90,7 +90,9 @@ const Pet = () => {
   const onChangeStatusButtonClick = async (status, message) => {
     try {
       const updatedPet = await changePetStatus({ petId: id, status, message });
-      setPet(updatedPet);
+      // an ugly workaround, apologize
+      // setPet(updatedPet);
+      getPetInfo();
       dispatch(
         setAlert({
           severity: "success",

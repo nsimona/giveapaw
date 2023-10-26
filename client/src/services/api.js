@@ -76,9 +76,11 @@ export const createPet = async (data) => {
   }
 };
 
-export const getPets = async () => {
+export const getPets = async ({ limit }) => {
   try {
-    const response = await axios.get("/api/pets");
+    const response = limit
+      ? await axios.get(`/api/pets?limit=${limit}`)
+      : await axios.get("/api/pets");
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);
@@ -194,9 +196,9 @@ export const changeApplicationStatus = async (data) => {
 
 // recommendation, e.g. match
 
-export const matchUserToPet = async () => {
+export const matchUserToPet = async (data) => {
   try {
-    const response = await axios.post("/api/recommendations/match");
+    const response = await axios.post("/api/recommendations/match", data);
     return response.data;
   } catch (error) {
     console.error("API Request Error:", error);

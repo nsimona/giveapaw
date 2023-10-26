@@ -69,25 +69,24 @@ export default function Register() {
         item
         xs={false}
         sm={4}
-        md={7}
+        md={6}
         sx={{
           backgroundImage:
-            // "url(https://images.unsplash.com/photo-1601758124331-9410bf99002f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2659&q=80)",
-            "url(https://images.unsplash.com/photo-1577519005828-0d09b071c8f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2630&q=80)",
+            "url(https://images.unsplash.com/photo-1525983360072-2ebda055ba40?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
               ? t.palette.grey[50]
               : t.palette.grey[900],
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center center",
         }}
       />
       <Grid
         item
         xs={12}
         sm={8}
-        md={5}
+        md={6}
         component={Paper}
         elevation={6}
         square

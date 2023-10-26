@@ -3,7 +3,7 @@ export const i18n = {
   type: "Вид",
   breed: "Порода",
   color: "Цвят",
-  age: "Възраст",
+  age: "възраст",
   gender: "Пол",
   size: "Размер",
   description: "Описание",

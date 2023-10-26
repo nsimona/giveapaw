@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface RecommendationAttrs {
   userId: string;
-  pets: string[];
+  pets: any[];
 }
 
 interface RecommendationDoc extends mongoose.Document {
   userId: string;
-  pets: [string];
+  pets: [any];
 }
 
 interface RecommendationModel extends mongoose.Model<RecommendationDoc> {
@@ -22,7 +22,7 @@ const recommedantionSchema = new mongoose.Schema(
       required: true,
     },
     pets: {
-      type: Array,
+      type: [Schema.Types.Mixed],
       required: true,
     },
   },

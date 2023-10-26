@@ -3,7 +3,7 @@
 ### UI
 
 [x] front page - add all sections\
-[] footer\
+[/] footer\
 [] front page search\
 [x] top menus - handle close on click\
 [] handle account tabs links\

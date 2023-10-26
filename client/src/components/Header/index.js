@@ -2,20 +2,20 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
+// import IconButton from "@mui/material/IconButton";
+// import Typography from "@mui/material/Typography";
+// import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LoggedHeader from "./logged-header";
 import DefaultHeader from "./default-header";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import logo from "../../assets/images/logo.png";
-// import logoDog from "../../assets/images/logo-dog.svg";
+import { NavLink } from "react-router-dom";
 
 function ResponsiveAppBar() {
   const [openMenu, setOpenMenu] = React.useState(false);
@@ -26,21 +26,9 @@ function ResponsiveAppBar() {
     <AppBar color="transparent" elevation={0} sx={{ position: "relative" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <IconButton
-            aria-label="menu"
-            color="primary"
-            sx={{
-              flexGrow: 0,
-              gap: 2,
-              display: { sm: "flex", md: "none" },
-              mr: 3,
-            }}
-            onClick={() => {
-              setOpenMenu(!openMenu);
-            }}
-          >
-            <MenuIcon /> */}
-          <img src={logo} alt="logo" height="60px" />
+          <NavLink to="/">
+            <img src={logo} alt="logo" height="60px" />
+          </NavLink>
 
           {/* </IconButton> */}
 

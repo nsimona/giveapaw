@@ -7,6 +7,7 @@ import { generalWeights } from "./weights";
 const limit = 20;
 
 const updateRecommendations = async () => {
+  console.log("updating recommendations");
   try {
     const userKeys = await client.keys("preference:*");
 

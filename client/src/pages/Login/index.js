@@ -49,7 +49,7 @@ export default function Login() {
         item
         xs={12}
         sm={8}
-        md={5}
+        md={6}
         component={Paper}
         elevation={6}
         square
@@ -124,7 +124,7 @@ export default function Login() {
         item
         xs={false}
         sm={4}
-        md={7}
+        md={6}
         sx={{
           backgroundImage:
             "url(https://images.unsplash.com/photo-1521247560470-d2cbfe2f7b47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80)",

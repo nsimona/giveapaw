@@ -24,9 +24,9 @@ router.get("/api/pets", async (req: Request, res: Response) => {
     query = query.limit(parseInt(limit as string, 10));
   }
 
-  const filteredPets = await query.exec(); // Execute the query
+  const queryPets = await query.exec(); // Execute the query
 
-  const filteredAndSortedPets = filteredPets.filter(
+  const filteredPets = queryPets.filter(
     (pet) => req.currentUser?.id === pet.userId || pet.status === "active"
   );
 
@@ -35,30 +35,27 @@ router.get("/api/pets", async (req: Request, res: Response) => {
   });
 
   if (!recommendations) {
-    return res.send(filteredAndSortedPets);
+    return res.send(filteredPets);
   }
 
-  const sortedPets = filteredAndSortedPets.sort((a, b) => {
-    const { pets } = recommendations;
-    const idA = a.id;
-    const idB = b.id;
-    const indexA = pets.indexOf(idA);
-    const indexB = pets.indexOf(idB);
-
-    if (indexA === -1 && indexB === -1) {
-      return 0;
-    }
-    if (indexA === -1) {
-      return 1;
-    }
-    if (indexB === -1) {
-      return -1;
-    }
-
-    return indexA - indexB;
+  const filteredAndSortedPets = filteredPets.map((pet) => {
+    // Find the corresponding recommendation, if it exists
+    const recommendation = recommendations.pets.find(
+      (r: any) => r.petId === pet.id
+    );
+    const score = pet.userId !== req.currentUser?.id ? recommendation.score : 0;
+    // Create a new object with the pet data and the score (if found)
+    return {
+      ...pet.toObject(),
+      id: pet.toObject()._id,
+      score,
+    };
   });
 
-  res.send(sortedPets);
+  // Sort the pets by score in descending order
+  filteredAndSortedPets.sort((petA, petB) => petB.score - petA.score);
+
+  res.send(filteredAndSortedPets);
 });
 
 export { router as indexPetRouter };

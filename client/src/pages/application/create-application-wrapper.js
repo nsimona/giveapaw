@@ -10,6 +10,8 @@ const CreateApplicationWrapper = () => {
   const [message, setMessage] = useState("");
   const [candidatePhone, setCandidatePhone] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
+  const petId = useSelector((state) => state.application?.id);
+  const userId = useSelector((state) => state.user?.id);
   // eslint-disable-next-line no-unused-vars
   const [matchedFeatures, setMatchedFeatures] = useState();
   // eslint-disable-next-line no-unused-vars
@@ -49,7 +51,7 @@ const CreateApplicationWrapper = () => {
 
   const getMatchScoreAndFeatures = async () => {
     try {
-      const matchResult = await matchUserToPet();
+      const matchResult = await matchUserToPet({ petId, userId });
       setMatchedFeatures(matchResult.matchedFeatures);
       setMatchedScore(matchResult.score);
     } catch (error) {
@@ -63,7 +65,7 @@ const CreateApplicationWrapper = () => {
   }, []);
 
   return (
-    <Application pet={pet}>
+    <Application pet={pet} matchedFeatures={matchedFeatures}>
       <ApplicationBox title="Допълни своята кандидатура">
         <TextField
           required

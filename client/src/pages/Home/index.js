@@ -114,7 +114,7 @@ const process = [
   },
 ];
 
-const petsProcess = [
+const ownerProcess = [
   { title: "Регистирай се и добави нов домашен любимец" },
   { title: "Обявата ти трябва да бъде одобрена от администратор" },
   { title: "Обявата ти ще бъде показана първо на подходящи осиновители" },
@@ -131,7 +131,7 @@ function Home() {
   const fetchPets = async () => {
     try {
       // add limit - 7
-      const petData = await getPets();
+      const petData = await getPets({ limit: 7 });
       setPets(petData);
     } catch (error) {
       console.error("Error fetching pets:", error);
@@ -231,7 +231,7 @@ function Home() {
       >
         <Container maxWidth="lg">
           <Grid container justifyContent="space-between" gap={1}>
-            {petsProcess.map((p, i) => {
+            {ownerProcess.map((p, i) => {
               return (
                 <Grid key={i} item md={2} sm={12}>
                   <Box

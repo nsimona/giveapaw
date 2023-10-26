@@ -33,29 +33,15 @@ const enhnaceOptions = (options) => {
 };
 
 const UserPreferences = () => {
-  const savedPreferences = useSelector((state) => state.user.preferences);
-  const [preferences, setPreferences] = React.useState({
-    ownerType: "",
-    currentHouse: [],
-    outdoorSpaces: [],
-    type: "",
-    age: null,
-    size: "",
-    color: [],
-    gender: "",
-    trained: "",
-    livedInAHouse: [],
-    goodWith: [],
-    houseConditions: [],
-    characteristics: [],
-  });
+  const savedPreferences = useSelector((state) => state.user?.preferences);
+  const [preferences, setPreferences] = React.useState(savedPreferences);
 
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    setPreferences({ ...preferences, savedPreferences });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, savedPreferences);
+  // React.useEffect(() => {
+  //   setPreferences({ ...preferences, savedPreferences });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [savedPreferences]);
 
   const handleChange = (e) => {
     setPreferences((prev) => {
@@ -164,14 +150,13 @@ const UserPreferences = () => {
           </Grid> */}
 
           <Grid item xs={12}>
-            <CustomAutocomplete
+            <CustomSelect
               id="color"
               options={enhnaceOptions(petColorsOptions)}
               value={preferences.color}
-              onChange={(e, values) => {
-                handleAutocompleteChange(e, values, "color");
-              }}
+              onChange={handleChange}
               label="Предпочитания за цвят"
+              selectProps={{ name: "color" }}
             />
           </Grid>
 

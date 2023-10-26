@@ -11,7 +11,7 @@ const Loading = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "rgba(256, 256, 256, .9)",
+        background: "rgba(256, 256, 256, 1)",
       }}
     >
       <CircularProgress color="secondary" size={60} />

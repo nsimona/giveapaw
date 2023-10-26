@@ -32,9 +32,7 @@ const ApplicationMatch = ({ type, userPreference, petValue }) => {
       sx={{ mt: 2, justifyContent: "space-between", alignItems: "center" }}
     >
       <Grid item md={4} flex={1}>
-        <Typography variant="body2">
-          {userPreference[0]}:{userPreference[1]}
-        </Typography>
+        <Typography variant="body2">{userPreference}</Typography>
       </Grid>
       <Grid
         item
@@ -64,7 +62,7 @@ const ApplicationMatch = ({ type, userPreference, petValue }) => {
       </Grid>
       <Grid item md={4} flex={1}>
         <Typography textAlign="right" variant="body2">
-          {petValue[0]}:{petValue[1]}
+          {petValue}
         </Typography>
       </Grid>
     </Grid>

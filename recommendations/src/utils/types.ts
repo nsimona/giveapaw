@@ -11,6 +11,8 @@ export interface Features {
   healthState: string[] | null;
   goodWith: string[] | null;
   characteristics: string[] | null;
+  version: number;
+  userId: string;
 }
 
 export type FeatureWeights = {

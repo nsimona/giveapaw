@@ -9,7 +9,7 @@ export class RecommendationsGeneratedListener extends Listener<RecommendationsGe
   queueGroupName = queueGroupName;
   async onMessage(data: RecommendationsGenerated["data"], msg: Message) {
     const { userId, pets } = data;
-    const recommendations = await Recommendation.findById(userId);
+    const recommendations = await Recommendation.findOne({ userId });
     if (!recommendations) {
       const recommendation = Recommendation.build({
         userId,
@@ -19,9 +19,9 @@ export class RecommendationsGeneratedListener extends Listener<RecommendationsGe
       msg.ack();
       return;
     }
+
     recommendations.set({ pets });
     await recommendations.save();
-
     msg.ack();
   }
 }

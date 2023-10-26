@@ -12,9 +12,13 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import { i18n } from "../../assets/i18n";
 
 const flagStyles = {
-  match: {
-    backgroundColor: "tertiary.main",
-    color: "tertiary.contrastText",
+  perfectMatch: {
+    backgroundColor: "green.main",
+    color: "green.contrastText",
+  },
+  goodMatch: {
+    backgroundColor: "secondary.light",
+    color: "secondary.contrastText",
   },
   pending: {
     backgroundColor: "secondary.main",
@@ -30,11 +34,30 @@ const flagStyles = {
   },
 };
 const labelCopy = {
-  match: "Перфектно съвпадние",
+  perfectMatch: "Перфектно съвпадение",
+  goodMatch: "Подходящо за теб",
   pending: "Изчаква одобрение",
   archived: "Архивирана",
   declined: "Неодобрена",
 };
+
+function renderFlagBox(flag, label) {
+  if (flag) {
+    return (
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 20,
+          left: 0,
+          p: 1,
+          ...flagStyles[flag],
+        }}
+      >
+        {label}
+      </Box>
+    );
+  }
+}
 
 const PetCard = ({
   isEditable,
@@ -50,9 +73,13 @@ const PetCard = ({
     size,
     id,
     status,
+    score,
   },
   applications,
 }) => {
+  const matchStatus =
+    score > 90 ? "perfectMatch" : score > 70 && score < 90 ? "goodMatch" : null;
+
   return (
     <Card sx={{ minWidth: "320px", maxWidth: "100%", borderRadius: 3 }}>
       <Link
@@ -72,19 +99,8 @@ const PetCard = ({
             "https://d.newsweek.com/en/full/2201052/dog.jpg?w=1600&h=1200&q=88&f=56687919043018e29fc48209d009e5ca"
           }
         />
-        {status && (
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: 20,
-              left: 0,
-              p: 1,
-              ...flagStyles[status],
-            }}
-          >
-            {labelCopy[status]}
-          </Box>
-        )}
+        {renderFlagBox(status, labelCopy[status])}
+        {renderFlagBox(matchStatus, labelCopy.goodMatch)}
         {isEditable && applications !== undefined ? (
           <Box sx={{ position: "absolute", top: 20, right: 20 }}>
             <Tooltip title={`${applications} активни кандидатури`}>

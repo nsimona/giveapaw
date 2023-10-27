@@ -1,6 +1,14 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import CustomSelect from "../pet-form-inputs/custom-select";
-import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
+import {
+  basicBreedsOptions,
+  breedsOptions,
+  petColorsOptions,
+  petTypeOptions,
+} from "../../assets/pet-options";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
 // import PetsIcon from "@mui/icons-material/Pets";
 // import TypeSpecimenOutlinedIcon from "@mui/icons-material/TypeSpecimenOutlined";
 // import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
@@ -10,6 +18,49 @@ import { basicBreedsOptions, petTypeOptions } from "../../assets/pet-options";
 // https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 
 const SearchMain = () => {
+  const [query, setQuery] = useState({
+    breed: "",
+    color: "",
+    type: "",
+  });
+  const [breeds, setBreeds] = useState(basicBreedsOptions);
+
+  const navigate = useNavigate();
+
+  const setSearchQuery = (value, selectName) => {
+    console.log(breedsOptions[value]);
+    if (selectName === "type") {
+      setBreeds([...breedsOptions[value], ...basicBreedsOptions]);
+    }
+    setQuery({
+      ...query,
+      [selectName]: value,
+    });
+  };
+
+  const search = () => {
+    const { type, breed, color } = query;
+    if (type === "" && breed === "" && color === "") {
+      return;
+    }
+    const queryParams = [];
+
+    if (type !== "all") {
+      queryParams.push(`type=${type}`);
+    }
+
+    if (breed !== "all") {
+      queryParams.push(`breed=${breed}`);
+    }
+
+    if (color !== "all") {
+      queryParams.push(`color=${color}`);
+    }
+
+    const searchQuery = queryParams.join("&");
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <Box
       sx={{
@@ -52,9 +103,9 @@ const SearchMain = () => {
             <Grid item flex={1}>
               <CustomSelect
                 id="search-type"
-                options={petTypeOptions}
+                options={[...petTypeOptions, { value: "all", title: "всички" }]}
                 label="Вид"
-                value=""
+                value={query.type}
                 selectProps={{
                   size: "small",
                   // startAdornment: (
@@ -63,34 +114,42 @@ const SearchMain = () => {
                   //   </InputAdornment>
                   // ),
                 }}
-                onChange={(e) => {}}
+                onChange={(e) => setSearchQuery(e.target.value, "type")}
               />
             </Grid>
 
             <Grid item flex={1}>
               <CustomSelect
                 id="search-breed"
-                options={basicBreedsOptions}
+                options={[...breeds, { value: "all", title: "всички" }]}
                 label="Порода"
-                value=""
+                value={query.breed}
                 selectProps={{ size: "small" }}
-                onChange={(e) => {}}
+                onChange={(e) => setSearchQuery(e.target.value, "breed")}
               />
             </Grid>
 
             <Grid item flex={1}>
               <CustomSelect
-                id="search-age"
-                options={basicBreedsOptions}
-                label="Възраст"
-                value=""
+                id="search-color"
+                options={[
+                  ...petColorsOptions,
+                  { value: "all", title: "всички" },
+                ]}
+                label="Цвят"
+                value={query.color}
                 selectProps={{ size: "small" }}
-                onChange={(e) => {}}
+                onChange={(e) => setSearchQuery(e.target.value, "color")}
               />
             </Grid>
 
             <Grid item>
-              <Button variant="contained" color="secondary" sx={{ px: 2 }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ px: 2 }}
+                onClick={search}
+              >
                 Търсене
               </Button>
             </Grid>

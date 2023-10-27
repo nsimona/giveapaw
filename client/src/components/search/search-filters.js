@@ -54,7 +54,7 @@ const CustomSelectFiltersWrapper = ({ id, options, label, icon }) => {
 const enhanceOptions = (options) => {
   return [
     ...options.filter((o) => o.value !== "unknown"),
-    { value: "all", title: "Всички", selected: true },
+    { value: "all", title: "всички", selected: true },
   ];
 };
 

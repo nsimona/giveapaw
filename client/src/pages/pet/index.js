@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import PetCardActionButton from "../../components/pet-card-action-button";
 import { useEffect, useState } from "react";
-import { changePetStatus, getPet } from "../../services/api";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplicationPet } from "../../redux/slices/application/applicationSlice";
@@ -28,6 +27,7 @@ import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import PetsIcon from "@mui/icons-material/Pets";
 import Banner from "../../components/banner";
 import placeholder from "../../assets/images/placeholder.png";
+import { getPet } from "../../services/api";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -89,8 +89,7 @@ const Pet = () => {
 
   const onChangeStatusButtonClick = async (status, message) => {
     try {
-      const updatedPet = await changePetStatus({ petId: id, status, message });
-      // an ugly workaround, apologize
+      // an ugly workaround, apologies
       // setPet(updatedPet);
       getPetInfo();
       dispatch(

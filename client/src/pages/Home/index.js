@@ -131,7 +131,7 @@ function Home() {
   const fetchPets = async () => {
     try {
       // add limit - 7
-      const petData = await getPets({ limit: 7 });
+      const petData = await getPets({ limit: 9 });
       setPets(petData);
     } catch (error) {
       console.error("Error fetching pets:", error);

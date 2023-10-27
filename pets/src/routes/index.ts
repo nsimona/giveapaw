@@ -1,61 +1,63 @@
 import express, { Request, Response } from "express";
-import { Pet } from "../models/pet";
-import { isArrayOfValidMongoIds } from "../utils";
-import { BadRequestError } from "@giveapaw/common";
 import { petProjection } from "../pet-projection";
-import { Recommendation } from "../models/recommendation";
+import getAllPets from "../db-requests/get-all-pets";
+import getAllActivePets from "../db-requests/get-all-active-pets";
+import getPetsByUser from "../db-requests/get-pets-by-user";
+import getRecommendationsForUser from "../db-requests/get-recommendations-for-user";
 
 const router = express.Router();
 
 router.get("/api/pets", async (req: Request, res: Response) => {
   const { limit } = req.query;
-  let query = Pet.find({}, { ...petProjection, userId: 1 });
+  const enhancedProjection = { ...petProjection, userId: 1 };
+  const limitAsInt = parseInt(limit as string, 10);
 
   if (req.currentUser?.role === "admin") {
-    if (limit) {
-      query = query.limit(parseInt(limit as string, 10));
-    }
-
-    const pets = await query.exec();
-    return res.send(pets);
+    const allPets = await getAllPets(limitAsInt, enhancedProjection);
+    return res.send(allPets);
   }
 
-  if (limit) {
-    query = query.limit(parseInt(limit as string, 10));
-  }
+  const activePets = await getAllActivePets(limitAsInt, enhancedProjection);
 
-  const queryPets = await query.exec(); // Execute the query
-
-  const filteredPets = queryPets.filter(
-    (pet) => req.currentUser?.id === pet.userId || pet.status === "active"
-  );
-
-  const recommendations = await Recommendation.findOne({
-    userId: req.currentUser?.id,
-  });
-
-  if (!recommendations) {
-    return res.send(filteredPets);
-  }
-
-  const filteredAndSortedPets = filteredPets.map((pet) => {
-    // Find the corresponding recommendation, if it exists
-    const recommendation = recommendations.pets.find(
-      (r: any) => r.petId === pet.id
+  if (req.currentUser?.id) {
+    const userId = req.currentUser?.id;
+    // pets owned by the current user
+    const userPets = await getPetsByUser(
+      userId,
+      limitAsInt,
+      enhancedProjection
     );
-    const score = pet.userId !== req.currentUser?.id ? recommendation.score : 0;
-    // Create a new object with the pet data and the score (if found)
-    return {
-      ...pet.toObject(),
-      id: pet.toObject()._id,
-      score,
-    };
-  });
+    // pets recommended for the current user
+    const recommendations = await getRecommendationsForUser(userId);
+    // remove owned by the user pets
+    const filteredPets = activePets.filter(
+      (pet) => !userPets.some((userPet) => userPet.id === pet.id)
+    );
+    // if recommended pets -> move the in the beginning of the array
+    if (recommendations) {
+      const sortedVyRecommendation = filteredPets
+        .map((pet) => {
+          // Find the corresponding recommendation, if it exists
+          const recommendation = recommendations.pets.find(
+            (r: any) => r.petId === pet.id
+          );
+          const score =
+            pet.userId !== req.currentUser?.id ? recommendation.score : 0;
+          // Create a new object with the pet data and the score (if found)
+          return {
+            ...pet.toObject(),
+            id: pet.toObject()._id,
+            score,
+          };
+        })
+        .sort((petA, petB) => petB.score - petA.score);
+      res.send(sortedVyRecommendation);
+      return;
+    }
+    res.send(filteredPets);
+  }
 
-  // Sort the pets by score in descending order
-  filteredAndSortedPets.sort((petA, petB) => petB.score - petA.score);
-
-  res.send(filteredAndSortedPets);
+  res.send(activePets);
 });
 
 export { router as indexPetRouter };

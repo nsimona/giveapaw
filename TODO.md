@@ -3,10 +3,10 @@
 ### UI
 
 [x] front page - add all sections\
-[/] footer\
-[] front page search\
+[x] footer\
+[x] front page search\
 [x] top menus - handle close on click\
-[] handle account tabs links\
+[x] handle account tabs links\
 [x] handle top menu - redirect to search\
 
 ### Auth
@@ -56,7 +56,7 @@
 
 ## Basic requirements
 
-[] Handle image upload [depends on BE]\
+[x] Handle image upload [depends on BE]\
 [x] Handle pet creation\
 [x] Handle get pets query\
 [x] Handle pet show (of a single pet)\
@@ -83,21 +83,21 @@
 
 [BE] to do
 [x] Handle favorites \
-[] Handle image upload\
+[x] Handle image upload\
 [x] Handle admin in auth service\
 [x] Handle pet approval\
-[] Handle preferences udpate (create nats event)\
+[x] Handle preferences udpate (create nats event)\
 [x] Handle pets search (send only necessary data cover pic, name, breed, age, size, gender)\
-[] Handle multiple applications for a single pet (update type of applicationId in Pets)\
+[v2] Handle multiple applications for a single pet (update type of applicationId in Pets)\
 
 RECOMMENDATION SERVICE
 [x] setup new service\
 [x] 1 routes - match\
-[] create listneres\
-[] handle match\
-[] handle recommendation\
+[x] create listneres\
+[x] handle match\
+[x] handle recommendation\
 [x] implement match UI\
-[] implement recommendation interface\
+[x] implement recommendation interface\
 
 skaffold command when dev fails:
 skaffold dev --no-prune=false --cache-artifacts=false

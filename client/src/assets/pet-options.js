@@ -1,8 +1,8 @@
 export const petTypeOptions = [
-  { title: "Куче", value: "dog" },
-  { title: "Котка", value: "cat" },
-  { title: "Птица", value: "bird" },
-  { title: "Друго", value: "other" },
+  { title: "куче", value: "dog" },
+  { title: "котка", value: "cat" },
+  { title: "птица", value: "bird" },
+  { title: "друго", value: "other" },
 ];
 
 export const houseConditionsOptions = [
@@ -78,26 +78,26 @@ export const characteristicsOptions = [
 ];
 
 export const basicBreedsOptions = [
-  { value: "unknown", title: "Не се знае" },
-  { value: "mixed", title: "Смесена" },
-  { value: "other", title: "Друго" },
+  { value: "unknown", title: "не се знае" },
+  { value: "mixed", title: "смесена" },
+  { value: "other", title: "друго" },
 ];
 
 export const petColorsOptions = [
-  { value: "black", title: "Черен" },
-  { value: "white", title: "Бял" },
-  { value: "brown", title: "Кафяв" },
-  { value: "gray", title: "Сив" },
-  { value: "red", title: "Рус" },
-  { value: "orange", title: "Оранжев" },
-  { value: "cream", title: "Кремав" },
-  { value: "black_white", title: "Черно-бял" },
-  { value: "calico", title: "Пъстър" },
-  { value: "other", title: "Друг" },
+  { value: "black", title: "черен" },
+  { value: "white", title: "бял" },
+  { value: "brown", title: "кафяв" },
+  { value: "gray", title: "сив" },
+  { value: "red", title: "рус" },
+  { value: "orange", title: "оранжев" },
+  { value: "cream", title: "кремав" },
+  { value: "black_white", title: "черно-бял" },
+  { value: "calico", title: "пъстър" },
+  { value: "other", title: "друг" },
 ];
 
 export const petAgeOptions = [
-  { value: "unknown", title: "Не се знае" },
+  { value: "unknown", title: "не се знае" },
   { value: 0, title: "0 години" },
   { value: 1, title: "1 година" },
   { value: 2, title: "2 години" },
@@ -108,18 +108,48 @@ export const petAgeOptions = [
 ];
 
 export const petGenderOptions = [
-  { value: "unknown", title: "Не се знае" },
-  { value: "female", title: "Женски" },
-  { value: "male", title: "Мъжки" },
+  { value: "unknown", title: "не се знае" },
+  { value: "female", title: "женски" },
+  { value: "male", title: "мъжки" },
 ];
 
 export const petSizeOptions = [
-  { value: "small", title: "Малък" },
-  { value: "medium", title: "Среден" },
-  { value: "big", title: "Голям" },
+  { value: "small", title: "малък" },
+  { value: "medium", title: "среден" },
+  { value: "big", title: "голям" },
 ];
 
 export const petTrainedOptions = [
-  { value: true, title: "Да" },
-  { value: false, title: "Не" },
+  { value: true, title: "да" },
+  { value: false, title: "не" },
 ];
+
+export const breedsOptions = {
+  dog: [
+    { value: "akita", title: "акита" },
+    { value: "german", title: "немска овчарка" },
+    { value: "labrador", title: "лабрадор" },
+    { value: "bulldog", title: "булдог" },
+    { value: "shpitz", title: "финландски шпиц" },
+    { value: "husky", title: "хъски" },
+    { value: "greatDane", title: "немски дог" },
+    { value: "wolfdog", title: "чехословашки вълчак" },
+    { value: "terrier", title: "Джак Ръсел териер" },
+  ],
+  cat: [
+    { value: "per", title: "персийска" },
+    { value: "eu", title: "европейска" },
+    { value: "siam", title: "сиамска" },
+    { value: "brit", title: "британска" },
+    { value: "sphinx", title: "сфинкс" },
+    { value: "aler", title: "алерка" },
+    { value: "ben", title: "бенгалска" },
+  ],
+  bird: [
+    { value: "can", title: "канарче" },
+    { value: "amad", title: "амадин" },
+    { value: "parr", title: "вълнист папагал" },
+    { value: "corel", title: "корел" },
+  ],
+  other: [...basicBreedsOptions],
+};

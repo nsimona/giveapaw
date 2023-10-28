@@ -1,7 +1,8 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import * as React from "react";
+import banner from "../../assets/images/banner.png";
 
-const Banner = ({ image, text }) => {
+const Banner = ({ image = banner, text }) => {
   return (
     <Box
       sx={{
@@ -29,7 +30,8 @@ const Banner = ({ image, text }) => {
             <strong>Домашни любимци препоръчани специално за теб</strong>
           </Typography>
           <Typography variant="body1" color="neutral">
-            Домашни любимци препоръчани специално за теб
+            Регистирай се, попълни преференциите си и ние ще ти предложим
+            най-подходящите животни за теб
           </Typography>
           <Button variant="contained" color="secondary" sx={{ my: 4 }}>
             Виж повече

@@ -8,6 +8,7 @@ import {
 } from "../../assets/pet-options";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import main from "../../assets/images/main.jpg";
 
 // import PetsIcon from "@mui/icons-material/Pets";
 // import TypeSpecimenOutlinedIcon from "@mui/icons-material/TypeSpecimenOutlined";
@@ -15,7 +16,6 @@ import { useNavigate } from "react-router";
 // import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 // import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 // import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
-// https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 
 const SearchMain = () => {
   const [query, setQuery] = useState({
@@ -65,8 +65,7 @@ const SearchMain = () => {
     <Box
       sx={{
         height: "500px",
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1605001011156-cbf0b0f67a51?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+        backgroundImage: `url(${main})`,
         backgroundSize: "cover",
         backgroundPosition: "center center",
         display: "flex",

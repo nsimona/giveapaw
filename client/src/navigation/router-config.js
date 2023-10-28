@@ -14,6 +14,7 @@ import {
   SEARCH,
   CREATEAPPLICATION,
   PETUPDATE,
+  INFO,
 } from "./routes";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -32,6 +33,7 @@ import Favorites from "../pages/favorites";
 import Search from "../pages/search-result";
 import CreateApplicationWrapper from "../pages/application/create-application-wrapper";
 import Footer from "../components/footer";
+import Info from "../pages/info";
 
 export const RouterConfig = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,6 +67,7 @@ export const RouterConfig = () => {
       <Routes>
         {/* List all public routes here */}
         <Route exact path={ROOT} element={<Home />} />
+        <Route exact path={INFO} element={<Info />} />
         <Route exact path={SEARCH} element={<Search />} />
         <Route path={PET} element={<Pet />} />
         {/* List all public routes, that required logout if the user is logged in, here */}

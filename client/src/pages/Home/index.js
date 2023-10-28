@@ -23,6 +23,11 @@ import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import arrowShape from "../../assets/images/arrowShape.png";
+import catCategory from "../../assets/images/cat-cat.png";
+import dogCategory from "../../assets/images/dog-cat.jpg";
+import otherCategory from "../../assets/images/other-cat.jpg";
+import birdCategory from "../../assets/images/bird-cat.png";
+import allCategory from "../../assets/images/all-cat.jpg";
 
 const faqs = [
   {
@@ -46,35 +51,31 @@ const faqs = [
 
 const categories = [
   {
-    image:
-      "https://t4.ftcdn.net/jpg/04/75/62/59/360_F_475625971_HTK8MdH194iKiPdBGVHUxPJWNgDHJZEQ.jpg",
+    image: dogCategory,
     title: "Кучета",
     subtitle: "Виж всички кучета в ДайЛапа",
     link: "/search?type=dog",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y3V0ZSUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D",
+    image: catCategory,
     title: "Котки",
     subtitle: "Виж всички котки в ДайЛапа",
     link: "/search?type=cat",
   },
   {
-    image:
-      "https://www.thesprucepets.com/thmb/r23RBk0t4DC9UHp2pTzuXLz7Jj4=/3600x0/filters:no_upscale():strip_icc()/popular-small-bird-species-390926-hero-d3d0af7bb6ed4947b0c3c5afb4784456.jpg",
+    image: birdCategory,
     title: "Птици",
     subtitle: "Виж всички птици в ДайЛапа",
     link: "/search?type=bird",
   },
   {
-    image: "https://www.cdc.gov/healthypets/images/pets/hedgehog.jpg?_=88696",
+    image: otherCategory,
     title: "Други",
     subtitle: "Виж всички други животни в ДайЛапа",
     link: "/search?type=other",
   },
   {
-    image:
-      "https://www.purelypetsinsurance.co.uk/media/s3wgp0n0/dog-and-kitten-meeting.jpg",
+    image: allCategory,
     title: "Всички",
     subtitle: "Виж всички животни в ДайЛапа",
     link: "/search",
@@ -211,7 +212,7 @@ function Home() {
         </Container>
       </SectionWrapper>
       <Container maxWidth="xl" sx={{ my: 1 }}>
-        <Banner image="https://images.unsplash.com/photo-1551779891-b83901e1f8b3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+        <Banner />
       </Container>
 
       <Container maxWidth="lg">

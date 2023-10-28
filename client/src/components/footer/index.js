@@ -26,8 +26,8 @@ export const Footer = () => {
               Този проект е част от дипломната ми работа на тема: Проектиране и
               разработване на уеб приложение с персонализирани препоръки и
               имплементация на recommendation eingine в среда на микросъврисна
-              архитектура <br />
-              <Link href="/" variant="body2">
+              архитектура{" "}
+              <Link href="/info" variant="body2">
                 разгледай повече тук
               </Link>
             </Typography>
@@ -36,7 +36,7 @@ export const Footer = () => {
             <Typography variant="h6">Бърз достъп</Typography>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/login"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -45,7 +45,7 @@ export const Footer = () => {
             </p>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/register"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -54,7 +54,7 @@ export const Footer = () => {
             </p>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/search"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -66,7 +66,7 @@ export const Footer = () => {
             <Typography variant="h6">Категории</Typography>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/search?type=dog"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -75,7 +75,7 @@ export const Footer = () => {
             </p>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/search?type=cat"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -84,7 +84,7 @@ export const Footer = () => {
             </p>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/search?type=bird"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >
@@ -93,7 +93,7 @@ export const Footer = () => {
             </p>
             <p style={{ marginBottom: 8 }}>
               <Link
-                href="/"
+                href="/search?type=other"
                 variant="body2"
                 style={{ textDecoration: "none", color: "#fff" }}
               >

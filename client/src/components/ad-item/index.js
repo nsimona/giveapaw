@@ -18,14 +18,11 @@ const AdItem = () => {
       }}
     >
       <CatDogIcon width="100px" height="100px" />
-      <Typography variant="h6" color="primary.contrastText">
-        Този проект е част от дипломната ми работа
-      </Typography>
       <Typography variant="body1" color="primary.contrastText">
-        на тема : Проектиране и разработване на уеб приложение с персонализирани
-        препоръки и имплементация на recommendation eingine в среда на
-        микросървисна архитектура{" "}
-        <Link href="/" color="neutral.darker">
+        Този проект е част от моята дипломната работа
+      </Typography>
+      <Typography variant="body2" color="primary.contrastText">
+        <Link href="/info" color="neutral.darker">
           виж повече тук
         </Link>
       </Typography>

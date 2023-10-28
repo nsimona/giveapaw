@@ -22,6 +22,8 @@ import * as api from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/user/userSlice";
 import { setAlert } from "../../redux/slices/app/appSlice";
+import registerBg from "../../assets/images/register.png";
+import logo from "../../assets/images/logo.png";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -71,8 +73,7 @@ export default function Register() {
         sm={4}
         md={6}
         sx={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1525983360072-2ebda055ba40?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          backgroundImage: `url(${registerBg})`,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -80,8 +81,11 @@ export default function Register() {
               : t.palette.grey[900],
           backgroundSize: "cover",
           backgroundPosition: "center center",
+          justifyContent: "center",
+          alignItems: "end",
+          display: "flex",
         }}
-      />
+      ></Grid>
       <Grid
         item
         xs={12}
@@ -215,9 +219,21 @@ export default function Register() {
                 </Button>
               </Grid>{" "}
             </Grid>
-            <Grid container sx={{ justifyContent: "center" }}>
-              <Grid item>
-                Вече имаш акаунт? Влез <NavLink to="/login">тук</NavLink>.
+            <Grid container>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  display: "flex",
+                  width: "100%",
+                }}
+              >
+                <span>
+                  Вече имаш акаунт? Влез <NavLink to="/login">тук</NavLink>.
+                </span>
+                <img src={logo} alt="logo" style={{ width: 130 }} />
               </Grid>
             </Grid>
           </Box>

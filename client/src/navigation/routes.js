@@ -9,3 +9,4 @@ export const PETUPDATE = "/pet-update/:id";
 export const PET = "/pet/:id";
 export const FAVORITES = "/favorites";
 export const CREATEAPPLICATION = "/application/create";
+export const INFO = "/info";

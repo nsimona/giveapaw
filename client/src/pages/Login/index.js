@@ -12,6 +12,8 @@ import * as api from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/user/userSlice";
 import { setAlert } from "../../redux/slices/app/appSlice";
+import loginBg from "../../assets/images/login.png";
+import logo from "../../assets/images/logo.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -112,9 +114,21 @@ export default function Login() {
               </Grid>{" "}
             </Grid>
             <Grid container sx={{ justifyContent: "center" }}>
-              <Grid item>
-                Нямаш акаунт? Регистрирай се{" "}
-                <NavLink to="/register">тук</NavLink>.
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  display: "flex",
+                  width: "100%",
+                }}
+              >
+                <span>
+                  Нямаш акаунт? Регистрирай се{" "}
+                  <NavLink to="/register">тук</NavLink>.
+                </span>
+                <img src={logo} alt="logo" style={{ width: 130 }} />
               </Grid>
             </Grid>
           </Box>
@@ -126,8 +140,7 @@ export default function Login() {
         sm={4}
         md={6}
         sx={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1521247560470-d2cbfe2f7b47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80)",
+          backgroundImage: `url(${loginBg})`,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -135,8 +148,11 @@ export default function Login() {
               : t.palette.grey[900],
           backgroundSize: "cover",
           backgroundPosition: "center",
+          justifyContent: "center",
+          alignItems: "end",
+          display: "flex",
         }}
-      />
+      ></Grid>
     </Grid>
   );
 }

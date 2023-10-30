@@ -23,6 +23,7 @@ const CustomSelect = ({
         label={label}
         value={value}
         onChange={onChange}
+        disableScrollLock={true}
         {...selectProps}
       >
         {options.map((option) => (

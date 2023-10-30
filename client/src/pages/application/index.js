@@ -51,7 +51,7 @@ const Application = ({
 
   return (
     <>
-      <AppBar sx={{ py: 2 }} position="static" color="secondary">
+      <AppBar sx={{ py: 2 }} position="static" color="primary">
         <Container
           maxWidth="xl"
           sx={{

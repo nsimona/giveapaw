@@ -89,6 +89,7 @@ const Pet = () => {
 
   const onChangeStatusButtonClick = async (status, message) => {
     try {
+      const updatedPet = await changePetStatus({ petId: id, status, message });
       // an ugly workaround, apologies
       // setPet(updatedPet);
       getPetInfo();

@@ -7,7 +7,7 @@ import { generalWeights } from "./weights";
 const limit = 10;
 
 const generateRecommendations = async (userId: string) => {
-  console.log("generating recommendations");
+ 
   try {
     const preferences = await client.get(`preference:${userId}`);
     const petKeys = await client.keys("pet:*");

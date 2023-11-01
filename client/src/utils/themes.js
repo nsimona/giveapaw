@@ -20,12 +20,6 @@ const theme = createTheme({
       dark: "#018b95",
       contrastText: "#fff",
     },
-    primaryLight: {
-      light: "#8ECDDD",
-      main: "#8ECDDD",
-      dark: "#22668D",
-      contrastText: "#fff",
-    },
     secondary: {
       light: "#fdca7e",
       main: "#ffbd59",

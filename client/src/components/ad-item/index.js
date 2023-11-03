@@ -18,7 +18,7 @@ const AdItem = () => {
       }}
     >
       <CatDogIcon width="100px" height="100px" />
-      <Typography variant="body1" color="primary.contrastText">
+      <Typography variant="h5" color="primary.contrastText" sx={{ my: 2 }}>
         Този проект е част от моята дипломната работа
       </Typography>
       <Typography variant="body2" color="primary.contrastText">

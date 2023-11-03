@@ -152,4 +152,5 @@ export const breedsOptions = {
     { value: "corel", title: "корел" },
   ],
   other: [...basicBreedsOptions],
+  all: [...basicBreedsOptions],
 };

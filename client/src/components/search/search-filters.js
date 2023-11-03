@@ -1,4 +1,4 @@
-import { Container, Grid, InputAdornment } from "@mui/material";
+import { Container, Grid, InputAdornment, useMediaQuery } from "@mui/material";
 import CustomSelect from "../pet-form-inputs/custom-select";
 import PetsIcon from "@mui/icons-material/Pets";
 import TypeSpecimenOutlinedIcon from "@mui/icons-material/TypeSpecimenOutlined";
@@ -9,13 +9,14 @@ import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
 import {
   basicBreedsOptions,
+  breedsOptions,
   petAgeOptions,
   petColorsOptions,
   petGenderOptions,
   petSizeOptions,
   petTypeOptions,
 } from "../../assets/pet-options";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
 // TODO export as select with icon separate component
@@ -28,6 +29,9 @@ const CustomSelectFiltersWrapper = ({ id, options, label, icon }) => {
     searchParams.set(id, e.target.value);
     if (e.target.value === "all") {
       searchParams.delete(id);
+    }
+    if (id === "type") {
+      searchParams.delete("breed");
     }
     setSearchParams(searchParams);
   };
@@ -59,6 +63,8 @@ const enhanceOptions = (options) => {
 };
 
 const SearchFilters = () => {
+  let [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
   return (
     <Container
       maxWidth="lg"
@@ -86,7 +92,7 @@ const SearchFilters = () => {
           id="breed"
           icon={<TypeSpecimenOutlinedIcon />}
           label="Порода"
-          options={enhanceOptions(basicBreedsOptions)}
+          options={enhanceOptions(breedsOptions[type])}
         />
         <CustomSelectFiltersWrapper
           id="age"

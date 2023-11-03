@@ -27,7 +27,7 @@ import StraightenOutlinedIcon from "@mui/icons-material/StraightenOutlined";
 import PetsIcon from "@mui/icons-material/Pets";
 import Banner from "../../components/banner";
 import placeholder from "../../assets/images/placeholder.png";
-import { getPet } from "../../services/api";
+import { changePetStatus, getPet } from "../../services/api";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {

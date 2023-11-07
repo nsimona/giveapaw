@@ -79,7 +79,7 @@
 [x] Handle application screen and API\
 [x] Handle application different statuses\
 
-[] Normalize data for pets display\
+[x] Normalize data for pets display\
 
 [BE] to do
 [x] Handle favorites \

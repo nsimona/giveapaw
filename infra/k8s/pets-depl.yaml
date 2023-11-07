@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pets-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pets
+  template:
+    metadata:
+      labels:
+        app: pets
+    spec:
+      containers:
+        - name: pets
+          image: nssimona/pets
+          env:
+            - name: NATS_CLUSTER_ID
+              value: "giveapaw"
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MONGO_URI
+              value: "mongodb://pets-mongo-srv:27017/pets"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+          volumeMounts:
+            - name: static-files
+              mountPath: /app/src/uploads # Mount static files here
+      volumes:
+        - name: static-files
+          persistentVolumeClaim:
+            claimName: pets-static-files
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pets-srv
+spec:
+  selector:
+    app: pets
+  ports:
+    - name: pets
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

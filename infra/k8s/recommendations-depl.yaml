@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendations-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendations
+  template:
+    metadata:
+      labels:
+        app: recommendations
+    spec:
+      containers:
+        - name: recommendations
+          image: nssimona/recommendations
+          env:
+            - name: NATS_CLUSTER_ID
+              value: "giveapaw"
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: REDIS_URI
+              value: redis://recommendations-redis-srv:6379
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendations-srv
+spec:
+  selector:
+    app: recommendations
+  ports:
+    - name: recommendations
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

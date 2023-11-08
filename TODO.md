@@ -1,5 +1,9 @@
 ## Tasks
 
+[] create PVC instead of services for db-s
+[] create seed script
+[] check application info - add applicant name
+
 ### UI
 
 [x] front page - add all sections\

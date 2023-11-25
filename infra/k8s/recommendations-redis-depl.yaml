@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: PersistentVolumeClaim
+kind: Deployment
 metadata:
   name: recommendations-redis-depl
 spec:

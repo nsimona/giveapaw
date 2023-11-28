@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { DatabaseConnectionError } from "@giveapaw/common";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
+import { dbSeed } from "./db-seed";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -42,6 +43,7 @@ const start = async () => {
   }
   app.listen(3000, () => {
     console.log("Auth -> Listening on port 3000");
+    dbSeed();
   });
 };
 

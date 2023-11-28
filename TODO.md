@@ -112,3 +112,6 @@ docker push nssimona/applications
 
 to install ingress nginx
 https://kubernetes.github.io/ingress-nginx/deploy/
+
+enter mongo pod
+

@@ -5,6 +5,7 @@ import { natsWrapper } from "./nats-wrapper";
 import { ApplicationCancelledListener } from "./events/listeners/application-cancelled-listener";
 import { ApplicationCreatedListener } from "./events/listeners/application-created-listener";
 import { RecommendationsGeneratedListener } from "./events/listeners/recommendations-genreated-listener";
+import { dbSeed } from "./db-seed";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -50,6 +51,7 @@ const start = async () => {
   }
   app.listen(3000, () => {
     console.log("Pets -> Listening on port 3000");
+    dbSeed();
   });
 };
 

@@ -33,16 +33,19 @@ router.get("/api/pets", async (req: Request, res: Response) => {
     const filteredPets = activePets.filter(
       (pet) => !userPets.some((userPet) => userPet.id === pet.id)
     );
-    // if recommended pets -> move the in the beginning of the array
-    if (recommendations) {
-      const sortedVyRecommendation = filteredPets
+    console.log(filteredPets);
+
+    // if recommended pets -> move them in the beginning of the array
+    if (recommendations && recommendations.pets.length) {
+      const sortedByRecommendation = filteredPets
         .map((pet) => {
           // Find the corresponding recommendation, if it exists
           const recommendation = recommendations.pets.find(
-            (r: any) => r.petId === pet.id
+            (r: any) => r.petId === pet._id
           );
+          console.log(recommendation); // undefined?
           const score =
-            pet.userId !== req.currentUser?.id ? recommendation.score : 0;
+            pet.userId !== req.currentUser!.id ? recommendation?.score : 0;
           // Create a new object with the pet data and the score (if found)
           return {
             ...pet.toObject(),
@@ -51,10 +54,11 @@ router.get("/api/pets", async (req: Request, res: Response) => {
           };
         })
         .sort((petA, petB) => petB.score - petA.score);
-      res.send(sortedVyRecommendation);
+      res.send(sortedByRecommendation);
       return;
     }
     res.send(filteredPets);
+    return;
   }
 
   res.send(activePets);

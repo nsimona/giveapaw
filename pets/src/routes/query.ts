@@ -50,7 +50,7 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
       (pet) => !userPets.some((userPet) => userPet.id === pet.id)
     );
     // if recommended pets -> move the in the beginning of the array
-    if (recommendations) {
+    if (recommendations && recommendations.pets.length) {
       const sortedVyRecommendation = filteredPets
         .map((pet) => {
           // Find the corresponding recommendation, if it exists
@@ -71,6 +71,7 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
       return;
     }
     res.send(filteredPets);
+    return;
   }
 
   res.send(activePets);

@@ -45,7 +45,7 @@ interface PetDoc extends mongoose.Document {
   selectedFiles: [any];
   selectedCoverIndex: number;
   // version
-  version: number;
+  // version: number;
   // applciation
   applicationId?: string;
   status: PetStatus;
@@ -143,8 +143,8 @@ const petSchema = new mongoose.Schema(
   }
 );
 
-petSchema.set("versionKey", "version");
-petSchema.plugin(updateIfCurrentPlugin);
+// petSchema.set("versionKey", "version");
+// petSchema.plugin(updateIfCurrentPlugin);
 
 petSchema.statics.build = (attrs: PetAttrs) => {
   return new Pet(attrs);

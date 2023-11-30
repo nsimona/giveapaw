@@ -22,7 +22,7 @@ export class ApplicationCancelledListener extends Listener<ApplicationCancelledE
 
     await new PetUpdatedPublisher(this.client).publish({
       id: pet.id,
-      version: pet.version,
+      // version: pet.version,
       name: pet.name,
       type: pet.type,
       age: pet.age,

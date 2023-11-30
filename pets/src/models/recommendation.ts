@@ -36,8 +36,8 @@ const recommedantionSchema = new mongoose.Schema(
   }
 );
 
-recommedantionSchema.set("versionKey", "version");
-recommedantionSchema.plugin(updateIfCurrentPlugin);
+// recommedantionSchema.set("versionKey", "version");
+// recommedantionSchema.plugin(updateIfCurrentPlugin);
 
 recommedantionSchema.statics.build = (attrs: RecommendationAttrs) => {
   return new Recommendation(attrs);

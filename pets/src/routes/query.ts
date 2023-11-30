@@ -37,42 +37,41 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
     return;
   }
 
-  const activePets = await getAllActivePets(0, petProjection, req.query);
+  const activePets = await getAllActivePets(petProjection, 100, req.query);
 
-  if (req.currentUser?.id) {
-    const userId = req.currentUser?.id;
-    // pets owned by the current user
-    const userPets = await getPetsByUser(userId, 0, petProjection);
-    // pets recommended for the current user
-    const recommendations = await getRecommendationsForUser(userId);
-    // remove owned by the user pets
-    const filteredPets = activePets.filter(
-      (pet) => !userPets.some((userPet) => userPet.id === pet.id)
-    );
-    // if recommended pets -> move the in the beginning of the array
-    if (recommendations && recommendations.pets.length) {
-      const sortedVyRecommendation = filteredPets
-        .map((pet) => {
-          // Find the corresponding recommendation, if it exists
-          const recommendation = recommendations.pets.find(
-            (r: any) => r.petId === pet.id
-          );
-          const score =
-            pet.userId !== req.currentUser?.id ? recommendation.score : 0;
-          // Create a new object with the pet data and the score (if found)
-          return {
-            ...pet.toObject(),
-            id: pet.toObject()._id,
-            score,
-          };
-        })
-        .sort((petA, petB) => petB.score - petA.score);
-      res.send(sortedVyRecommendation);
-      return;
-    }
-    res.send(filteredPets);
-    return;
-  }
+  // //logged user
+  // if (req.currentUser?.id) {
+  //   const userId = req.currentUser?.id;
+  //   const userPets = await getPetsByUser(userId, 100, petProjection);
+
+  //   // remove owned by the user pets
+  //   const filteredPets = activePets.filter(
+  //     (pet) => !userPets.some((userPet) => userPet.id === pet.id)
+  //   );
+
+  //   // pets recommended for the current user
+  //   const recommendations = await getRecommendationsForUser(userId);
+
+  //   // // if recommended pets -> move them in the beginning of the array
+  //   if (recommendations && recommendations.pets.length) {
+  //     const idToScoreMap = recommendations.pets.reduce((map, obj) => {
+  //       map[obj.petId] = obj.score;
+  //       return map;
+  //     }, {});
+
+  //     const sortedByRecommendation = filteredPets
+  //       .map((pet) => ({
+  //         ...pet.toObject(),
+  //         id: pet.toObject()._id,
+  //         score: idToScoreMap[pet._id] || 0, // Use 0 as the default score if id is not found
+  //       }))
+  //       .sort((petA, petB) => petB.score - petA.score);
+  //     res.send(sortedByRecommendation);
+  //     return;
+  //   }
+  //   res.send(filteredPets);
+  //   return;
+  // }
 
   res.send(activePets);
 });

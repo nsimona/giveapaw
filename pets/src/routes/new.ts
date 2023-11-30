@@ -108,7 +108,7 @@ router.post(
       goodWith,
       characteristics,
       description,
-      version: pet.version,
+      // version: pet.version,
       // status: "pending",
     });
 

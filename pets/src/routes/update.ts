@@ -72,24 +72,24 @@ router.put(
 
     await pet.save();
 
-    await new PetUpdatedPublisher(natsWrapper.client).publish({
-      id: pet.id,
-      name: pet.name,
-      type: pet.type,
-      userId: pet.userId,
-      age: pet.age,
-      breed: pet.breed,
-      gender: pet.gender,
-      color: pet.color,
-      size: pet.size,
-      trained: pet.trained,
-      livedInAHouse: pet.livedInAHouse,
-      healthState: pet.healthState,
-      goodWith: pet.goodWith,
-      characteristics: pet.characteristics,
-      description: pet.description,
-      version: pet.version,
-    });
+    // await new PetUpdatedPublisher(natsWrapper.client).publish({
+    //   id: pet.id,
+    //   name: pet.name,
+    //   type: pet.type,
+    //   userId: pet.userId,
+    //   age: pet.age,
+    //   breed: pet.breed,
+    //   gender: pet.gender,
+    //   color: pet.color,
+    //   size: pet.size,
+    //   trained: pet.trained,
+    //   livedInAHouse: pet.livedInAHouse,
+    //   healthState: pet.healthState,
+    //   goodWith: pet.goodWith,
+    //   characteristics: pet.characteristics,
+    //   description: pet.description,
+    //   // version: pet.version,
+    // });
 
     res.send(pet);
   }

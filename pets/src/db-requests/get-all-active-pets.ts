@@ -2,8 +2,8 @@ import { Pet } from "../models/pet";
 import { petProjection } from "../pet-projection";
 
 const getAllActivePets = async (
-  limit?: number,
   projection: Record<string, number> = petProjection,
+  limit?: number,
   requestQuery?: any
 ) => {
   let query = Pet.find({}, projection);

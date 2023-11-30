@@ -1,5 +1,3 @@
 */node_modules
-/common
-/client
 jwt-secret.yaml
 nats-test

@@ -9,14 +9,12 @@ export const dbSeed = async () => {
   try {
     for (const pet of pets) {
       const existingPet = await Pet.findById(pet.id);
+      console.log(!!existingPet);
       if (existingPet) continue;
       await Pet.build({ ...pet, status: PetStatus.Active }).save();
-      console.log("Default pet added to the db ", pet.id);
+      console.log("Default pet added to the db ", pet.id, "-", pet.name);
 
-      new PetCreatedPublisher(natsWrapper.client).publish({
-        ...pet,
-        version: 1,
-      });
+      // new PetCreatedPublisher(natsWrapper.client).publish(pet);
       console.log("Emmited a pet:created event for ", pet.id);
     }
   } catch (err) {

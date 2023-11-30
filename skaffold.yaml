@@ -17,6 +17,26 @@ build:
           - src: "src/***/*.ts"
             dest: .
     - image: nssimona/pets
+      # hooks:
+      #   after:
+      #     - command: ["tar", "-czvf", "uploads.tar.gz", "."]
+      #     - command:
+      #         [
+      #           "kubectl",
+      #           "cp",
+      #           "uploads.tar.gz",
+      #           "$(kubectl get pods -l=app=pets -o jsonpath='{.items[0].metadata.name}'):/app/src/uploads.tar.gz",
+      #         ]
+      #     - command:
+      #         [
+      #           "kubectl",
+      #           "exec",
+      #           "$(kubectl get pods -l=app=pets -o jsonpath='{.items[0].metadata.name}')",
+      #           "--",
+      #           "/bin/sh",
+      #           "-c",
+      #           "tar xzf /app/src/uploads.tar.gz -C /app/src/ && rm /app/src/uploads.tar.gz",
+      #         ]
       context: pets
       docker:
         dockerfile: Dockerfile

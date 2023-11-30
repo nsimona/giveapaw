@@ -14,7 +14,7 @@ export const dbSeed = async () => {
       await Pet.build({ ...pet, status: PetStatus.Active }).save();
       console.log("Default pet added to the db ", pet.id, "-", pet.name);
 
-      // new PetCreatedPublisher(natsWrapper.client).publish(pet);
+      new PetCreatedPublisher(natsWrapper.client).publish(pet);
       console.log("Emmited a pet:created event for ", pet.id);
     }
   } catch (err) {

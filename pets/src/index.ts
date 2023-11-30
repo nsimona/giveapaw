@@ -40,7 +40,7 @@ const start = async () => {
     // new ApplicationCancelledListener(natsWrapper.client).listen();
     // new ApplicationCreatedListener(natsWrapper.client).listen();
 
-    // new RecommendationsGeneratedListener(natsWrapper.client).listen();
+    new RecommendationsGeneratedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log("connected to MongoDB");

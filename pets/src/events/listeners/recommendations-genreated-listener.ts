@@ -8,6 +8,7 @@ export class RecommendationsGeneratedListener extends Listener<RecommendationsGe
     Subjects.RecommendationsGenerated;
   queueGroupName = queueGroupName;
   async onMessage(data: RecommendationsGenerated["data"], msg: Message) {
+    console.log(data);
     const { userId, pets } = data;
     const recommendations = await Recommendation.findOne({ userId });
     if (!recommendations) {

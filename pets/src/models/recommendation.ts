@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+// import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface RecommendationAttrs {
   userId: string;

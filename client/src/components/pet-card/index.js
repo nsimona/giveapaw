@@ -18,7 +18,7 @@ const flagStyles = {
     color: "green.contrastText",
   },
   goodMatch: {
-    backgroundColor: "secondary.light",
+    backgroundColor: "secondary.dark",
     color: "secondary.contrastText",
   },
   pending: {
@@ -52,6 +52,9 @@ function renderFlagBox(flag, label) {
           left: 0,
           p: 1,
           ...flagStyles[flag],
+          borderTopRightRadius: 8,
+          borderBottomRightRadius: 8,
+          borderBottomLeftRadius: 8,
         }}
       >
         {label}
@@ -98,7 +101,7 @@ const PetCard = ({
           image={selectedFiles[0]?.url || placeholder}
         />
         {renderFlagBox(status, labelCopy[status])}
-        {renderFlagBox(matchStatus, labelCopy.goodMatch)}
+        {renderFlagBox(matchStatus, labelCopy[matchStatus])}
         {isEditable && applications !== undefined ? (
           <Box sx={{ position: "absolute", top: 20, right: 20 }}>
             <Tooltip title={`${applications} активни кандидатури`}>

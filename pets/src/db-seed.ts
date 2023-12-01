@@ -9,7 +9,6 @@ export const dbSeed = async () => {
   try {
     for (const pet of pets) {
       const existingPet = await Pet.findById(pet.id);
-      console.log(!!existingPet);
       if (existingPet) continue;
       await Pet.build({ ...pet, status: PetStatus.Active }).save();
       console.log("Default pet added to the db ", pet.id, "-", pet.name);

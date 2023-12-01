@@ -37,7 +37,6 @@ router.get("/api/pets", currentUser, async (req: Request, res: Response) => {
     // pets recommended for the current user
     const recommendations = await getRecommendationsForUser(userId);
 
-    console.log(recommendations);
     // // if recommended pets -> move them in the beginning of the array
     if (recommendations && recommendations.pets.length) {
       const idToScoreMap = recommendations.pets.reduce((map, obj) => {

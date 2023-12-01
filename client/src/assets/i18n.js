@@ -22,6 +22,7 @@ export const i18n = {
   medium: "среден",
   large: "голям",
   small: "малък",
+  big: "голям",
   true: "да",
   false: "не",
   withKids: "с деца",

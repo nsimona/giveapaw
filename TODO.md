@@ -115,5 +115,5 @@ https://kubernetes.github.io/ingress-nginx/deploy/
 
 enter mongo pod
 
-kubectl cp uploads.tar.gz pets-depl-5d56bff974-pxvq8:/app/src/uploads.tar.gz
-kubectl exec -it pets-depl-5d56bff974-pxvq8 -- /bin/sh -c "tar xzf /app/src/uploads.tar.gz -C /app/src/ && rm /app/src/uploads.tar.gz"
+kubectl cp uploads.tar.gz pets-depl-6d6668744-47q46:/app/src/uploads.tar.gz
+kubectl exec -it pets-depl-6d6668744-47q46 -- /bin/sh -c "tar xzf /app/src/uploads.tar.gz -C /app/src/ && rm /app/src/uploads.tar.gz"

@@ -17,7 +17,7 @@ const CustomAutocomplete = ({ options, id, label, value, onChange }) => {
       options={options}
       disableCloseOnSelect
       getOptionLabel={(option) => option.title}
-      name="jdfll"
+      name=""
       renderOption={(props, option, { selected }) => (
         <li {...props}>
           <Checkbox

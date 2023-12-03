@@ -38,7 +38,10 @@ router.get("/api/pets/query", async (req: Request, res: Response) => {
   }
 
   const activePets = await getAllActivePets(petProjection, 100, req.query);
-
+  if (req.query.userId !== undefined) {
+    res.send(activePets);
+    return;
+  }
   //logged user
   if (req.currentUser?.id) {
     const userId = req.currentUser?.id;

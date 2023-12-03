@@ -23,6 +23,7 @@ import {
 import CustomRadioGroup from "../pet-form-inputs/custom-radio-group";
 import { updatePreferences } from "../../services/api";
 import { setAlert } from "../../redux/slices/app/appSlice";
+import { i18n } from "../../assets/i18n";
 
 const enhnaceOptions = (options) => {
   const removedUnknownOption = options.filter((o) => o.value !== "unknown");
@@ -206,7 +207,10 @@ const UserPreferences = () => {
             <CustomAutocomplete
               id="characteristics"
               options={enhnaceOptions(characteristicsOptions)}
-              value={preferences.characteristics}
+              value={preferences.characteristics.map((p) => ({
+                value: p,
+                title: i18n[p],
+              }))}
               onChange={(e, values) => {
                 handleAutocompleteChange(e, values, "characteristics");
               }}

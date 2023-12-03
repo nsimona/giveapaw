@@ -54,6 +54,7 @@ export const i18n = {
   loyal: "лоялен",
   social: "социален",
   independent: "самостоятелен",
+  lowShedding: "хипоалергичен",
   smart: "умен",
   wellBehaved: "добре възпитан",
   hygienic: "хигиеничен",

@@ -217,6 +217,7 @@ const Pet = () => {
               {adminView ? (
                 <AdminPetControls
                   petStatus={pet.status}
+                  petName={pet.name}
                   onButtonClick={onChangeStatusButtonClick}
                 />
               ) : (

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { setAlert } from "../../redux/slices/app/appSlice";
 import { useDispatch } from "react-redux";
 
-const AdminPetControls = ({ petStatus, onButtonClick }) => {
+const AdminPetControls = ({ petName, petStatus, onButtonClick }) => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const AdminPetControls = ({ petStatus, onButtonClick }) => {
   return (
     <>
       <Typography variant="h6">
-        <strong>Промени статуса на обявата за Плутон</strong>
+        <strong>Промени статуса на обявата за {petName}</strong>
       </Typography>
       {petStatus === "pending" && (
         <>

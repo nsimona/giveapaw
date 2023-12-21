@@ -82,23 +82,15 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
 
 #### Authentication Flow
 
-1. **User Sign-in:**
-
+1. User Sign-in
    - Users can sign in using secure authentication mechanisms.
-
-2. **User Sign-up:**
-
+2. User Sign-up
    - New users can sign up, creating an account within the platform.
-
-3. **User Sign-out:**
-
+3. User Sign-out
    - Provides a secure sign-out mechanism for users.
-
-4. **Preferences Management:**
-
+4. Preferences Management
    - Users can manage their preferences, influencing the recommendation engine.
-
-5. **Favorites Management:**
+5. Favorites Management
    - Users can manage their list of favorite pets.
 
 #### Security Measures
@@ -148,18 +140,18 @@ The Auth Service ensures that user interactions within Give A Paw are secure, ef
 
 #### Routes and Functionalities
 
-- **Pet Listing:**
+- Pet Listing
 
   - Retrieves a list of active pets.
   - Supports filtering by type, color, size, etc.
 
-- **Pet Details:**
+- Pet Details
 
-- **Pet Creation:**
+- Pet Creation
 
-- **Pet Update:**
+- Pet Update
 
-- **Pet Deletion:**
+- Pet Deletion
 
 #### Recommendation Integration
 
@@ -211,8 +203,8 @@ The Applications Service is responsible for managing pet adoption applications w
   - Publishes events:
 
     - `application:created`: Signals the creation of a new adoption application.
-    - `application:cancelled`: Indicates the approval of a pet adoption application.
-    - `application:approved`: Notifies the decline of a pet adoption application.
+    - `application:approved`: Indicates the approval of a pet adoption application.
+    - `application:cancelled`: Notifies the decline of a pet adoption application.
 
   - Consumes events:
     - `pet:created`
@@ -220,11 +212,9 @@ The Applications Service is responsible for managing pet adoption applications w
 
 #### Routes and Functionalities
 
-- **Application Submission:**
-
-- **Application Approval:**
-
-- **Application Decline:**
+- Application Submission
+- Application Approval
+- Application Decline
 
 #### Communication Features
 
@@ -252,15 +242,32 @@ While the Applications Service may be the least stable in the current state of t
 
 ### Recommendations Service
 
-- Employs content-based filtering to generate personalized pet recommendations.
+- Employs content-based filtering to generate personalized pet recommendations. See more [here](#recommendation-engine)
 
 ### Common Module Logic
 
-- Abstract shared logic for common functionalities among services.
+- Abstract shared logic for common functionalities among services. The package is published as an [npm package](https://www.npmjs.com/package/@giveapaw/common). It implements error handling, common interfaces, shared auth logic etc.
 
 ## Front-end development
 
 The client, available in the `client` branch, utilizes React, Axios, React Router, Material UI, and Redux for state management. The UI/UX design incorporates custom elements to enhance user experience.
+
+![fe-architecture](./assets/fe-architecture.png)
+
+#### Technologies Used
+
+- **React:** The core library for building user interfaces.
+- **Axios:** A promise-based HTTP client for making API requests.
+- **React Router:** Enables navigation and routing within the React application.
+- **Material UI:** A popular React UI framework that provides pre-designed components for a clean and consistent design.
+- **Redux:** A state management library for managing application state.
+
+#### UI Design
+
+- **Clean and Intuitive Design:**
+  - The UI is designed to be clean and intuitive, enhancing the user experience. The UI project can be found in my personal Behance profile for a detailed look into the design. (soon!)
+
+The frontend development of Give A Paw plays a crucial role in delivering a visually appealing, intuitive, and responsive(partially! this was not the focus of the project) user interface. By leveraging React and a robust ecosystem of libraries, the project aims to provide a seamless and enjoyable experience for users exploring pet adoption on the platform.
 
 ## Recommendation Engine
 

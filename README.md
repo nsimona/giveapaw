@@ -273,6 +273,45 @@ The frontend development of Give A Paw plays a crucial role in delivering a visu
 
 The heart of Give A Paw's intelligence lies in the recommendation engine. By analyzing user preferences and pet characteristics, it provides personalized suggestions for potential matches.
 
+#### Key Features
+
+- **Content-Based Filtering:**
+
+  - Uses content-based filtering to evaluate the match between a user's preferences and a pet's characteristics.
+
+- **Redis Integration:**
+  - Stores user and pet data in Redis and updates recommendations when preferences or pet information changes.
+
+#### Route
+
+- **`/match`:**
+  - Returns details on the match between a specific pet and a user, including match score and identified matched features.
+
+#### Implementation Approach
+
+- **Event-Driven Updates:**
+
+  - Listens to events like `preferences:updated` and `pet:created`/`pet:updated` for efficient updates.
+
+- **Computational Cost:**
+  - Acknowledges the current computational expense but serves as an experiment for personalized recommendations.
+
+#### Future Possibilities
+
+- **Machine Learning Integration:**
+  - Future consideration for integrating machine learning frameworks, such as TensorFlow, for advanced recommendation algorithms.
+
+#### Experimentation Results
+
+- **Successful Experiment:**
+
+  - Despite being computationally expensive, the experiment has yielded positive results in providing personalized pet recommendations.
+
+- **Room for Improvement:**
+  - Recognizes the experimental nature and potential for optimization in future iterations.
+
+The Recommendation System, while acknowledging its computational expense, serves as an experiment that successfully delivers personalized pet matches based on user preferences. The system remains open to future enhancements and optimizations, including the exploration of advanced machine learning techniques.
+
 ## Infrastructure
 
 The microservices communicate via NATS, ensuring efficient event-driven communication. Redis and MongoDB store data, contributing to a scalable and resilient infrastructure.

@@ -34,13 +34,13 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
 
 #### Functionality
 
-- **Authentication and Authorization:**
+- Authentication and Authorization
 
   - Implements user authentication and authorization.
   - Publishes to the `preferences:updated` event, signaling changes in user preferences.
   - Does not listen for any specific events, as its primary focus is on user-related operations.
 
-- **Routes and Functionalities:**
+- Routes and Functionalities
 
   - Provides essential routes for user management, including:
     - Sign-in
@@ -50,29 +50,29 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
     - Favorites management
     - Other user-related functionalities
 
-- **User Access Levels:**
+- User Access Levels
   - Manages two types of users with different levels of access:
-    - **User:** Can add pets, apply for pets, and perform standard user functions.
-    - **Admin:** Approves or declines/archives pet applications, with broader access rights.
-- **Visibility Control:**
+    - User Can add pets, apply for pets, and perform standard user functions.
+    - Admin Approves or declines/archives pet applications, with broader access rights.
+- Visibility Control
 
   - Only approved pets are visible to users. This enhances the user experience by ensuring that only pets available for adoption are showcased.
 
-- **JWT Authentication:**
+- JWT Authentication
 
   - Implements authentication using JSON Web Tokens (JWT) stored as a cookie. This secure method of user authentication enhances the overall platform security.
 
-- **Common Module Integration:**
+- Common Module Integration
   - Utilizes the common module and common middlewares to facilitate seamless integration with other services. This ensures consistent and secure user authentication and authorization across all services.
 
 #### User Types and Access Levels
 
-1. **User:**
+1. User
 
    - Can add pets to the platform.
    - Can apply for pet adoption.
 
-2. **Admin:**
+2. Admin
    - Approves or declines/archives pet adoption applications.
    - Has broader access rights for administrative functions.
 
@@ -95,11 +95,11 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
 
 #### Security Measures
 
-- **JWT Cookie:**
+- JWT Cookie
 
   - Utilizes JSON Web Tokens stored as a cookie for secure user authentication.
 
-- **User Authorization:**
+- User Authorization
   - Through common middlewares, all services, including Auth, can check the user's authorization status, role (user or admin), and ensure a secure interaction.
 
 The Auth Service ensures that user interactions within Give A Paw are secure, efficient, and tailored to individual preferences. By leveraging JWT authentication, event-driven patterns, and common module integration, it plays a vital role in creating a positive and reliable user experience.
@@ -110,21 +110,21 @@ The Auth Service ensures that user interactions within Give A Paw are secure, ef
 
 #### Functionality
 
-- **CRUD Operations:**
+- CRUD Operations
 
   - Implements CRUD operations for managing pets, including:
 
-- **Image Storage with Multer:**
+- Image Storage with Multer
 
   - Uses Multer to handle image uploads, providing a seamless experience for adding pet photos.
 
-- **Event Publishing:**
+- Event Publishing
 
   - Publishes events to facilitate real-time updates:
     - `pet:created`: Signaling the creation of a new pet.
     - `pet:updated`: Indicating updates to pet information.
 
-- **Recommendation Integration:**
+- Recommendation Integration
 
   - Consumes events:
 
@@ -155,30 +155,30 @@ The Auth Service ensures that user interactions within Give A Paw are secure, ef
 
 #### Recommendation Integration
 
-- **Recommendation Event Consumption:**
+- Recommendation Event Consumption
 
   - Consumes the `recommendations:generated` event to obtain personalized recommendations for pets.
 
-- **Recommendation Storage:**
+- Recommendation Storage
   - Manages a dedicated MongoDB collection for storing and retrieving recommendations.
 
 #### User-Based Pet Filtering
 
-- **User Authentication Check:**
+- User Authentication Check
 
   - Checks if the user is logged in using the common module.
 
-- **Filtering Logic:**
+- Filtering Logic
   - Filters pet listings based on recommendations for logged-in users.
   - Displays all active pets if the user is not logged in or if no recommendations are available.
 
 #### Security Measures
 
-- **JWT Authentication:**
+- JWT Authentication
 
   - Utilizes JSON Web Tokens (JWT) for user authentication again using the common module.
 
-- **Authorization Check:**
+- Authorization Check
   - Ensures that only authorized users can perform CRUD operations on pets.
 
 The Pets Service enhances the Give A Paw platform by facilitating seamless pet management operations, integrating recommendation algorithms for a personalized user experience, and ensuring secure and efficient image uploads using Multer.
@@ -189,16 +189,16 @@ The Applications Service is responsible for managing pet adoption applications w
 
 #### Functionality
 
-- **Application Management:**
+- Application Management
 
   - Provides functionality to apply for pet adoption.
   - Allows pet owners to approve or decline applications.
 
-- **Communication:**
+- Communication
 
   - Facilitates communication between applicants and pet owners, ensuring the exchange of essential information.
 
-- **Event Handling:**
+- Event Handling
 
   - Publishes events:
 
@@ -218,22 +218,22 @@ The Applications Service is responsible for managing pet adoption applications w
 
 #### Communication Features
 
-- **Applicant-Pet Owner Communication:**
+- Applicant-Pet Owner Communication
   - Provides a messaging platform (not fulli implemented atm) for communication between applicants and pet owners.
 
 #### Event Handling Issues
 
-- **Current Stability:**
+- Current Stability
 
   - Acknowledged as the least stable service in the project.
 
-- **Publishing Events:**
+- Publishing Events
 
   - Publishes events but may not be working optimally at the moment.
 
 #### Security Measures
 
-- **Authorization Check:**
+- Authorization Check
   - Ensures that only authorized users can perform application-related operations.
 
 #### Future Development Focus
@@ -264,7 +264,7 @@ The client, available in the `client` branch, utilizes React, Axios, React Route
 
 #### UI Design
 
-- **Clean and Intuitive Design:**
+- Clean and Intuitive Design
   - The UI is designed to be clean and intuitive, enhancing the user experience. The UI project can be found in my personal Behance profile for a detailed look into the design. (soon!)
 
 The frontend development of Give A Paw plays a crucial role in delivering a visually appealing, intuitive, and responsive(partially! this was not the focus of the project) user interface. By leveraging React and a robust ecosystem of libraries, the project aims to provide a seamless and enjoyable experience for users exploring pet adoption on the platform.
@@ -275,46 +275,78 @@ The heart of Give A Paw's intelligence lies in the recommendation engine. By ana
 
 #### Key Features
 
-- **Content-Based Filtering:**
+- Content-Based Filtering
 
   - Uses content-based filtering to evaluate the match between a user's preferences and a pet's characteristics.
 
-- **Redis Integration:**
+- Redis Integration
   - Stores user and pet data in Redis and updates recommendations when preferences or pet information changes.
 
 #### Route
 
-- **`/match`:**
+- `/match`
   - Returns details on the match between a specific pet and a user, including match score and identified matched features.
 
 #### Implementation Approach
 
-- **Event-Driven Updates:**
+- Event-Driven Updates
 
   - Listens to events like `preferences:updated` and `pet:created`/`pet:updated` for efficient updates.
 
-- **Computational Cost:**
+- Computational Cost
   - Acknowledges the current computational expense but serves as an experiment for personalized recommendations.
 
 #### Future Possibilities
 
-- **Machine Learning Integration:**
+- Machine Learning Integration
   - Future consideration for integrating machine learning frameworks, such as TensorFlow, for advanced recommendation algorithms.
 
 #### Experimentation Results
 
-- **Successful Experiment:**
+- Successful Experiment
 
   - Despite being computationally expensive, the experiment has yielded positive results in providing personalized pet recommendations.
 
-- **Room for Improvement:**
+- Room for Improvement
   - Recognizes the experimental nature and potential for optimization in future iterations.
 
 The Recommendation System, while acknowledging its computational expense, serves as an experiment that successfully delivers personalized pet matches based on user preferences. The system remains open to future enhancements and optimizations, including the exploration of advanced machine learning techniques.
 
 ## Infrastructure
 
-The microservices communicate via NATS, ensuring efficient event-driven communication. Redis and MongoDB store data, contributing to a scalable and resilient infrastructure.
+The infrastructure of Give A Paw is built on modern technologies, utilizing Kubernetes (K8s), Docker, and Nginx to create a scalable and containerized environment. Each service, including databases, has its own deployment, ensuring modularity and ease of management. While this approach leads to data clearing on every project run, it proves beneficial for development purposes, especially when combined with a test script that populates the databases with test data.
+
+### Key Components
+
+- Kubernetes (K8s)
+
+  - Orchestrates and manages containerized applications, providing scalability and orchestration capabilities.
+
+- Docker
+
+  - Employs containerization for individual services and databases, ensuring consistency and portability across environments.
+
+- Nginx
+
+  - Serves as the web server, handling incoming requests and directing them to the appropriate services.
+
+### Service Deployments
+
+- Modular Deployment
+
+  - Each service, including databases, is deployed individually to maintain modularity and facilitate independent scaling.
+
+- Data Clearing
+  - The individual service deployments result in data clearing on every project run, which is beneficial for development and testing purposes.
+
+### Development Environment
+
+- Test Script
+
+  - Runs a test script during development that populates databases with test data, allowing for realistic testing scenarios.
+
+- Skaffold Automation
+  - Utilizes Skaffold to automate the Kubernetes restarting process, streamlining development by applying changes without manual intervention.
 
 ## Prerequisites
 
@@ -330,16 +362,16 @@ Ensure you have the following installed:
 
 1. Clone the repository.
 2. Navigate to the project root.
-   TODO
+3. Make sure your Docker is runnig
+4. Run `skaffold dev` (you may need to add your own jwt-secret to handle the auth)
+5. [optional] Change you local `hosts` file to something like `127.0.0.1 giveapaw.dev`
+6. [optional] Navigate to `giveapaw.dev` in your browser to check changes on the UI
+7. You are now able to make any changes in the code and test it using the appropriate way
 
 ## Tests
 
 The project initially followed a Test-Driven Development (TDD) approach. However, recent changes lack unit tests, causing some failures. Contributions to address this are welcome.
 
-## Deployment
-
-Follow deployment guidelines in the respective service directories. Ensure proper environment configurations for production.
-
 ## Thank you!
 
-Thank you for your interest in making Give A Paw a successful pet adoption platform! Although it will propbably not be used from real users, mostly for learning and exeprimenting 🐾
+Thank you for your interest in contributing to the success of Give A Paw, my pet adoption platform! While it may not be primarily intended for real-world use, your contributions play a crucial role in my ongoing learning and experimentation process. This project serves as a valuable learning experience, allowing me to explore new technologies, methodologies, and refine my skills.🐾

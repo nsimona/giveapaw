@@ -340,7 +340,7 @@ Ensure you have the following installed:
 - Node.js
 - npm
 - Kubernetes
-- (Ingress nginx)[https://kubernetes.github.io/ingress-nginx/deploy/]
+- [Ingress nginx](https://kubernetes.github.io/ingress-nginx/deploy/)
 - Docker
 - Skaffold
 

@@ -13,8 +13,6 @@ Give A Paw, a comprehensive pet adoption platform that aims to connect pets with
 7. [Prerequisites](#prerequisites)
 8. [Running the Application](#running-the-application)
 9. [Tests](#tests)
-10. [Deployment](#deployment)
-11. [Contribution](#contribution)
 
 ## Introduction
 
@@ -51,9 +49,11 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
     - Other user-related functionalities
 
 - User Access Levels
+
   - Manages two types of users with different levels of access:
     - User Can add pets, apply for pets, and perform standard user functions.
     - Admin Approves or declines/archives pet applications, with broader access rights.
+
 - Visibility Control
 
   - Only approved pets are visible to users. This enhances the user experience by ensuring that only pets available for adoption are showcased.
@@ -101,8 +101,6 @@ The Auth Service is a crucial component of Give A Paw, responsible for user auth
 
 - User Authorization
   - Through common middlewares, all services, including Auth, can check the user's authorization status, role (user or admin), and ensure a secure interaction.
-
-The Auth Service ensures that user interactions within Give A Paw are secure, efficient, and tailored to individual preferences. By leveraging JWT authentication, event-driven patterns, and common module integration, it plays a vital role in creating a positive and reliable user experience.
 
 ### Pets Service
 
@@ -152,15 +150,6 @@ The Auth Service ensures that user interactions within Give A Paw are secure, ef
 - Pet Update
 
 - Pet Deletion
-
-#### Recommendation Integration
-
-- Recommendation Event Consumption
-
-  - Consumes the `recommendations:generated` event to obtain personalized recommendations for pets.
-
-- Recommendation Storage
-  - Manages a dedicated MongoDB collection for storing and retrieving recommendations.
 
 #### User-Based Pet Filtering
 
@@ -242,7 +231,7 @@ While the Applications Service may be the least stable in the current state of t
 
 ### Recommendations Service
 
-- Employs content-based filtering to generate personalized pet recommendations. See more [here](#recommendation-engine)
+- Implements content-based filtering to generate personalized pet recommendations. See more [here](#recommendation-engine)
 
 ### Common Module Logic
 
@@ -264,8 +253,7 @@ The client, available in the `client` branch, utilizes React, Axios, React Route
 
 #### UI Design
 
-- Clean and Intuitive Design
-  - The UI is designed to be clean and intuitive, enhancing the user experience. The UI project can be found in my personal Behance profile for a detailed look into the design. (soon!)
+- The UI is designed to be clean and intuitive, enhancing the user experience. The UI project can be found in my personal Behance profile for a detailed look into the design. (soon!)
 
 The frontend development of Give A Paw plays a crucial role in delivering a visually appealing, intuitive, and responsive(partially! this was not the focus of the project) user interface. By leveraging React and a robust ecosystem of libraries, the project aims to provide a seamless and enjoyable experience for users exploring pet adoption on the platform.
 
@@ -303,18 +291,15 @@ The heart of Give A Paw's intelligence lies in the recommendation engine. By ana
 
 #### Experimentation Results
 
-- Successful Experiment
+- Despite being computationally expensive, the experiment has yielded positive results in providing personalized pet recommendations.
 
-  - Despite being computationally expensive, the experiment has yielded positive results in providing personalized pet recommendations.
-
-- Room for Improvement
-  - Recognizes the experimental nature and potential for optimization in future iterations.
+- Recognizes the experimental nature and potential for optimization in future iterations.
 
 The Recommendation System, while acknowledging its computational expense, serves as an experiment that successfully delivers personalized pet matches based on user preferences. The system remains open to future enhancements and optimizations, including the exploration of advanced machine learning techniques.
 
 ## Infrastructure
 
-The infrastructure of Give A Paw is built on modern technologies, utilizing Kubernetes (K8s), Docker, and Nginx to create a scalable and containerized environment. Each service, including databases, has its own deployment, ensuring modularity and ease of management. While this approach leads to data clearing on every project run, it proves beneficial for development purposes, especially when combined with a test script that populates the databases with test data.
+The infrastructure of Give A Paw is built on modern technologies, utilizing Kubernetes (K8s), Docker, and Nginx to create a scalable and containerized environment. Each service, including databases, has its own deployment, ensuring modularity and ease of management. While this approach leads to data clearing on every project run, it proves beneficial for development purposes, especially when combined with the test script (find it inside each service dir) that populates the databases with test data.
 
 ### Key Components
 
@@ -337,7 +322,7 @@ The infrastructure of Give A Paw is built on modern technologies, utilizing Kube
   - Each service, including databases, is deployed individually to maintain modularity and facilitate independent scaling.
 
 - Data Clearing
-  - The individual service deployments result in data clearing on every project run, which is beneficial for development and testing purposes.
+  - The individual service deployments result in data clearing on every project run, for prod deployments - dbs need to be deployed as PVCs.
 
 ### Development Environment
 
@@ -355,6 +340,7 @@ Ensure you have the following installed:
 - Node.js
 - npm
 - Kubernetes
+- (Ingress nginx)[https://kubernetes.github.io/ingress-nginx/deploy/]
 - Docker
 - Skaffold
 
@@ -366,7 +352,7 @@ Ensure you have the following installed:
 4. Run `skaffold dev` (you may need to add your own jwt-secret to handle the auth)
 5. [optional] Change you local `hosts` file to something like `127.0.0.1 giveapaw.dev`
 6. [optional] Navigate to `giveapaw.dev` in your browser to check changes on the UI
-7. You are now able to make any changes in the code and test it using the appropriate way
+7. You are now able to make any changes in the code and test them using the appropriate way
 
 ## Tests
 
@@ -374,4 +360,15 @@ The project initially followed a Test-Driven Development (TDD) approach. However
 
 ## Thank you!
 
-Thank you for your interest in contributing to the success of Give A Paw, my pet adoption platform! While it may not be primarily intended for real-world use, your contributions play a crucial role in my ongoing learning and experimentation process. This project serves as a valuable learning experience, allowing me to explore new technologies, methodologies, and refine my skills.🐾
+Thank you for your interest in contributing to the success of Give A Paw, my pet adoption platform! While it may not be primarily intended for real-world use, your contributions play a crucial role in my ongoing learning and experimentation process. This project serves as a valuable learning experience, allowing me to explore new technologies, methodologies, and refine my skills.
+
+Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg

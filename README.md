@@ -358,6 +358,22 @@ Ensure you have the following installed:
 
 The project initially followed a Test-Driven Development (TDD) approach. However, recent changes lack unit tests, causing some failures. Contributions to address this are welcome.
 
+## Additional scripts
+
+- skaffold command when dev fails:
+  skaffold dev --no-prune=false --cache-artifacts=false
+
+- how to build image (locally for me only hehe)
+  docker build -t nssimona/applications .
+  docker push nssimona/applications
+
+- install ingress nginx
+  https://kubernetes.github.io/ingress-nginx/deploy/
+
+- load dummy images
+  kubectl cp uploads.tar.gz pets-depl-6d6668744-47q46:/app/src/uploads.tar.gz
+  kubectl exec -it pets-depl-6d6668744-47q46 -- /bin/sh -c "tar xzf /app/src/uploads.tar.gz -C /app/src/ && rm /app/src/uploads.tar.gz"
+
 ## Thank you!
 
 Thank you for your interest in contributing to the success of Give A Paw, my pet adoption platform! While it may not be primarily intended for real-world use, your contributions play a crucial role in my ongoing learning and experimentation process. This project serves as a valuable learning experience, allowing me to explore new technologies, methodologies, and refine my skills.

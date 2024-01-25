@@ -44,14 +44,14 @@ build:
         manual:
           - src: "src/***/*.ts"
             dest: .
-    - image: nssimona/applications
-      context: applications
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/***/*.ts"
-            dest: .
+    # - image: nssimona/applications
+    #   context: applications
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "src/***/*.ts"
+    #         dest: .
     - image: nssimona/recommendations
       context: recommendations
       docker:
